@@ -11,40 +11,40 @@
 namespace rv
 {
 
-// fwd decl
-class Window;
-
-class ImGuiContext
-{
-public:
+    // FWD
+    class Window;
 
     ///
-    ImGuiContext() = default;
+    class ImGuiContext
+    {
+    public:
 
-    ///
-    ImGuiContext(const ImGuiContext&) = delete;
+        ///
+        ImGuiContext() = default;
 
-    ///
-    ImGuiContext& operator = (const ImGuiContext&) = delete;
+        ///
+        ImGuiContext(const ImGuiContext&) = delete;
 
-    ///
-    ImGuiContext(ImGuiContext&&) = delete;
+        ///
+        ImGuiContext& operator = (const ImGuiContext&) = delete;
 
-    ///
-    ImGuiContext& operator = (ImGuiContext&&) = delete;
+        ///
+        ImGuiContext(ImGuiContext&&) = delete;
 
-    ///
-    ~ImGuiContext();
+        ///
+        ImGuiContext& operator = (ImGuiContext&&) = delete;
 
-    ///
-    bool Create(const Window& window);
+        ///
+        ~ImGuiContext();
 
-private:
+        ///
+        bool Create(const Window& window);
 
-    bool m_initialized = false;
+    private:
 
-};
+        bool m_initialized = false;
+    };
 
 }
 
-#define M2_STRID(__name) __name "##" __FILE__ M2_XSTR(__LINE__)
+#define RV_IMGUI_ID(__name) (__name "##" __FILE__ M2_XSTR(__LINE__))

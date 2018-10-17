@@ -10,101 +10,101 @@
 namespace rv
 {
 
-class Transformable
-{
-public:
-
     ///
-    Transformable();
+    class Transformable
+    {
+    public:
 
-    ///
-    Transformable(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
+        ///
+        Transformable();
 
-    ///
-    Transformable(const Transformable&) = default;
+        ///
+        Transformable(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
 
-    ///
-    Transformable& operator = (const Transformable&) = default;
+        ///
+        Transformable(const Transformable&) = default;
 
-    ///
-    Transformable(Transformable&& rhs) = default;
+        ///
+        Transformable& operator = (const Transformable&) = default;
 
-    ///
-    Transformable& operator = (Transformable&& rhs) = default;
+        ///
+        Transformable(Transformable&& rhs) = default;
 
-    ///
-    ~Transformable() = default;
+        ///
+        Transformable& operator = (Transformable&& rhs) = default;
 
-    ///
-    void SetTransform(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
+        ///
+        ~Transformable() = default;
 
-    ///
-    void SetTransform(const glm::mat4& matrix);
+        ///
+        void SetTransform(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
 
-    ///
-    void SetTransform(const Transformable& transform);
+        ///
+        void SetTransform(const glm::mat4& matrix);
 
-    ///
-    void Translate(const glm::vec3& offset);
+        ///
+        void SetTransform(const Transformable& transform);
 
-    ///
-    void SetPosition(const glm::vec3& position);
+        ///
+        void Translate(const glm::vec3& offset);
 
-    ///
-    glm::vec3 GetPosition() const;
+        ///
+        void SetPosition(const glm::vec3& position);
 
-    ///
-    void TranslateOrigin(const glm::vec3& offset);
+        ///
+        glm::vec3 GetPosition() const;
 
-    ///
-    void SetOrigin(const glm::vec3& origin);
+        ///
+        void TranslateOrigin(const glm::vec3& offset);
 
-    ///
-    glm::vec3 GetOrigin() const;
+        ///
+        void SetOrigin(const glm::vec3& origin);
 
-    ///
-    void Rotate(const glm::vec3& angle);
+        ///
+        glm::vec3 GetOrigin() const;
 
-    ///
-    void SetRotation(const glm::vec3& rotation);
+        ///
+        void Rotate(const glm::vec3& angle);
 
-    ///
-    glm::vec3 GetRotation() const;
+        ///
+        void SetRotation(const glm::vec3& rotation);
 
-    ///
-    void Scale(const glm::vec3& factor);
+        ///
+        glm::vec3 GetRotation() const;
 
-    ///
-    void SetScale(const glm::vec3& scale);
+        ///
+        void Scale(const glm::vec3& factor);
 
-    ///
-    glm::vec3 GetScale() const;
+        ///
+        void SetScale(const glm::vec3& scale);
 
-    ///
-    glm::mat4 GetTransform() const;
+        ///
+        glm::vec3 GetScale() const;
 
-    ///
-    glm::mat4 GetInverseTransform() const;
+        ///
+        glm::mat4 GetTransform() const;
 
-    #ifdef M2_DEBUG
+        ///
+        glm::mat4 GetInverseTransform() const;
 
-    ///
-    void D_ShowTransformableEditor(bool* open);
+        #if defined(M2_DEBUG)
 
-    #endif // M2_DEBUG
+        ///
+        void D_ShowTransformableEditor(bool* open);
 
-private:
+        #endif
 
-    ///
-    void M_UpdateMatrix() const;
+    private:
 
-    glm::vec3 m_position;
-    glm::vec3 m_origin;
-    glm::vec3 m_rotation;
-    glm::vec3 m_scale;
-    mutable glm::mat4 m_matrix;
-    mutable bool m_needsUpdate;
+        ///
+        void M_UpdateMatrix() const;
 
-};
+        glm::vec3 m_position;
+        glm::vec3 m_origin;
+        glm::vec3 m_rotation;
+        glm::vec3 m_scale;
+        mutable glm::mat4 m_matrix;
+        mutable bool m_needsUpdate;
+    };
 
 }

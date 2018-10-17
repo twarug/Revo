@@ -8,29 +8,23 @@
 namespace rv
 {
 
-// fwd decl
-class RenderTarget;
+    // FWD
+    class RenderTarget;
 
-struct OrthographicProjection
-{
+    ///
+    struct OrthographicProjection {};
 
-};
+    ///
+    struct PerspectiveProjection {};
 
-struct PerspectiveProjection
-{
-
-};
-
-class Camera
-{
-public:
-
-    enum ProjectionType
+    ///
+    enum class ProjectionType : int32_t
     {
         Orthographic,
         Perspective
     };
 
+    ///
     union ProjectionUnion
     {
         ///
@@ -49,54 +43,57 @@ public:
 
         OrthographicProjection orthographic;
         PerspectiveProjection perspective;
-
     };
 
     ///
-    Camera(const OrthographicProjection& orthographic);
+    class Camera
+    {
+    public:
 
-    ///
-    Camera(const PerspectiveProjection& perspective);
+        ///
+        Camera(const OrthographicProjection& orthographic);
 
-    ///
-    Camera(const Camera&) = delete;
+        ///
+        Camera(const PerspectiveProjection& perspective);
 
-    ///
-    Camera& operator = (const Camera&) = delete;
+        ///
+        Camera(const Camera&) = delete;
 
-    ///
-    Camera(Camera&&) = delete;
+        ///
+        Camera& operator = (const Camera&) = delete;
 
-    ///
-    Camera& operator = (Camera&&) = delete;
+        ///
+        Camera(Camera&&) = delete;
 
-    ///
-    ~Camera() = default;
+        ///
+        Camera& operator = (Camera&&) = delete;
 
-    ///
-    glm::mat4 GetViewMatrix() const;
+        ///
+        ~Camera() = default;
 
-    ///
-    glm::mat4 GetProjectionMatrix(const glm::uvec2& targetSize) const;
+        ///
+        glm::mat4 GetViewMatrix() const;
 
-    ///
-    ProjectionType GetProjectionType() const;
+        ///
+        glm::mat4 GetProjectionMatrix(const glm::uvec2& targetSize) const;
 
-    #ifdef M2_DEBUG
+        ///
+        ProjectionType GetProjectionType() const;
 
-    ///
-    void D_ShowEditor(bool* open);
+        #if defined(M2_DEBUG)
 
-    #endif // M2_DEBUG
+        ///
+        void D_ShowCameraEditor(bool* open);
 
-private:
+        #endif
 
-    ProjectionType m_projectionType;
-    ProjectionUnion m_projection;
-    glm::vec3 m_cameraPosition;
-    glm::vec3 m_centerPosition;
-    glm::vec3 m_upDirection;
+    private:
 
-};
+        ProjectionType m_projectionType;
+        ProjectionUnion m_projection;
+        glm::vec3 m_cameraPosition;
+        glm::vec3 m_centerPosition;
+        glm::vec3 m_upDirection;
+    };
 
 }

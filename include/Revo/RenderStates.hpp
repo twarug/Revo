@@ -6,15 +6,15 @@
 namespace rv
 {
 
-// fwd decl
-class ShaderProgram;
-class Camera;
+    // FWD
+    class ShaderProgram;
+    class Camera;
 
-struct RenderStates
-{
-    const ShaderProgram* shaderProgram = nullptr;
-    const Camera* camera = nullptr;
-
-};
+    ///
+    struct RenderStates
+    {
+        const ShaderProgram* shaderProgram = nullptr;
+        const Camera* camera = nullptr;
+    };
 
 }

@@ -101,7 +101,7 @@ Event Window::PollEvent()
 
     auto copy = m_event;
 
-    m_event = Event::None;
+    m_event = EventType::None;
 
     return copy;
 }
@@ -188,49 +188,49 @@ void Window::M_Destroy()
 void Window::M_RegisterCallbacks()
 {
     glfwSetWindowCloseCallback(m_window, [](NativeHandle_t window) {
-        M_This(window)->m_event = Event::Closed;
+        M_This(window)->m_event = EventType::Closed;
     });
 
     glfwSetWindowPosCallback(m_window, [](NativeHandle_t window, int xpos, int ypos) {
-        M_This(window)->m_event = Event::WindowMoved;
+        M_This(window)->m_event = EventType::WindowMoved;
         M_This(window)->m_event.windowPosition = { xpos, ypos };
     });
 
     glfwSetWindowSizeCallback(m_window, [](NativeHandle_t window, int width, int height) {
-        M_This(window)->m_event = Event::WindowResized;
+        M_This(window)->m_event = EventType::WindowResized;
         M_This(window)->m_event.windowSize = { width, height };
     });
 
     glfwSetFramebufferSizeCallback(m_window, [](NativeHandle_t window, int width, int height) {
-        M_This(window)->m_event = Event::FramebufferResized;
+        M_This(window)->m_event = EventType::FramebufferResized;
         M_This(window)->m_event.framebufferSize = { width, height };
     });
 
     glfwSetWindowFocusCallback(m_window, [](NativeHandle_t window, int focused) {
-        M_This(window)->m_event = (focused == GLFW_TRUE) ? Event::GainedFocus : Event::LostFocus;
+        M_This(window)->m_event = (focused == GLFW_TRUE) ? EventType::GainedFocus : EventType::LostFocus;
     });
 
     glfwSetCursorPosCallback(m_window, [](NativeHandle_t window, double xpos, double ypos) {
-        M_This(window)->m_event = Event::CursorMoved;
+        M_This(window)->m_event = EventType::CursorMoved;
         M_This(window)->m_event.cursorPosition = { xpos, ypos };
     });
 
     // glfwSetWindowIconifyCallback(m_window, [](NativeHandle_t window, int iconified) { });
 
     glfwSetCursorEnterCallback(m_window, [](NativeHandle_t window, int entered) {
-        M_This(window)->m_event = (entered == GLFW_TRUE) ? Event::CursorEntered : Event::CursorLeft;
+        M_This(window)->m_event = (entered == GLFW_TRUE) ? EventType::CursorEntered : EventType::CursorLeft;
     });
 
     // glfwSetCharCallback(m_window, [](NativeHandle_t window, unsigned int codepoint) { });
 
     glfwSetScrollCallback(m_window, [](NativeHandle_t window, double xoffset, double yoffset) {
-        M_This(window)->m_event = Event::ScrollMoved;
+        M_This(window)->m_event = EventType::ScrollMoved;
         M_This(window)->m_event.scrollDelta = { xoffset, yoffset };
         ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
     });
 
     glfwSetCharModsCallback(m_window, [](NativeHandle_t window, unsigned int codepoint, int mods) {
-        M_This(window)->m_event = Event::TextEntered;
+        M_This(window)->m_event = EventType::TextEntered;
         M_This(window)->m_event.enteredText = { codepoint, mods };
         ImGui_ImplGlfw_CharCallback(window, codepoint);
     });
@@ -245,18 +245,18 @@ void Window::M_RegisterCallbacks()
             std::strcpy(droppedFiles[i], paths[i]);
         }
 
-        M_This(window)->m_event = Event::FilesDropped;
+        M_This(window)->m_event = EventType::FilesDropped;
         M_This(window)->m_event.droppedFiles = { count, (const char**)droppedFiles };
     });
 
     glfwSetKeyCallback(m_window, [](NativeHandle_t window, int key, int scancode, int action, int mods) {
-        M_This(window)->m_event = Event::KeyStateChanged;
+        M_This(window)->m_event = EventType::KeyStateChanged;
         M_This(window)->m_event.keyState = { key, scancode, action, mods };
         ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     });
 
     glfwSetMouseButtonCallback(m_window, [](NativeHandle_t window, int button, int action, int mods) {
-        M_This(window)->m_event = Event::MouseButtonStateChanged;
+        M_This(window)->m_event = EventType::MouseButtonStateChanged;
         M_This(window)->m_event.mouseButtonState = { button, action, mods };
         ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
     });

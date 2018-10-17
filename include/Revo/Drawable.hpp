@@ -6,31 +6,31 @@
 namespace rv
 {
 
-class Drawable : public Transformable
-{
-public:
-
     ///
-    Drawable() = default;
+    class Drawable : public Transformable
+    {
+    public:
 
-    ///
-    Drawable(const Drawable&) = default;
+        ///
+        Drawable() = default;
 
-    ///
-    Drawable& operator = (const Drawable&) = default;
+        ///
+        Drawable(const Drawable&) = default;
 
-    ///
-    Drawable(Drawable&&) = default;
+        ///
+        Drawable& operator = (const Drawable&) = default;
 
-    ///
-    Drawable& operator = (Drawable&&) = default;
+        ///
+        Drawable(Drawable&&) = default;
 
-    ///
-    virtual ~Drawable() = default;
+        ///
+        Drawable& operator = (Drawable&&) = default;
 
-    ///
-    virtual void Draw() const = 0;
+        ///
+        virtual ~Drawable() = default;
 
-};
+        ///
+        virtual void Draw() const = 0;
+    };
 
 }

@@ -17,98 +17,98 @@
 namespace rv
 {
 
-class Window : public RenderTarget
-{
-public:
-
-    using NativeHandle_t = GLFWwindow*;
-
     ///
-    Window() = default;
+    class Window : public RenderTarget
+    {
+    public:
 
-    ///
-    Window(const Window&) = delete;
+        using NativeHandle_t = GLFWwindow*;
 
-    ///
-    Window& operator = (const Window&) = delete;
+        ///
+        Window() = default;
 
-    ///
-    Window(Window&&) = delete;
+        ///
+        Window(const Window&) = delete;
 
-    ///
-    Window& operator = (Window&&) = delete;
+        ///
+        Window& operator = (const Window&) = delete;
 
-    ///
-    ~Window();
+        ///
+        Window(Window&&) = delete;
 
-    ///
-    bool Create(const glm::uvec2& size, const char* name, bool makeContextCurrent);
+        ///
+        Window& operator = (Window&&) = delete;
 
-    ///
-    void Show();
+        ///
+        ~Window();
 
-    ///
-    void Hide();
+        ///
+        bool Create(const glm::uvec2& size, const char* name, bool makeContextCurrent);
 
-    ///
-    void Restore();
+        ///
+        void Show();
 
-    ///
-    void Iconify();
+        ///
+        void Hide();
 
-    ///
-    void Close();
+        ///
+        void Restore();
 
-    ///
-    Event PollEvent();
+        ///
+        void Iconify();
 
-    ///
-    void SetFramerateLimit(uint32_t limit);
+        ///
+        void Close();
 
-    ///
-    uint32_t GetFramerateLimit() const;
+        ///
+        Event PollEvent();
 
-    ///
-    m2::chrono::Duration_t GetDeltaTime() const;
+        ///
+        void SetFramerateLimit(uint32_t limit);
 
-    ///
-    float GetFramerate() const;
+        ///
+        uint32_t GetFramerateLimit() const;
 
-    ///
-    virtual void Bind() override;
+        ///
+        m2::chrono::Duration_t GetDeltaTime() const;
 
-    ///
-    void Display();
+        ///
+        float GetFramerate() const;
 
-    ///
-    bool IsValid() const;
+        ///
+        virtual void Bind() override;
 
-    ///
-    bool IsOpen() const;
+        ///
+        void Display();
 
-    ///
-    NativeHandle_t GetNativeHandle() const;
+        ///
+        bool IsValid() const;
 
-private:
+        ///
+        bool IsOpen() const;
 
-    ///
-    static Window* M_This(NativeHandle_t window);
+        ///
+        NativeHandle_t GetNativeHandle() const;
 
-    ///
-    void M_Destroy();
+    private:
 
-    ///
-    void M_RegisterCallbacks();
+        ///
+        static Window* M_This(NativeHandle_t window);
 
-    ///
-    void M_AdjustFramerate();
+        ///
+        void M_Destroy();
 
-    NativeHandle_t m_window = nullptr;
-    Event m_event;
-    m2::chrono::Duration_t m_framerateLimit;
-    m2::chrono::Clock m_clock;
-    m2::chrono::Clock m_dtClock;
+        ///
+        void M_RegisterCallbacks();
 
-};
+        ///
+        void M_AdjustFramerate();
+
+        NativeHandle_t m_window = nullptr;
+        Event m_event;
+        m2::chrono::Duration_t m_framerateLimit;
+        m2::chrono::Clock m_clock;
+        m2::chrono::Clock m_dtClock;
+    };
 
 }

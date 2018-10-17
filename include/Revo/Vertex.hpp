@@ -11,13 +11,12 @@
 namespace rv
 {
 
-/// Simple trivial vertex structure
-struct Vertex
-{
-    glm::vec3 position; ///< Position in pixels
-    glm::vec4 color;    ///< rgba color in [ 0.0 - 1.0 ] range
-    glm::vec2 texCoord; ///< Texture coordinates in pixels
-
-};
+    /// Simple trivial vertex structure
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec4 color;
+        glm::vec2 texCoord;
+    };
 
 }

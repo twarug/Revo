@@ -3,20 +3,15 @@
 // Revo
 #include <Revo/OpenGL.hpp>
 
-#ifdef M2_DEBUG
+#if defined(M2_DEBUG)
 #   include <string>
-#endif // M2_DEBUG
+#endif
 
 namespace rv
 {
 
-class Shader
-{
-public:
-
-    using NativeHandle_t = GLuint;
-
-    enum ShaderType
+    ///
+    enum class ShaderType : int32_t
     {
         Vertex = GL_VERTEX_SHADER,
         Geometry = GL_GEOMETRY_SHADER,
@@ -27,57 +22,51 @@ public:
     };
 
     ///
-    Shader() = default;
+    class Shader
+    {
+    public:
 
-    ///
-    Shader(const Shader&) = delete;
+        using NativeHandle_t = GLuint;
 
-    ///
-    Shader& operator = (const Shader&) = delete;
+        ///
+        Shader() = default;
 
-    ///
-    Shader(Shader&& rhs) noexcept;
+        ///
+        Shader(const Shader&) = delete;
 
-    ///
-    Shader& operator = (Shader&& rhs) noexcept;
+        ///
+        Shader& operator = (const Shader&) = delete;
 
-    ///
-    ~Shader();
+        ///
+        Shader(Shader&& rhs) noexcept;
 
-    ///
-    bool LoadFromFile(ShaderType type, const char* filePath);
+        ///
+        Shader& operator = (Shader&& rhs) noexcept;
 
-    ///
-    bool LoadFromMemory(ShaderType type, const void* data, GLint size = -1);
+        ///
+        ~Shader();
 
-    ///
-    bool IsValid() const;
+        ///
+        bool LoadFromFile(ShaderType type, const char* filePath);
 
-    ///
-    NativeHandle_t GetNativeHandle() const;
+        ///
+        bool LoadFromMemory(ShaderType type, const void* data, GLint size = -1);
 
-    #ifdef M2_DEBUG
+        ///
+        bool IsValid() const;
 
-    ShaderType d_type;
-    std::string d_filePath;
-    const void* d_dataPtr = nullptr;
-    GLint d_dataSize = 0;
+        ///
+        NativeHandle_t GetNativeHandle() const;
 
-    ///
-    bool D_Reload();
+    private:
 
-    #endif // M2_DEBUG
+        ///
+        void M_Destroy();
 
-private:
+        ///
+        bool M_Compile(ShaderType type, const char* data, GLint size);
 
-    ///
-    void M_Destroy();
-
-    ///
-    bool M_Compile(ShaderType type, const char* data, GLint size);
-
-    NativeHandle_t m_shader = 0;
-
-};
+        NativeHandle_t m_shader = 0;
+    };
 
 }

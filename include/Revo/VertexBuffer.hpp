@@ -11,134 +11,134 @@
 namespace rv
 {
 
-class VertexBuffer : public Drawable
-{
-public:
-
-    using Vertices_t = std::vector<Vertex>;
-
     ///
-    VertexBuffer() = delete;
+    class VertexBuffer : public Drawable
+    {
+    public:
 
-    ///
-    VertexBuffer(PrimitiveType type = Triangles);
+        using Vertices_t = std::vector<Vertex>;
 
-    ///
-    VertexBuffer(size_t size, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer() = delete;
 
-    ///
-    VertexBuffer(size_t size, const Vertex& value, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer(PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer(const Vertex* vertices, size_t size, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer(const Vertex* begin, const Vertex* end, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer(size_t size, const Vertex& value, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer(const VertexBuffer& rhs);
+        ///
+        VertexBuffer(const Vertex* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer& operator = (const VertexBuffer& rhs);
+        ///
+        VertexBuffer(const Vertex* begin, const Vertex* end, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer(VertexBuffer&& rhs) noexcept;
+        ///
+        VertexBuffer(const VertexBuffer& rhs);
 
-    ///
-    VertexBuffer& operator = (VertexBuffer&& rhs) noexcept;
+        ///
+        VertexBuffer& operator = (const VertexBuffer& rhs);
 
-    ///
-    ~VertexBuffer();
+        ///
+        VertexBuffer(VertexBuffer&& rhs) noexcept;
 
-    ///
-    void Clear();
+        ///
+        VertexBuffer& operator = (VertexBuffer&& rhs) noexcept;
 
-    ///
-    VertexBuffer& Assign(size_t size, PrimitiveType type = Triangles);
+        ///
+        ~VertexBuffer();
 
-    ///
-    VertexBuffer& Assign(size_t size, const Vertex& value, PrimitiveType type = Triangles);
+        ///
+        void Clear();
 
-    ///
-    VertexBuffer& Assign(const Vertex* vertices, size_t size, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer& Assign(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    VertexBuffer& Assign(const Vertex* begin, const Vertex* end, PrimitiveType type = Triangles);
+        ///
+        VertexBuffer& Assign(size_t size, const Vertex& value, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    void Resize(size_t size);
+        ///
+        VertexBuffer& Assign(const Vertex* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    void Resize(size_t size, const Vertex& value);
+        ///
+        VertexBuffer& Assign(const Vertex* begin, const Vertex* end, PrimitiveType type = PrimitiveType::Triangles);
 
-    ///
-    void SetVertex(size_t index, const Vertex& vertex);
+        ///
+        void Resize(size_t size);
 
-    ///
-    Vertex& GetVertex(size_t index);
+        ///
+        void Resize(size_t size, const Vertex& value);
 
-    ///
-    const Vertex& GetVertex(size_t index) const;
+        ///
+        void SetVertex(size_t index, const Vertex& vertex);
 
-    ///
-    Vertex& operator [] (size_t index);
+        ///
+        Vertex& GetVertex(size_t index);
 
-    ///
-    const Vertex& operator [] (size_t index) const;
+        ///
+        const Vertex& GetVertex(size_t index) const;
 
-    ///
-    void SetPrimitiveType(PrimitiveType type);
+        ///
+        Vertex& operator [] (size_t index);
 
-    ///
-    PrimitiveType GetPrimitiveType() const;
+        ///
+        const Vertex& operator [] (size_t index) const;
 
-    ///
-    Vertex* GetData();
+        ///
+        void SetPrimitiveType(PrimitiveType type);
 
-    ///
-    const Vertex* GetData() const;
+        ///
+        PrimitiveType GetPrimitiveType() const;
 
-    ///
-    size_t GetSize() const;
+        ///
+        Vertex* GetData();
 
-    ///
-    size_t GetBytesCount() const;
+        ///
+        const Vertex* GetData() const;
 
-    ///
-    bool IsEmpty() const;
+        ///
+        size_t GetSize() const;
 
-    ///
-    bool IsValid() const;
+        ///
+        size_t GetBytesCount() const;
 
-    /// Returns { left, top, width, height } 2D bounds of vertices
-    glm::vec4 GetBounds() const;
+        ///
+        bool IsEmpty() const;
 
-    ///
-    void Bind() const;
+        ///
+        bool IsValid() const;
 
-    ///
-    void Unbind() const;
+        /// Return { left, top, width, height } 2D bounds of vertices
+        glm::vec4 GetBounds2D() const;
 
-    ///
-    virtual void Draw() const override;
+        ///
+        void Bind() const;
 
-private:
+        ///
+        void Unbind() const;
 
-    ///
-    void M_Init();
+        ///
+        virtual void Draw() const override;
 
-    ///
-    void M_Destroy();
+    private:
 
-    Vertices_t m_vertices;
-    PrimitiveType m_type;
-    GLuint m_vao;
-    GLuint m_vbo;
-    mutable size_t m_lowerIndex;
-    mutable size_t m_upperIndex;
-    mutable bool m_needsUpdate;
-    mutable bool m_needsReallocate;
+        ///
+        void M_Init();
 
-};
+        ///
+        void M_Destroy();
+
+        Vertices_t m_vertices;
+        PrimitiveType m_type;
+        GLuint m_vao;
+        GLuint m_vbo;
+        mutable size_t m_lowerIndex;
+        mutable size_t m_upperIndex;
+        mutable bool m_needsUpdate;
+        mutable bool m_needsReallocate;
+    };
 
 }

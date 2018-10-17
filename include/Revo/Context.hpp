@@ -9,35 +9,35 @@
 namespace rv
 {
 
-class Context
-{
-public:
-
     ///
-    Context() = default;
+    class Context
+    {
+    public:
 
-    ///
-    Context(const Context&) = delete;
+        ///
+        Context() = default;
 
-    ///
-    Context& operator = (const Context&) = delete;
+        ///
+        Context(const Context&) = delete;
 
-    ///
-    Context(Context&&) = delete;
+        ///
+        Context& operator = (const Context&) = delete;
 
-    ///
-    Context& operator = (Context&&) = delete;
+        ///
+        Context(Context&&) = delete;
 
-    ///
-    ~Context();
+        ///
+        Context& operator = (Context&&) = delete;
 
-    ///
-    bool Create();
+        ///
+        ~Context();
 
-private:
+        ///
+        bool Create();
 
-    bool m_initialized = false;
+    private:
 
-};
+        bool m_initialized = false;
+    };
 
 }

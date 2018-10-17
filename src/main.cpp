@@ -106,10 +106,10 @@ int main()
         { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
     };
 
-    rv::VertexBuffer av2D{ vexPixFan2D, 4u, rv::TriangleFan };
-    rv::VertexBuffer av3D{ vexPixFan3D, 4u, rv::TriangleFan };
-    rv::VertexBuffer av3Db{ vexPixFan3D, 4u, rv::TriangleFan };
-    rv::VertexBuffer avCube{ vexCube, 36u, rv::Triangles };
+    rv::VertexBuffer av2D{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
+    rv::VertexBuffer av3D{ vexPixFan3D, 4u, rv::PrimitiveType::TriangleFan };
+    rv::VertexBuffer av3Db{ vexPixFan3D, 4u, rv::PrimitiveType::TriangleFan };
+    rv::VertexBuffer avCube{ vexCube, 36u, rv::PrimitiveType::Triangles };
 
     av2D.SetTransform(glm::vec3{ 640, 360, 0 }, glm::vec3{ 320, 0, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 2, 1 });
     av3D.SetTransform(glm::vec3{ 1.0f, 0.5625f, 0 }, glm::vec3{ 0.5f, 0, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 2, 1 });
@@ -133,14 +133,14 @@ int main()
     }
     std::cout << "---------------------" << '\n';
 
-    rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::TriangleFan };
+    rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
 
     rv::Shader defaultVert;
-    std::cout << defaultVert.LoadFromFile(rv::Shader::Vertex, "default.vert") << '\n';
+    std::cout << defaultVert.LoadFromFile(rv::ShaderType::Vertex, "default.vert") << '\n';
     rv::Shader defaultFrag;
-    std::cout << defaultFrag.LoadFromFile(rv::Shader::Fragment, "default.frag") << '\n';
+    std::cout << defaultFrag.LoadFromFile(rv::ShaderType::Fragment, "default.frag") << '\n';
     rv::Shader testFrag;
-    std::cout << testFrag.LoadFromFile(rv::Shader::Fragment, "test.frag") << '\n';
+    std::cout << testFrag.LoadFromFile(rv::ShaderType::Fragment, "test.frag") << '\n';
 
     rv::ShaderProgram shaderProgram;
     std::cout << shaderProgram.LinkShaders(defaultVert, testFrag) << '\n';
@@ -179,7 +179,7 @@ int main()
 
         ImGui::ShowDemoWindow(nullptr);
 
-        shaderProgram.D_ShowEditor(nullptr);
+        shaderProgram.D_ShowShaderProgramEditor(nullptr);
         shaderProgram.SetUniform("time", m2::chrono::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", glm::vec2{ width, height });
 
@@ -187,7 +187,7 @@ int main()
         av3D.D_ShowTransformableEditor(nullptr);
         av3Db.D_ShowTransformableEditor(nullptr);
         avCube.D_ShowTransformableEditor(nullptr);
-        camera3D.D_ShowEditor(nullptr);
+        camera3D.D_ShowCameraEditor(nullptr);
 
         window.Clear({ 0.0f, 0.0f, 0.0f, 1.0f });
 

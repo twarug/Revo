@@ -10,47 +10,47 @@
 namespace rv
 {
 
-// fwd decl
-class Drawable;
-
-class RenderTarget
-{
-public:
+    // FWD
+    class Drawable;
 
     ///
-    RenderTarget() = default;
+    class RenderTarget
+    {
+    public:
 
-    ///
-    RenderTarget(const RenderTarget&) = default;
+        ///
+        RenderTarget() = default;
 
-    ///
-    RenderTarget& operator = (const RenderTarget&) = default;
+        ///
+        RenderTarget(const RenderTarget&) = default;
 
-    ///
-    RenderTarget(RenderTarget&&) = default;
+        ///
+        RenderTarget& operator = (const RenderTarget&) = default;
 
-    ///
-    RenderTarget& operator = (RenderTarget&&) = default;
+        ///
+        RenderTarget(RenderTarget&&) = default;
 
-    ///
-    ~RenderTarget() = default;
+        ///
+        RenderTarget& operator = (RenderTarget&&) = default;
 
-    ///
-    virtual void Bind() = 0;
+        ///
+        ~RenderTarget() = default;
 
-    ///
-    void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 0.0f });
+        ///
+        virtual void Bind() = 0;
 
-    ///
-    void Draw(const Drawable& drawable, const RenderStates& states = {});
+        ///
+        void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
-    ///
-    glm::uvec2 GetSize() const;
+        ///
+        void Draw(const Drawable& drawable, const RenderStates& states = {});
 
-protected:
+        ///
+        glm::uvec2 GetSize() const;
 
-    glm::uvec2 m_size;
+    protected:
 
-};
+        glm::uvec2 m_size;
+    };
 
 }

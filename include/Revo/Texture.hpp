@@ -9,59 +9,59 @@
 namespace rv
 {
 
-class Texture
-{
-public:
-
-    using NativeHandle_t = GLuint;
-
     ///
-    Texture();
+    class Texture
+    {
+    public:
 
-    ///
-    Texture(const Texture&) = delete;
+        using NativeHandle_t = GLuint;
 
-    ///
-    Texture& operator = (const Texture&) = delete;
+        ///
+        Texture();
 
-    ///
-    Texture(Texture&& rhs) noexcept;
+        ///
+        Texture(const Texture&) = delete;
 
-    ///
-    Texture& operator = (Texture&& rhs) noexcept;
+        ///
+        Texture& operator = (const Texture&) = delete;
 
-    ///
-    ~Texture();
+        ///
+        Texture(Texture&& rhs) noexcept;
 
-    ///
-    bool Create(const glm::uvec2& size, const void* data = nullptr);
+        ///
+        Texture& operator = (Texture&& rhs) noexcept;
 
-    ///
-    bool LoadFromFile(const char* path);
+        ///
+        ~Texture();
 
-    ///
-    glm::uvec2 GetSize() const;
+        ///
+        bool Create(const glm::uvec2& size, const void* data = nullptr);
 
-    ///
-    bool IsValid() const;
+        ///
+        bool LoadFromFile(const char* path);
 
-    ///
-    NativeHandle_t GetNativeHandle() const;
+        ///
+        glm::uvec2 GetSize() const;
 
-    ///
-    void Bind(size_t slot);
+        ///
+        bool IsValid() const;
 
-    ///
-    void Unbind();
+        ///
+        NativeHandle_t GetNativeHandle() const;
 
-private:
+        ///
+        void Bind(size_t slot);
 
-    ///
-    void M_Destroy();
+        ///
+        void Unbind();
 
-    NativeHandle_t m_texture;
-    glm::uvec2 m_size;
+    private:
 
-};
+        ///
+        void M_Destroy();
+
+        NativeHandle_t m_texture;
+        glm::uvec2 m_size;
+    };
 
 }

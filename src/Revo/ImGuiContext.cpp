@@ -6,24 +6,24 @@
 namespace rv
 {
 
-ImGuiContext::~ImGuiContext()
-{
-    if (m_initialized)
+    ImGuiContext::~ImGuiContext()
     {
-        ImGui_ImplOpenGL3_Shutdown();
-        ImGui_ImplGlfw_Shutdown();
+        if (m_initialized)
+        {
+            ImGui_ImplOpenGL3_Shutdown();
+            ImGui_ImplGlfw_Shutdown();
 
-        ImGui::DestroyContext();
+            ImGui::DestroyContext();
 
-        m_initialized = false;
+            m_initialized = false;
+        }
     }
-}
 
-bool ImGuiContext::Create(const Window& window)
-{
-    return m_initialized = ImGui::CreateContext() != nullptr &&
-        ImGui_ImplGlfw_InitForOpenGL(window.GetNativeHandle(), false) &&
-        ImGui_ImplOpenGL3_Init();
-}
+    bool ImGuiContext::Create(const Window& window)
+    {
+        return (m_initialized = ImGui::CreateContext() != nullptr) &&
+            ImGui_ImplGlfw_InitForOpenGL(window.GetNativeHandle(), false) &&
+            ImGui_ImplOpenGL3_Init();
+    }
 
 }

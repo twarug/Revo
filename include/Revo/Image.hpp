@@ -12,14 +12,8 @@
 namespace rv
 {
 
-class Image
-{
-public:
-
-    using Byte_t         = uint8_t;
-    using PixelsHolder_t = std::vector<Byte_t>;
-
-    enum ExtensionType
+    ///
+    enum ImgExtType : int32_t
     {
         PNG,
         BMP,
@@ -29,59 +23,66 @@ public:
     };
 
     ///
-    Image() = default;
+    class Image
+    {
+    public:
 
-    ///
-    Image(const Image&) = default;
+        using Byte_t         = uint8_t;
+        using PixelsHolder_t = std::vector<Byte_t>;
 
-    ///
-    Image& operator = (const Image&) = default;
+        ///
+        Image() = default;
 
-    ///
-    Image(Image&&) = default;
+        ///
+        Image(const Image&) = default;
 
-    ///
-    Image& operator = (Image&&) = default;
+        ///
+        Image& operator = (const Image&) = default;
 
-    ///
-    ~Image() = default;
+        ///
+        Image(Image&&) = default;
 
-    ///
-    bool LoadFromFile(const char* path);
+        ///
+        Image& operator = (Image&&) = default;
 
-    ///
-    bool SaveToFile(const char* path, ExtensionType extension) const;
+        ///
+        ~Image() = default;
 
-    ///
-    void FlipVertically();
+        ///
+        bool LoadFromFile(const char* path);
 
-    ///
-    void FlipHorizontally();
+        ///
+        bool SaveToFile(const char* path, ImgExtType extension) const;
 
-    ///
-    Byte_t* GetData();
+        ///
+        void FlipVertically();
 
-    ///
-    const Byte_t* GetData() const;
+        ///
+        void FlipHorizontally();
 
-    ///
-    glm::uvec2 GetSize() const;
+        ///
+        Byte_t* GetData();
 
-    ///
-    size_t GetPixelsCount() const;
+        ///
+        const Byte_t* GetData() const;
 
-    ///
-    size_t GetChannelsCount() const;
+        ///
+        glm::uvec2 GetSize() const;
 
-    ///
-    bool IsEmpty() const;
+        ///
+        size_t GetPixelsCount() const;
 
-private:
+        ///
+        size_t GetChannelsCount() const;
 
-    PixelsHolder_t m_pixels;
-    glm::uvec2 m_size;
-    size_t m_channels;
+        ///
+        bool IsEmpty() const;
 
-};
+    private:
+
+        PixelsHolder_t m_pixels;
+        glm::uvec2 m_size;
+        size_t m_channels;
+    };
 
 }
