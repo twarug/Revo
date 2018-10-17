@@ -31,7 +31,8 @@ DYNAMIC_LD_FLAGS := -shared
 TCH_TARGET  := x86_64
 TCH_NAME    := MinGW
 TCH_VERSION := 7.3.0
-TCH_PATH    := $(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION)
+TCH_BUILD   := Debug
+TCH_PATH    := $(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION)/$(TCH_BUILD)
 
 # Target (app | dynamic | static)
 TARGET = app
@@ -66,15 +67,15 @@ GLFW_LIBS := -L$(LIBS_DIR)/GLFW-3.2.1/lib/$(TCH_PATH) -lglfw3 -lgdi32 -lopengl32
 
 # glad
 GLAD_IDIR := -isystem $(LIBS_DIR)/glad-3.3.0/include
-GLAD_LIBS := -L$(LIBS_DIR)/glad-3.3.0/lib/$(TCH_PATH) -lglad
+GLAD_LIBS := -L$(LIBS_DIR)/glad-3.3.0/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
 
 # glm
 GLM_IDIR := -isystem $(LIBS_DIR)/glm-0.9.9/include
 GLM_LIBS :=
 
 # ImGui
-IMGUI_IDIR := -isystem src/ImGui
-IMGUI_LIBS :=
+IMGUI_IDIR := -isystem $(LIBS_DIR)/ImGuiGLFW-1.65/include
+IMGUI_LIBS := -L$(LIBS_DIR)/ImGuiGLFW-1.65/lib/$(TCH_PATH) -limgui
 
 # nlohmann Json
 JSON_IDIR := -isystem $(LIBS_DIR)/nlohmannJson-3.1.2/include
@@ -84,9 +85,13 @@ JSON_LIBS :=
 STB_IDIR := -isystem $(LIBS_DIR)/stb/include
 STB_LIBS :=
 
+# Revo
+REVO_IDIR := -Iinclude
+REVO_LIBS :=
+
 # Final libraries config
-IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
-LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
+IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) $(REVO_IDIR)
+LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS) $(REVO_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean
@@ -115,7 +120,7 @@ re: clean all
 rerun: re run
 
 clean:
-	$(V) find $(OBJECTS_DIR) -type f -name '*.o' -delete
+	$(V) find $(OBJ_DIRS) -type f -name '*.o' -delete
 
 info:
 	$(V) $(INFORM_INFO_COUNT) "Sources directories" $(words $(SRC_DIRS))
