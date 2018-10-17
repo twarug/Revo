@@ -56,6 +56,10 @@ EXE      := $(OUT_DIR)/$(EXE_NAME)
 # Directory for all libraries
 LIBS_DIR := E:/Dev/Libraries
 
+# m2
+M2_IDIR := -isystem C:/Users/Stritch/github/m2/include
+M2_LIBS :=
+
 # GLFW
 GLFW_IDIR := -isystem $(LIBS_DIR)/GLFW-3.2.1/include
 GLFW_LIBS := -L$(LIBS_DIR)/GLFW-3.2.1/lib/$(TCH_PATH) -lglfw3 -lgdi32 -lopengl32
@@ -81,8 +85,8 @@ STB_IDIR := -isystem $(LIBS_DIR)/stb/include
 STB_LIBS :=
 
 # Final libraries config
-IDIR := $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude -IC:/Users/Stritch/github/m2/src
-LIBS := $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
+IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
+LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean
