@@ -1,0 +1,9 @@
+-IE:/Dev/Libraries/GLFW-3.2.1/include
+-IE:/Dev/Libraries/glad-3.3.0/include
+-IE:/Dev/Libraries/glm-0.9.9/include
+-IE:/Dev/Libraries/nlohmannJson-3.1.2/include
+-IE:/Dev/Libraries/stb/include
+-IC:/Users/Stritch/github/m2/src
+-IC:/Users/Stritch/github/Revo/src/ImGui
+-Iinclude
+-DM2_DEBUG
