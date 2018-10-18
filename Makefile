@@ -62,36 +62,38 @@ M2_IDIR := -isystem C:/Users/Stritch/github/m2/include
 M2_LIBS :=
 
 # GLFW
-GLFW_IDIR := -isystem $(LIBS_DIR)/GLFW-3.2.1/include
-GLFW_LIBS := -L$(LIBS_DIR)/GLFW-3.2.1/lib/$(TCH_PATH) -lglfw3 -lgdi32 -lopengl32
+GLFW_NAME := GLFW-3.2.1
+GLFW_IDIR := -isystem $(LIBS_DIR)/$(GLFW_NAME)/include
+GLFW_LIBS := -L$(LIBS_DIR)/$(GLFW_NAME)/lib/$(TCH_PATH) -lglfw3 -lgdi32 -lopengl32
 
 # glad
-GLAD_IDIR := -isystem $(LIBS_DIR)/glad-3.3.0/include
-GLAD_LIBS := -L$(LIBS_DIR)/glad-3.3.0/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
+GLAD_NAME := glad-3.3.0
+GLAD_IDIR := -isystem $(LIBS_DIR)/$(GLAD_NAME)/include
+GLAD_LIBS := -L$(LIBS_DIR)/$(GLAD_NAME)/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
 
 # glm
-GLM_IDIR := -isystem $(LIBS_DIR)/glm-0.9.9/include
+GLM_NAME := glm-0.9.9
+GLM_IDIR := -isystem $(LIBS_DIR)/$(GLM_NAME)/include
 GLM_LIBS :=
 
 # ImGui
-IMGUI_IDIR := -isystem $(LIBS_DIR)/ImGuiGLFW-1.65/include
-IMGUI_LIBS := -L$(LIBS_DIR)/ImGuiGLFW-1.65/lib/$(TCH_PATH) -limgui
+IMGUI_NAME := ImGuiGLFW-1.65
+IMGUI_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_NAME)/include
+IMGUI_LIBS := -L$(LIBS_DIR)/$(IMGUI_NAME)/lib/$(TCH_PATH) -limgui
 
 # nlohmann Json
-JSON_IDIR := -isystem $(LIBS_DIR)/nlohmannJson-3.1.2/include
+JSON_NAME := nlohmannJson-3.1.2
+JSON_IDIR := -isystem $(LIBS_DIR)/$(JSON_NAME)/include
 JSON_LIBS :=
 
 # stb
-STB_IDIR := -isystem $(LIBS_DIR)/stb/include
+STB_NAME := stb
+STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
-# Revo
-REVO_IDIR := -Iinclude
-REVO_LIBS :=
-
 # Final libraries config
-IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) $(REVO_IDIR)
-LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS) $(REVO_LIBS)
+IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
+LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean
