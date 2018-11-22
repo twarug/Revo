@@ -8,8 +8,7 @@
 
 namespace rv
 {
-
-    ///
+    /// Types of events that can be dispatched
     enum class EventType : int32_t
     {
         None,
@@ -29,30 +28,30 @@ namespace rv
         FilesDropped
     };
 
-    ///
+    /// Simple event class that holds event type and its data
     class Event
     {
     public:
 
-        ///
+        /// Default ctor that takes event type
         Event(EventType type = EventType::None);
 
-        ///
+        /// Defaulted copy-ctor
         Event(const Event&) = default;
 
-        ///
+        /// Defaulted copy-assign-op
         Event& operator = (const Event&) = default;
 
-        ///
-        Event(Event&&) = default;
+        /// Defaulted move-ctor
+        Event(Event&&) noexcept = default;
 
-        ///
-        Event& operator = (Event&&) = default;
+        /// Defaulted move-assign-op
+        Event& operator = (Event&&) noexcept = default;
 
-        ///
+        /// Defaulted destructor
         ~Event() = default;
 
-        ///
+        /// Returns type of currently stored event
         EventType GetType() const;
 
         struct WindowMovedEvent { int xpos; int ypos; };
@@ -82,5 +81,4 @@ namespace rv
 
         EventType m_type;
     };
-
 }

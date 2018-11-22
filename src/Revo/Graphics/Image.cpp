@@ -33,8 +33,10 @@ namespace rv
         return false;
     }
 
-    bool Image::SaveToFile(const char* path, ImgExtType extension) const
+    bool Image::SaveToFile(const char* path, ImgExtType extension, bool flipVertically) const
     {
+        stbi_flip_vertically_on_write(flipVertically);
+
         if (!m_pixels.empty())
         {
             switch (extension)
@@ -43,7 +45,7 @@ namespace rv
                 case ImgExtType::BMP: return stbi_write_bmp(path, m_size.x, m_size.y, m_channels, m_pixels.data());
                 case ImgExtType::TGA: return stbi_write_tga(path, m_size.x, m_size.y, m_channels, m_pixels.data());
                 case ImgExtType::JPG: return stbi_write_jpg(path, m_size.x, m_size.y, m_channels, m_pixels.data(), 90);
-                case ImgExtType::HDR: return false; // TODO Implement
+                case ImgExtType::HDR: return false; // TODO implement when vendor will fix crash
             }
         }
 

@@ -2,7 +2,6 @@
 
 namespace rv
 {
-
     TimePoint_t Clock::Now()
     {
         return Clock_t::now();
@@ -149,5 +148,4 @@ namespace rv
 
         return count;
     }
-
 }

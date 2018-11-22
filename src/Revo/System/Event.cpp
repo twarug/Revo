@@ -2,7 +2,6 @@
 
 namespace rv
 {
-
     Event::Event(EventType type)
         : m_type { type }
     {
@@ -13,5 +12,4 @@ namespace rv
     {
         return m_type;
     }
-
 }

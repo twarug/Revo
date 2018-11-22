@@ -117,6 +117,9 @@ re: clean all
 
 rerun: re run
 
+rf:
+	make clean && make -j4
+
 clean:
 	$(V) find $(OBJ_DIRS) -type f -name '*.o' -delete
 

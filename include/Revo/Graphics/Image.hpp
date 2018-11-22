@@ -51,7 +51,7 @@ namespace rv
         bool LoadFromFile(const char* path);
 
         ///
-        bool SaveToFile(const char* path, ImgExtType extension) const;
+        bool SaveToFile(const char* path, ImgExtType extension, bool flipVertically = false) const;
 
         ///
         void FlipVertically();
