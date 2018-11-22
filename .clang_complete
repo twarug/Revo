@@ -4,6 +4,5 @@
 -IE:/Dev/Libraries/nlohmannJson-3.1.2/include
 -IE:/Dev/Libraries/stb/include
 -IE:/Dev/Libraries/ImGuiGLFW-1.65/include
--IC:/Users/Stritch/github/m2/include
 -Iinclude
--DM2_DEBUG
+-DRV_DEBUG

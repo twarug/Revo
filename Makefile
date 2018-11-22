@@ -13,7 +13,7 @@ INFORM_OBJECT     := printf "\033[33m[Object] %s\033[0m\n"
 
 # Compiler
 CXX       := g++
-CXX_FLAGS := -std=c++17 -g -Wall -Wextra -Wpedantic -DM2_DEBUG
+CXX_FLAGS := -std=c++17 -g -Wall -Wextra -Wpedantic -DRV_DEBUG
 
 # Linker
 LD       := g++
@@ -57,10 +57,6 @@ EXE      := $(OUT_DIR)/$(EXE_NAME)
 # Directory for all libraries
 LIBS_DIR := E:/Dev/Libraries
 
-# m2
-M2_IDIR := -isystem C:/Users/Stritch/github/m2/include
-M2_LIBS :=
-
 # GLFW
 GLFW_NAME := GLFW-3.2.1
 GLFW_IDIR := -isystem $(LIBS_DIR)/$(GLFW_NAME)/include
@@ -92,8 +88,8 @@ STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
 # Final libraries config
-IDIR := $(M2_IDIR) $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
-LIBS := $(M2_LIBS) $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
+IDIR := $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
+LIBS := $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean

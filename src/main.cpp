@@ -1,11 +1,13 @@
-#include <Revo/Image.hpp>
-#include <Revo/Texture.hpp>
-#include <Revo/Window.hpp>
-#include <Revo/VertexBuffer.hpp>
-#include <Revo/ShaderProgram.hpp>
-#include <Revo/Camera.hpp>
-#include <Revo/Transformable.hpp>
-#include <m2/chrono/Conversion.hpp>
+#include <Revo/Utility/Functional.hpp>
+#include <Revo/Graphics/Context.hpp>
+#include <Revo/Graphics/PrimitiveType.hpp>
+#include <Revo/Graphics/Image.hpp>
+#include <Revo/Graphics/Texture.hpp>
+#include <Revo/Graphics/Window.hpp>
+#include <Revo/Graphics/VertexBuffer.hpp>
+#include <Revo/Graphics/ShaderProgram.hpp>
+#include <Revo/Graphics/Camera.hpp>
+#include <Revo/Graphics/Transformable.hpp>
 
 #include <algorithm>
 #include <fstream>
@@ -150,7 +152,7 @@ int main()
     rv::Texture tex2;
     std::cout << tex2.LoadFromFile("map2.png") << '\n';
 
-    m2::chrono::Clock cl;
+    rv::Clock cl;
 
     rv::Camera camera2D{ rv::OrthographicProjection{} };
     rv::Camera camera3D{ rv::PerspectiveProjection{} };
@@ -180,7 +182,7 @@ int main()
         ImGui::ShowDemoWindow(nullptr);
 
         shaderProgram.D_ShowShaderProgramEditor(nullptr);
-        shaderProgram.SetUniform("time", m2::chrono::AsFSeconds(cl.GetElapsedDuration()));
+        shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", glm::vec2{ width, height });
 
         av2D.D_ShowTransformableEditor(nullptr);
