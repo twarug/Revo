@@ -9,14 +9,14 @@ namespace rv
 
     Clock::Clock()
         : m_refPoint { Now() }
-        , m_pausePoint { Now() }
+        , m_pausePoint { Duration_t::zero() }
     {
 
     }
 
     Clock::Clock(const TimePoint_t& timePoint)
         : m_refPoint { timePoint }
-        , m_pausePoint { timePoint }
+        , m_pausePoint { Duration_t::zero() }
     {
 
     }
