@@ -1,6 +1,7 @@
 #include <Revo/Graphics/ShaderProgram.hpp>
 
 // Revo
+#include <Revo/Graphics/ImGuiContext.hpp>
 #include <Revo/Utility/FNV.hpp>
 #include <Revo/Utility/Overloaded.hpp>
 #include <Revo/glmSerializers.hpp>
@@ -10,10 +11,6 @@
 
 // glm
 #include <glm/gtc/type_ptr.hpp>
-
-#if defined(RV_DEBUG)
-#   include <Revo/Graphics/ImGuiContext.hpp>
-#endif
 
 namespace rv
 {

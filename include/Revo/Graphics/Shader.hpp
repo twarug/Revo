@@ -3,10 +3,6 @@
 // Revo
 #include <Revo/Graphics/OpenGL.hpp>
 
-#if defined(RV_DEBUG)
-#   include <string>
-#endif
-
 namespace rv
 {
     ///
