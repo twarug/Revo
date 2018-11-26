@@ -1,11 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
-
-// glm
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+#include <Revo/Graphics/Transform.hpp>
 
 namespace rv
 {
@@ -39,19 +35,13 @@ namespace rv
         void SetTransform(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
 
         ///
-        void SetTransform(const glm::mat4& matrix);
-
-        ///
-        void SetTransform(const Transformable& transform);
-
-        ///
-        void Translate(const glm::vec3& offset);
+        void TranslatePosition(const glm::vec3& offset);
 
         ///
         void SetPosition(const glm::vec3& position);
 
         ///
-        glm::vec3 GetPosition() const;
+        const glm::vec3& GetPosition() const;
 
         ///
         void TranslateOrigin(const glm::vec3& offset);
@@ -60,7 +50,7 @@ namespace rv
         void SetOrigin(const glm::vec3& origin);
 
         ///
-        glm::vec3 GetOrigin() const;
+        const glm::vec3& GetOrigin() const;
 
         ///
         void Rotate(const glm::vec3& angle);
@@ -69,7 +59,7 @@ namespace rv
         void SetRotation(const glm::vec3& rotation);
 
         ///
-        glm::vec3 GetRotation() const;
+        const glm::vec3& GetRotation() const;
 
         ///
         void Scale(const glm::vec3& factor);
@@ -78,13 +68,15 @@ namespace rv
         void SetScale(const glm::vec3& scale);
 
         ///
-        glm::vec3 GetScale() const;
+        const glm::vec3& GetScale() const;
 
         ///
-        glm::mat4 GetTransform() const;
+        Transform GetTransform() const;
 
         ///
-        glm::mat4 GetInverseTransform() const;
+        Transform GetInverseTransform() const;
+
+    public:
 
         #if defined(RV_DEBUG)
 
@@ -102,7 +94,7 @@ namespace rv
         glm::vec3 m_origin;
         glm::vec3 m_rotation;
         glm::vec3 m_scale;
-        mutable glm::mat4 m_matrix;
+        mutable Transform m_transform;
         mutable bool m_needsUpdate;
     };
 }

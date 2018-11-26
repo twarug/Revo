@@ -24,7 +24,7 @@ namespace rv
             glm::mat4 mvp = glm::mat4{ 1.0f };
             mvp *= states.camera->GetProjectionMatrix(m_size);
             mvp *= states.camera->GetViewMatrix();
-            mvp *= drawable.GetTransform();
+            mvp *= drawable.GetTransform().GetMatrix();
 
             states.shaderProgram->UseProgram();
             states.shaderProgram->SetUniform("mvp", mvp);

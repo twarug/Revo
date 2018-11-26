@@ -8,7 +8,6 @@
 
 // glm
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace rv
@@ -18,7 +17,7 @@ namespace rv
         , m_origin { 0.0f, 0.0f, 0.0f }
         , m_rotation { 0.0f, 0.0f, 0.0f }
         , m_scale { 1.0f, 1.0f, 1.0f }
-        , m_matrix { 1.0f }
+        , m_transform { Transform::IdentityTag{} }
         , m_needsUpdate { false }
     {
 
@@ -29,7 +28,7 @@ namespace rv
         , m_origin { origin }
         , m_rotation { rotation }
         , m_scale { scale }
-        , m_matrix {}
+        , m_transform {}
         , m_needsUpdate { true }
     {
         M_UpdateMatrix();
@@ -47,26 +46,7 @@ namespace rv
         M_UpdateMatrix();
     }
 
-    void Transformable::SetTransform(const glm::mat4& matrix)
-    {
-        m_matrix = matrix;
-
-        m_needsUpdate = false;
-    }
-
-    void Transformable::SetTransform(const Transformable& transform)
-    {
-        m_position = transform.GetPosition();
-        m_origin = transform.GetOrigin();
-        m_rotation = transform.GetRotation();
-        m_scale = transform.GetScale();
-
-        m_needsUpdate = true;
-
-        M_UpdateMatrix();
-    }
-
-    void Transformable::Translate(const glm::vec3& offset)
+    void Transformable::TranslatePosition(const glm::vec3& offset)
     {
         m_position += offset;
 
@@ -80,7 +60,7 @@ namespace rv
         m_needsUpdate = true;
     }
 
-    glm::vec3 Transformable::GetPosition() const
+    const glm::vec3& Transformable::GetPosition() const
     {
         return m_position;
     }
@@ -99,7 +79,7 @@ namespace rv
         m_needsUpdate = true;
     }
 
-    glm::vec3 Transformable::GetOrigin() const
+    const glm::vec3& Transformable::GetOrigin() const
     {
         return m_origin;
     }
@@ -118,7 +98,7 @@ namespace rv
         m_needsUpdate = true;
     }
 
-    glm::vec3 Transformable::GetRotation() const
+    const glm::vec3& Transformable::GetRotation() const
     {
         return m_rotation;
     }
@@ -137,23 +117,23 @@ namespace rv
         m_needsUpdate = true;
     }
 
-    glm::vec3 Transformable::GetScale() const
+    const glm::vec3& Transformable::GetScale() const
     {
         return m_scale;
     }
 
-    glm::mat4 Transformable::GetTransform() const
+    Transform Transformable::GetTransform() const
     {
         M_UpdateMatrix();
 
-        return m_matrix;
+        return m_transform;
     }
 
-    glm::mat4 Transformable::GetInverseTransform() const
+    Transform Transformable::GetInverseTransform() const
     {
         M_UpdateMatrix();
 
-        return glm::inverse(m_matrix);
+        return m_transform.Inversed();
     }
 
     #if defined(RV_DEBUG)
@@ -179,12 +159,7 @@ namespace rv
     {
         if (m_needsUpdate)
         {
-            m_matrix = glm::translate(glm::mat4{ 1.0f }, m_position);
-            m_matrix = glm::rotate(m_matrix, m_rotation.x, glm::vec3{ 1.0f, 0.0f, 0.0f });
-            m_matrix = glm::rotate(m_matrix, m_rotation.y, glm::vec3{ 0.0f, 1.0f, 0.0f });
-            m_matrix = glm::rotate(m_matrix, m_rotation.z, glm::vec3{ 0.0f, 0.0f, 1.0f });
-            m_matrix = glm::scale(m_matrix, m_scale);
-            m_matrix = glm::translate(m_matrix, -m_origin);
+            m_transform.SetIdentity().Translate(m_position).Rotate(m_rotation).Scale(m_scale).Translate(-m_origin);
 
             m_needsUpdate = false;
         }
