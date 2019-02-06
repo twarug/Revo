@@ -68,7 +68,7 @@ GLAD_IDIR := -isystem $(LIBS_DIR)/$(GLAD_NAME)/include
 GLAD_LIBS := -L$(LIBS_DIR)/$(GLAD_NAME)/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
 
 # glm
-GLM_NAME := glm-0.9.9
+GLM_NAME := glm-0.9.9.3
 GLM_IDIR := -isystem $(LIBS_DIR)/$(GLM_NAME)/include
 GLM_LIBS :=
 
@@ -78,7 +78,7 @@ IMGUI_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_NAME)/include
 IMGUI_LIBS := -L$(LIBS_DIR)/$(IMGUI_NAME)/lib/$(TCH_PATH) -limgui
 
 # nlohmann Json
-JSON_NAME := nlohmannJson-3.1.2
+JSON_NAME := nlohmannJson-3.5.0
 JSON_IDIR := -isystem $(LIBS_DIR)/$(JSON_NAME)/include
 JSON_LIBS :=
 
@@ -119,6 +119,9 @@ rerun: re run
 
 rf:
 	make clean && make -j4
+
+rrf:
+	make clean && make run -j4
 
 clean:
 	$(V) find $(OBJ_DIRS) -type f -name '*.o' -delete

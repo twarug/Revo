@@ -1,8 +1,19 @@
 #pragma once
 
 // glm
-#include <glm/detail/type_vec.hpp>
-#include <glm/detail/type_mat.hpp>
+#include <glm/detail/type_vec1.hpp>
+#include <glm/detail/type_vec2.hpp>
+#include <glm/detail/type_vec3.hpp>
+#include <glm/detail/type_vec4.hpp>
+#include <glm/detail/type_mat2x2.hpp>
+#include <glm/detail/type_mat2x3.hpp>
+#include <glm/detail/type_mat2x4.hpp>
+#include <glm/detail/type_mat3x2.hpp>
+#include <glm/detail/type_mat3x3.hpp>
+#include <glm/detail/type_mat3x4.hpp>
+#include <glm/detail/type_mat4x2.hpp>
+#include <glm/detail/type_mat4x3.hpp>
+#include <glm/detail/type_mat4x4.hpp>
 
 // nlohmann Json
 #include <nlohmann/json.hpp>

@@ -118,7 +118,7 @@ int main()
     av3Db.SetTransform(glm::vec3{ 0.0f, 0.0f, 0 }, glm::vec3{ 0.5f, 0.28125f, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 2, 1, 1 });
 
     std::cout << "---------------------" << '\n';
-    const auto m1 = av2D.GetTransform();
+    const auto m1 = av2D.GetTransform().GetMatrix();
     for (size_t i = 0; i < 4; i++) {
         for (size_t j = 0; j < 4; j++) {
             std::cout << m1[j][i] << ' ';
@@ -126,7 +126,7 @@ int main()
         std::cout << '\n';
     }
     std::cout << "---------------------" << '\n';
-    const auto m2 = av3D.GetTransform();
+    const auto m2 = av3D.GetTransform().GetMatrix();
     for (size_t i = 0; i < 4; i++) {
         for (size_t j = 0; j < 4; j++) {
             std::cout << m2[j][i] << ' ';

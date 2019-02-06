@@ -8,6 +8,7 @@
 
 // C++
 #include <fstream>
+#include <iomanip>
 
 // glm
 #include <glm/gtc/type_ptr.hpp>
