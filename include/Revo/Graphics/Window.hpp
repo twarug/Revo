@@ -1,10 +1,11 @@
 #pragma once
 
 // Revo
-#include <Revo/System/Clock.hpp>
+#include <Revo/Graphics/Context.hpp>
 #include <Revo/Graphics/ImGuiContext.hpp>
-#include <Revo/System/Event.hpp>
 #include <Revo/Graphics/RenderTarget.hpp>
+#include <Revo/System/Clock.hpp>
+#include <Revo/System/Event.hpp>
 
 // glm
 #include <glm/vec2.hpp>
@@ -16,10 +17,12 @@ namespace rv
     {
     public:
 
-        using NativeHandle_t = GLFWwindow*;
+        // using NativeHandle_t = GLFWwindow*;
+        using NativeHandle_t = SDL_Window*;
+        using GfxContext_t   = SDL_GLContext;
 
         ///
-        Window() = default;
+        Window();
 
         ///
         Window(const Window&) = delete;
@@ -55,7 +58,8 @@ namespace rv
         void Close();
 
         ///
-        Event PollEvent();
+        // Event PollEvent();
+        bool PollEvent(SDL_Event& event); // TODO Make real event
 
         ///
         void SetFramerateLimit(uint32_t limit);
@@ -82,26 +86,31 @@ namespace rv
         bool IsOpen() const;
 
         ///
+        GfxContext_t GetGfxContext() const;
+
+        ///
         NativeHandle_t GetNativeHandle() const;
 
     private:
 
         ///
-        static Window* M_This(NativeHandle_t window);
+        // static Window* M_This(NativeHandle_t window);
 
         ///
         void M_Destroy();
 
         ///
-        void M_RegisterCallbacks();
+        // void M_RegisterCallbacks();
 
         ///
         void M_AdjustFramerate();
 
-        NativeHandle_t m_window = nullptr;
-        Event m_event;
+        GfxContext_t m_gfxContext;
+        NativeHandle_t m_window;
         Duration_t m_framerateLimit;
         Clock m_clock;
         Clock m_dtClock;
+        // Event m_event;
+        bool m_isOpen;
     };
 }

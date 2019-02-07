@@ -10,7 +10,8 @@ namespace rv
         if (m_initialized)
         {
             ImGui_ImplOpenGL3_Shutdown();
-            ImGui_ImplGlfw_Shutdown();
+            // ImGui_ImplGlfw_Shutdown();
+            ImGui_ImplSDL2_Shutdown();
 
             ImGui::DestroyContext();
 
@@ -21,7 +22,8 @@ namespace rv
     bool ImGuiContext::Create(const Window& window)
     {
         return (m_initialized = ImGui::CreateContext() != nullptr) &&
-            ImGui_ImplGlfw_InitForOpenGL(window.GetNativeHandle(), false) &&
-            ImGui_ImplOpenGL3_Init();
+            ImGui_ImplSDL2_InitForOpenGL(window.GetNativeHandle(), window.GetGfxContext()) &&
+            // ImGui_ImplGlfw_InitForOpenGL(window.GetNativeHandle(), false) &&
+            ImGui_ImplOpenGL3_Init("#version 130");
     }
 }

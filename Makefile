@@ -57,6 +57,21 @@ EXE      := $(OUT_DIR)/$(EXE_NAME)
 # Directory for all libraries
 LIBS_DIR := E:/Dev/Libraries
 
+# ImGui SDL2
+IMGUI_SDL2_NAME := ImGuiSDL2-1.67
+IMGUI_SDL2_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_SDL2_NAME)/include
+IMGUI_SDL2_LIBS := -L$(LIBS_DIR)/$(IMGUI_SDL2_NAME)/lib/$(TCH_PATH) -limgui
+
+# ImGui GLFW
+IMGUI_GLFW_NAME := ImGuiGLFW-1.65
+IMGUI_GLFW_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_GLFW_NAME)/include
+IMGUI_GLFW_LIBS := -L$(LIBS_DIR)/$(IMGUI_GLFW_NAME)/lib/$(TCH_PATH) -limgui
+
+# SDL2
+SDL2_NAME := SDL2-2.0.9
+SDL2_IDIR := -isystem $(LIBS_DIR)/$(SDL2_NAME)/include
+SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_PATH) -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lgdi32 -limm32
+
 # GLFW
 GLFW_NAME := GLFW-3.2.1
 GLFW_IDIR := -isystem $(LIBS_DIR)/$(GLFW_NAME)/include
@@ -72,15 +87,10 @@ GLM_NAME := glm-0.9.9.3
 GLM_IDIR := -isystem $(LIBS_DIR)/$(GLM_NAME)/include
 GLM_LIBS :=
 
-# ImGui
-IMGUI_NAME := ImGuiGLFW-1.65
-IMGUI_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_NAME)/include
-IMGUI_LIBS := -L$(LIBS_DIR)/$(IMGUI_NAME)/lib/$(TCH_PATH) -limgui
-
 # nlohmann Json
-JSON_NAME := nlohmannJson-3.5.0
-JSON_IDIR := -isystem $(LIBS_DIR)/$(JSON_NAME)/include
-JSON_LIBS :=
+NLOHMANN_JSON_NAME := nlohmannJson-3.5.0
+NLOHMANN_JSON_IDIR := -isystem $(LIBS_DIR)/$(NLOHMANN_JSON_NAME)/include
+NLOHMANN_JSON_LIBS :=
 
 # stb
 STB_NAME := stb
@@ -88,8 +98,8 @@ STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
 # Final libraries config
-IDIR := $(GLFW_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(IMGUI_IDIR) $(JSON_IDIR) $(STB_IDIR) -Iinclude
-LIBS := $(GLFW_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(IMGUI_LIBS) $(JSON_LIBS) $(STB_LIBS)
+IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON_IDIR) $(STB_IDIR) -Iinclude
+LIBS := $(IMGUI_SDL2_LIBS) $(SDL2_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(NLOHMANN_JSON_LIBS) $(STB_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean

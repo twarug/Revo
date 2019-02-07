@@ -17,7 +17,7 @@
 
 using namespace std::chrono_literals;
 
-int main()
+int main(int, char**)
 {
     rv::Context context;
     if (!context.Create())
@@ -157,8 +157,9 @@ int main()
     rv::Camera camera2D{ rv::OrthographicProjection{} };
     rv::Camera camera3D{ rv::PerspectiveProjection{} };
 
-    int width, height;
-    glfwGetFramebufferSize(window.GetNativeHandle(), &width, &height);
+    int width = window.GetSize().x;
+    int height = window.GetSize().y;
+    // glfwGetFramebufferSize(window.GetNativeHandle(), &width, &height);
     glViewport(0, 0, width, height);
 
     //
@@ -175,9 +176,24 @@ int main()
 
     while (window.IsOpen())
     {
-        glfwSetWindowTitle(window.GetNativeHandle(), ("Framerate: " + std::to_string(window.GetFramerate())).data());
+        // glfwSetWindowTitle(window.GetNativeHandle(), ("Framerate: " + std::to_string(window.GetFramerate())).data());
 
-        auto event = window.PollEvent();
+        // auto event = window.PollEvent();
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplSDL2_NewFrame(window.GetNativeHandle());
+        ImGui::NewFrame();
+
+        SDL_Event event;
+        while (window.PollEvent(event))
+        {
+            ImGui_ImplSDL2_ProcessEvent(&event);
+
+            if (event.type == SDL_QUIT)
+            {
+                window.Close();
+            }
+        }
 
         ImGui::ShowDemoWindow(nullptr);
 
