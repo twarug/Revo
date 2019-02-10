@@ -3,9 +3,6 @@
 // Revo
 #include <Revo/Graphics/OpenGL.hpp>
 
-// GLFW
-// #include <GLFW/glfw3.h>
-
 // SDL2
 #include <SDL2/SDL.h>
 

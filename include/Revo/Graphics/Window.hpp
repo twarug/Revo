@@ -2,8 +2,8 @@
 
 // Revo
 #include <Revo/Graphics/Context.hpp>
-#include <Revo/Graphics/ImGuiContext.hpp>
 #include <Revo/Graphics/RenderTarget.hpp>
+#include <Revo/ImGui/ImGuiContext.hpp>
 #include <Revo/System/Clock.hpp>
 #include <Revo/System/Event.hpp>
 

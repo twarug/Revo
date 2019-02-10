@@ -2,7 +2,7 @@
 
 // ImGui
 #include <imgui.h>
-// #include <imgui_impl_glfw.h>
+#define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_opengl3.h>
 
@@ -35,7 +35,16 @@ namespace rv
         ~ImGuiContext();
 
         ///
-        bool Create(const Window& window);
+        bool Create(Window const& window);
+
+        ///
+        void NewFrame(Window const& window);
+
+        ///
+        void ProcessEvent(SDL_Event const& event); // TODO Make real event
+
+        ///
+        void Shutdown();
 
     private:
 

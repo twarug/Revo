@@ -1,7 +1,7 @@
 #include <Revo/Graphics/ShaderProgram.hpp>
 
 // Revo
-#include <Revo/Graphics/ImGuiContext.hpp>
+#include <Revo/ImGui/ImGuiContext.hpp>
 #include <Revo/Utility/FNV.hpp>
 #include <Revo/Utility/Overloaded.hpp>
 #include <Revo/glmSerializers.hpp>

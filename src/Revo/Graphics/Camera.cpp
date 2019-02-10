@@ -1,7 +1,7 @@
 #include <Revo/Graphics/Camera.hpp>
 
 // Revo
-#include <Revo/Graphics/ImGuiContext.hpp>
+#include <Revo/ImGui/ImGuiContext.hpp>
 
 // C++
 #include <string>
