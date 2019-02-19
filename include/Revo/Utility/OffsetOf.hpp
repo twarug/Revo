@@ -7,7 +7,7 @@ namespace rv
 {
     /// Returns pointer offset of structure member
     template <typename T, typename Class>
-    const void* OffsetPtrOf(T Class::* member)
+    void const* OffsetPtrOf(T Class::* member)
     {
         return &(reinterpret_cast<Class*>(0)->*member);
     }

@@ -1,10 +1,13 @@
 #include <Revo/System/Clock.hpp>
 
+// C++
+#include <cstring>
+
 namespace rv
 {
     TimePoint_t Clock::Now()
     {
-        return Clock_t::now();
+        return SteadyClock_t::now();
     }
 
     Clock::Clock()
@@ -14,7 +17,7 @@ namespace rv
 
     }
 
-    Clock::Clock(const TimePoint_t& timePoint)
+    Clock::Clock(TimePoint_t const& timePoint)
         : m_refPoint { timePoint }
         , m_pausePoint { Duration_t::zero() }
     {
@@ -81,7 +84,7 @@ namespace rv
         return ret;
     }
 
-    void Clock::Advance(const Duration_t& duration, bool advanceBackwards)
+    void Clock::Advance(Duration_t const& duration, bool advanceBackwards)
     {
         if (advanceBackwards)
         {
@@ -103,12 +106,12 @@ namespace rv
         return m_pausePoint.time_since_epoch() != Duration_t::zero();
     }
 
-    bool Clock::HasPassed(const Duration_t& duration) const
+    bool Clock::HasPassed(Duration_t const& duration) const
     {
         return duration <= GetElapsedDuration();
     }
 
-    bool Clock::CheckStep(const Duration_t& duration)
+    bool Clock::CheckStep(Duration_t const& duration)
     {
         if (HasPassed(duration))
         {
@@ -122,7 +125,7 @@ namespace rv
         }
     }
 
-    bool Clock::CheckFixedStep(const Duration_t& duration)
+    bool Clock::CheckFixedStep(Duration_t const& duration)
     {
         if (HasPassed(duration))
         {
@@ -136,7 +139,7 @@ namespace rv
         }
     }
 
-    size_t Clock::CheckContinuousStep(const Duration_t& duration)
+    size_t Clock::CheckContinuousStep(Duration_t const& duration)
     {
         size_t count = 0;
 
@@ -147,5 +150,16 @@ namespace rv
         }
 
         return count;
+    }
+
+    char const* GetReadableTime(Duration_t const& duration)
+    {
+        std::time_t rawTime = SystemClock_t::to_time_t(SystemClock_t::time_point{ duration });
+        std::time_t currentTime = std::time(&rawTime);
+
+        char* result = std::ctime(&currentTime);
+        result[std::strlen(result) - 1] = '\0';
+
+        return result;
     }
 }

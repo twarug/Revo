@@ -1,10 +1,10 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/Context.hpp>
 #include <Revo/Graphics/RenderTarget.hpp>
 #include <Revo/ImGui/ImGuiContext.hpp>
 #include <Revo/System/Clock.hpp>
+#include <Revo/System/Context.hpp>
 #include <Revo/System/Event.hpp>
 
 // glm
@@ -17,9 +17,7 @@ namespace rv
     {
     public:
 
-        // using NativeHandle_t = GLFWwindow*;
         using NativeHandle_t = SDL_Window*;
-        using GfxContext_t   = SDL_GLContext;
 
         ///
         Window();
@@ -40,7 +38,7 @@ namespace rv
         ~Window();
 
         ///
-        bool Create(const glm::uvec2& size, const char* name, bool makeContextCurrent);
+        bool Create(const glm::uvec2& size, const char* name);
 
         ///
         void Show();
@@ -52,13 +50,12 @@ namespace rv
         void Restore();
 
         ///
-        void Iconify();
-
-        ///
         void Close();
 
         ///
-        // Event PollEvent();
+        bool PollEvent(Event& event);
+
+        ///
         bool PollEvent(SDL_Event& event); // TODO Make real event
 
         ///
@@ -74,7 +71,7 @@ namespace rv
         float GetFramerate() const;
 
         ///
-        virtual void Bind() override;
+        virtual void Bind() const override;
 
         ///
         void Display();
@@ -86,31 +83,20 @@ namespace rv
         bool IsOpen() const;
 
         ///
-        GfxContext_t GetGfxContext() const;
-
-        ///
         NativeHandle_t GetNativeHandle() const;
 
     private:
 
         ///
-        // static Window* M_This(NativeHandle_t window);
-
-        ///
         void M_Destroy();
-
-        ///
-        // void M_RegisterCallbacks();
 
         ///
         void M_AdjustFramerate();
 
-        GfxContext_t m_gfxContext;
         NativeHandle_t m_window;
         Duration_t m_framerateLimit;
         Clock m_clock;
         Clock m_dtClock;
-        // Event m_event;
         bool m_isOpen;
     };
 }

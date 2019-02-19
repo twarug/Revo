@@ -5,6 +5,7 @@
 
 // Revo
 #include <Revo/Graphics/Drawable.hpp>
+#include <Revo/Graphics/GfxContext.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Vertex.hpp>
 
@@ -110,7 +111,7 @@ namespace rv
         ///
         bool IsValid() const;
 
-        /// Return { left, top, width, height } 2D bounds of vertices
+        /// Returns { left, top, width, height } 2D bounds of vertices
         glm::vec4 GetBounds2D() const;
 
         ///

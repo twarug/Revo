@@ -36,7 +36,7 @@ namespace rv
         ~RenderTarget() = default;
 
         ///
-        virtual void Bind() = 0;
+        virtual void Bind() const = 0;
 
         ///
         void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 0.0f });

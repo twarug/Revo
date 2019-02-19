@@ -8,10 +8,11 @@
 
 namespace rv
 {
-    using Clock_t     = std::chrono::steady_clock;
-    using Duration_t  = Clock_t::duration;
-    using TimePoint_t = Clock_t::time_point;
-    using Period_t    = Clock_t::period;
+    using SteadyClock_t = std::chrono::steady_clock;
+    using SystemClock_t = std::chrono::system_clock;
+    using Duration_t    = SteadyClock_t::duration;
+    using TimePoint_t   = SteadyClock_t::time_point;
+    using Period_t      = SteadyClock_t::period;
 
     /// Simple pausable Clock class
     class Clock
@@ -25,13 +26,13 @@ namespace rv
         Clock();
 
         /// Creates clock with given time point
-        Clock(const TimePoint_t& timePoint);
+        Clock(TimePoint_t const& timePoint);
 
         /// Defaulted copy-ctor
-        Clock(const Clock&) = default;
+        Clock(Clock const&) = default;
 
         /// Defaulted copy-assign-op
-        Clock& operator = (const Clock&) = default;
+        Clock& operator = (Clock const&) = default;
 
         /// Creates clock from rhs and then restarts rhs
         Clock(Clock&& rhs);
@@ -58,7 +59,7 @@ namespace rv
         Duration_t Restart();
 
         /// Advances clock by given duration
-        void Advance(const Duration_t& duration, bool advanceBackwards = false);
+        void Advance(Duration_t const& duration, bool advanceBackwards = false);
 
         /// Checks whether clock is running
         bool IsRunning() const;
@@ -67,16 +68,16 @@ namespace rv
         bool IsPaused() const;
 
         /// Checks whether given duration has passed since creation/restart
-        bool HasPassed(const Duration_t& duration) const;
+        bool HasPassed(Duration_t const& duration) const;
 
         /// Checks whether given duration has passed since creation/restart, if so - restarts clock
-        bool CheckStep(const Duration_t& duration);
+        bool CheckStep(Duration_t const& duration);
 
         /// Checks whether given duration has passed since creation/restart, if so - advances clock backwards by given duration
-        bool CheckFixedStep(const Duration_t& duration);
+        bool CheckFixedStep(Duration_t const& duration);
 
         /// Invokes CheckFixedStep() while it is possible and returns the amount of invokes
-        size_t CheckContinuousStep(const Duration_t& duration);
+        size_t CheckContinuousStep(Duration_t const& duration);
 
     private:
 
@@ -86,50 +87,53 @@ namespace rv
 
     /// Returns duration of any type casted to the default one
     template <typename Rep, typename Period>
-    Duration_t AsDefaultDuration(const std::chrono::duration<Rep, Period>& duration)
+    constexpr Duration_t AsDefaultDuration(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<Duration_t>(duration);
     }
 
     /// Returns duration represented as nanoseconds
     template <typename Rep, typename Period>
-    auto AsNanoseconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsNanoseconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
     }
 
     /// Returns duration represented as microseconds
     template <typename Rep, typename Period>
-    auto AsMicroseconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsMicroseconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
     }
 
     /// Returns duration represented as milliseconds
     template <typename Rep, typename Period>
-    auto AsMilliseconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsMilliseconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
     }
 
     /// Returns duration represented as seconds
     template <typename Rep, typename Period>
-    auto AsSeconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsSeconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::seconds>(duration).count();
     }
 
     /// Returns duration represented as seconds as float
     template <typename Rep, typename Period>
-    auto AsFSeconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsFSeconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::duration<float>>(duration).count();
     }
 
     /// Returns duration represented as seconds as double
     template <typename Rep, typename Period>
-    auto AsDSeconds(const std::chrono::duration<Rep, Period>& duration)
+    constexpr auto AsDSeconds(std::chrono::duration<Rep, Period> const& duration)
     {
         return std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
     }
+
+    ///
+    char const* GetReadableTime(Duration_t const& duration);
 }

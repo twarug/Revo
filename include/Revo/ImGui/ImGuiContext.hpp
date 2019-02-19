@@ -1,15 +1,17 @@
 #pragma once
 
+// Revo
+#include <Revo/Graphics/GfxContext.hpp>
+
 // ImGui
 #include <imgui.h>
-#define IMGUI_IMPL_OPENGL_LOADER_GLAD
-#include <imgui_impl_sdl.h>
-#include <imgui_impl_opengl3.h>
 
 namespace rv
 {
     // FWD
+    class RenderTarget;
     class Window;
+    class GfxContext;
 
     ///
     class ImGuiContext
@@ -17,7 +19,7 @@ namespace rv
     public:
 
         ///
-        ImGuiContext() = default;
+        ImGuiContext();
 
         ///
         ImGuiContext(const ImGuiContext&) = delete;
@@ -35,20 +37,23 @@ namespace rv
         ~ImGuiContext();
 
         ///
-        bool Create(Window const& window);
+        bool Initialize(Window const& window, GfxContext const& gfxContext);
+
+        ///
+        void Shutdown();
 
         ///
         void NewFrame(Window const& window);
 
         ///
-        void ProcessEvent(SDL_Event const& event); // TODO Make real event
+        void ProcessEvent(SDL_Event const& event); // TODO make real event
 
         ///
-        void Shutdown();
+        void Render(RenderTarget const& renderTarget);
 
     private:
 
-        bool m_initialized = false;
+        bool m_initialized;
     };
 }
 

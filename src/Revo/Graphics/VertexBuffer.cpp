@@ -409,7 +409,7 @@ namespace rv
                 m_needsUpdate = false;
             }
 
-            glDrawArrays(static_cast<int32_t>(m_type), 0, m_vertices.size());
+            glDrawArrays(impl::GetNativeHandle(m_type), 0, m_vertices.size());
 
             Unbind();
         }
