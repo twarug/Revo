@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
+#include <Revo/System/Context.hpp>
 
 // C++
 #include <cstdint>
@@ -76,6 +76,8 @@ namespace rv
         {
 
         };
+
+        SDL_Event sdlEvent; // TODO get rid off it
 
     private:
 

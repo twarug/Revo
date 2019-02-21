@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/GfxContext.hpp>
+#include <Revo/Graphics/Backend.hpp>
 
 // glm
 #include <glm/vec2.hpp>

@@ -1,7 +1,10 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/GfxContext.hpp>
+#include <Revo/Graphics/Backend.hpp>
+
+// C++
+#include <cstdint>
 
 namespace rv
 {

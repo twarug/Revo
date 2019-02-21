@@ -7,7 +7,6 @@
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/Transformable.hpp>
-#include <Revo/Graphics/GfxContext.hpp>
 
 #include <algorithm>
 #include <fstream>
@@ -18,15 +17,6 @@
 #include <ctime>
 
 using namespace std::chrono_literals;
-
-std::string timeStampToHReadble(const time_t rawtime)
-{
-    struct tm * dt;
-    char buffer [30];
-    dt = localtime(&rawtime);
-    strftime(buffer, sizeof(buffer), "%H:%M:%S %d/%m/%Y", dt);
-    return std::string(buffer);
-}
 
 int main(int, char**)
 {
@@ -42,14 +32,8 @@ int main(int, char**)
         return -1;
     }
 
-    rv::GfxContext gfxContext;
-    if (!gfxContext.Initialize(window))
-    {
-        return -1;
-    }
-
     rv::ImGuiContext imguiContext;
-    if (!imguiContext.Initialize(window, gfxContext))
+    if (!imguiContext.Initialize(window))
     {
         return -1;
     }
@@ -60,21 +44,21 @@ int main(int, char**)
     {
         imguiContext.NewFrame(window);
 
-        SDL_Event event;
+        rv::Event event;
         while (window.PollEvent(event))
         {
             imguiContext.ProcessEvent(event);
 
-            if (event.type == SDL_QUIT)
+            if (event.GetType() == rv::EventType::AppClosed)
             {
                 window.Close();
             }
-            else if (event.type == SDL_KEYDOWN)
+            else if (event.GetType() == rv::EventType::KeyPressed)
             {
-                auto const t = rv::SystemClock_t::from_time_t(static_cast<std::time_t>(event.key.timestamp)).time_since_epoch();
+                auto const t = rv::SystemClock_t::from_time_t(static_cast<std::time_t>(event.sdlEvent.key.timestamp)).time_since_epoch();
 
-                std::cout << rv::GetReadableTime(t) << ' ' << (int)event.key.keysym.sym << '\n';
-                std::cout << rv::GetReadableTime(t) << ' ' << (int)event.key.repeat << '\n';
+                std::cout << rv::GetReadableTime(t) << ' ' << (int)event.sdlEvent.key.keysym.sym << '\n';
+                std::cout << rv::GetReadableTime(t) << ' ' << (int)event.sdlEvent.key.repeat << '\n';
             }
         }
 

@@ -1,7 +1,7 @@
 #include <Revo/Graphics/Window.hpp>
 
 // Revo
-#include <Revo/Graphics/GfxContext.hpp>
+#include <Revo/Graphics/Backend.hpp>
 
 // C++
 #include <thread>
@@ -10,8 +10,8 @@ namespace rv
 {
     Window::Window()
         : m_window { nullptr }
+        , m_graphicsContext { nullptr }
         , m_framerateLimit {}
-        , m_clock {}
         , m_dtClock {}
         , m_isOpen { false }
     {
@@ -25,6 +25,8 @@ namespace rv
 
     bool Window::Create(const glm::uvec2& size, const char* name)
     {
+        static bool isGladLoaded = false;
+
         M_Destroy();
 
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -32,13 +34,32 @@ namespace rv
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
         m_size = size;
-        m_window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_size.x, m_size.y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+        m_window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_size.x, m_size.y, SDL_WINDOW_OPENGL);
 
         if (m_window)
         {
+            m_graphicsContext = SDL_GL_CreateContext(m_window);
+
+            if (m_graphicsContext)
+            {
+                gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
+
+                if (!isGladLoaded)
+                {
+                    if (gladLoadGL())
+                    {
+                        isGladLoaded = true;
+                    }
+                    else
+                    {
+                        // TODO better logging
+                        std::fprintf(stderr, "Failed to initialize GLAD\n");
+                    }
+                }
+            }
+
             m_framerateLimit = Duration_t::zero();
 
-            m_clock.Restart();
             m_dtClock.Restart();
 
             m_isOpen = true;
@@ -71,9 +92,9 @@ namespace rv
 
     bool Window::PollEvent(Event& event)
     {
-        SDL_Event implEvent;
+        SDL_Event& implEvent = event.sdlEvent;
 
-        const bool polled = SDL_PollEvent(&implEvent) != 0;
+        const bool isPolled = SDL_PollEvent(&implEvent) != 0;
 
         switch (implEvent.type)
         {
@@ -224,12 +245,7 @@ namespace rv
             default: break;
         }
 
-        return polled;
-    }
-
-    bool Window::PollEvent(SDL_Event& event)
-    {
-        return SDL_PollEvent(&event) != 0;
+        return isPolled;
     }
 
     void Window::SetFramerateLimit(uint32_t limit)
@@ -293,13 +309,20 @@ namespace rv
         return m_window;
     }
 
+    Window::GraphicsContext_t Window::GetGraphicsContext() const
+    {
+        return m_graphicsContext;
+    }
+
     void Window::M_Destroy()
     {
         if (m_window)
         {
             SDL_DestroyWindow(m_window);
+            SDL_GL_DeleteContext(m_graphicsContext);
 
             m_window = nullptr;
+            m_graphicsContext = nullptr;
         }
     }
 
@@ -309,7 +332,6 @@ namespace rv
         {
             std::this_thread::sleep_for(GetDeltaDuration());
 
-            m_clock.Restart();
             m_dtClock.Restart();
         }
     }

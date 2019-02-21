@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/GfxContext.hpp>
+#include <Revo/System/Event.hpp>
 
 // ImGui
 #include <imgui.h>
@@ -11,7 +11,6 @@ namespace rv
     // FWD
     class RenderTarget;
     class Window;
-    class GfxContext;
 
     ///
     class ImGuiContext
@@ -37,7 +36,7 @@ namespace rv
         ~ImGuiContext();
 
         ///
-        bool Initialize(Window const& window, GfxContext const& gfxContext);
+        bool Initialize(Window const& window);
 
         ///
         void Shutdown();
@@ -46,7 +45,7 @@ namespace rv
         void NewFrame(Window const& window);
 
         ///
-        void ProcessEvent(SDL_Event const& event); // TODO make real event
+        void ProcessEvent(Event const& event);
 
         ///
         void Render(RenderTarget const& renderTarget);

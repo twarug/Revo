@@ -21,13 +21,13 @@ namespace rv
         Shutdown();
     }
 
-    bool ImGuiContext::Initialize(const Window& window, GfxContext const& gfxContext)
+    bool ImGuiContext::Initialize(Window const& window)
     {
         m_initialized = ImGui::CreateContext() != nullptr;
 
         return m_initialized &&
                ImGui_ImplOpenGL3_Init("#version 330") &&
-               ImGui_ImplSDL2_InitForOpenGL(window.GetNativeHandle(), gfxContext.GetNativeHandle());
+               ImGui_ImplSDL2_InitForOpenGL(window.GetNativeHandle(), window.GetGraphicsContext());
     }
 
     void ImGuiContext::Shutdown()
@@ -49,9 +49,9 @@ namespace rv
         ImGui::NewFrame();
     }
 
-    void ImGuiContext::ProcessEvent(SDL_Event const& event)
+    void ImGuiContext::ProcessEvent(Event const& event)
     {
-        ImGui_ImplSDL2_ProcessEvent(&event);
+        ImGui_ImplSDL2_ProcessEvent(&event.sdlEvent);
     }
 
     void ImGuiContext::Render(RenderTarget const& renderTarget)

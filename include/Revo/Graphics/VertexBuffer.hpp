@@ -1,13 +1,13 @@
 #pragma once
 
-// C++
-#include <vector>
-
 // Revo
+#include <Revo/Graphics/Backend.hpp>
 #include <Revo/Graphics/Drawable.hpp>
-#include <Revo/Graphics/GfxContext.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Vertex.hpp>
+
+// C++
+#include <vector>
 
 namespace rv
 {

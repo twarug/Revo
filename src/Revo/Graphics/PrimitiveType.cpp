@@ -1,7 +1,7 @@
 #include <Revo/Graphics/PrimitiveType.hpp>
 
 // Revo
-#include <Revo/Graphics/GfxContext.hpp>
+#include <Revo/Graphics/Backend.hpp>
 
 namespace rv
 {

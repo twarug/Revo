@@ -17,7 +17,8 @@ namespace rv
     {
     public:
 
-        using NativeHandle_t = SDL_Window*;
+        using NativeHandle_t    = SDL_Window*;
+        using GraphicsContext_t = SDL_GLContext;
 
         ///
         Window();
@@ -56,9 +57,6 @@ namespace rv
         bool PollEvent(Event& event);
 
         ///
-        bool PollEvent(SDL_Event& event); // TODO Make real event
-
-        ///
         void SetFramerateLimit(uint32_t limit);
 
         ///
@@ -85,6 +83,9 @@ namespace rv
         ///
         NativeHandle_t GetNativeHandle() const;
 
+        ///
+        GraphicsContext_t GetGraphicsContext() const;
+
     private:
 
         ///
@@ -94,8 +95,8 @@ namespace rv
         void M_AdjustFramerate();
 
         NativeHandle_t m_window;
+        GraphicsContext_t m_graphicsContext;
         Duration_t m_framerateLimit;
-        Clock m_clock;
         Clock m_dtClock;
         bool m_isOpen;
     };
