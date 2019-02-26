@@ -33,7 +33,7 @@
 // Source file informations
 #define RV_FILE __FILE__
 #define RV_LINE __LINE__
-#define RV_HERE (RV_FILE ":" RV_XSTR(RV_LINE))
+#define RV_HERE RV_FILE ":" RV_XSTR(RV_LINE)
 
 // Function signature
 #if defined(RV_CXX_CLANG) || defined(RV_CXX_GCC)
