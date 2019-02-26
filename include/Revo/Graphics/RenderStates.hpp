@@ -12,7 +12,7 @@ namespace rv
     ///
     struct RenderStates
     {
-        const ShaderProgram* shaderProgram = nullptr;
-        const Camera* camera = nullptr;
+        ShaderProgram const* shaderProgram = nullptr;
+        Camera const* camera = nullptr;
     };
 }

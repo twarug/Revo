@@ -20,10 +20,10 @@ namespace rv
         Texture();
 
         ///
-        Texture(const Texture&) = delete;
+        Texture(Texture const&) = delete;
 
         ///
-        Texture& operator = (const Texture&) = delete;
+        Texture& operator = (Texture const&) = delete;
 
         ///
         Texture(Texture&& rhs) noexcept;
@@ -35,10 +35,10 @@ namespace rv
         ~Texture();
 
         ///
-        bool Create(const glm::uvec2& size, const void* data = nullptr);
+        bool Create(glm::uvec2 const& size, void const* data = nullptr);
 
         ///
-        bool LoadFromFile(const char* path);
+        bool LoadFromFile(char const* path);
 
         ///
         glm::uvec2 GetSize() const;

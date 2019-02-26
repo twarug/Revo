@@ -33,10 +33,10 @@ namespace rv
 		ShaderProgram() = default;
 
 		///
-		ShaderProgram(const ShaderProgram&) = delete;
+		ShaderProgram(ShaderProgram const&) = delete;
 
 		///
-		ShaderProgram& operator = (const ShaderProgram&) = delete;
+		ShaderProgram& operator = (ShaderProgram const&) = delete;
 
 		///
 		ShaderProgram(ShaderProgram&& rhs) noexcept;
@@ -55,67 +55,67 @@ namespace rv
 		void UseProgram() const;
 
 		///
-		bool SetUniform(const char* name, bool value) const;
+		bool SetUniform(char const* name, bool value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::bvec2& value) const;
+		bool SetUniform(char const* name, glm::bvec2 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::bvec3& value) const;
+		bool SetUniform(char const* name, glm::bvec3 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::bvec4& value) const;
+		bool SetUniform(char const* name, glm::bvec4 const& value) const;
 
 		///
-		bool SetUniform(const char* name, int value) const;
+		bool SetUniform(char const* name, int value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::ivec2& value) const;
+		bool SetUniform(char const* name, glm::ivec2 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::ivec3& value) const;
+		bool SetUniform(char const* name, glm::ivec3 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::ivec4& value) const;
+		bool SetUniform(char const* name, glm::ivec4 const& value) const;
 
 		///
-		bool SetUniform(const char* name, unsigned int value) const;
+		bool SetUniform(char const* name, unsigned int value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::uvec2& value) const;
+		bool SetUniform(char const* name, glm::uvec2 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::uvec3& value) const;
+		bool SetUniform(char const* name, glm::uvec3 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::uvec4& value) const;
+		bool SetUniform(char const* name, glm::uvec4 const& value) const;
 
 		///
-		bool SetUniform(const char* name, float value) const;
+		bool SetUniform(char const* name, float value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::vec2& value) const;
+		bool SetUniform(char const* name, glm::vec2 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::vec3& value) const;
+		bool SetUniform(char const* name, glm::vec3 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::vec4& value) const;
+		bool SetUniform(char const* name, glm::vec4 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::mat2x2& value) const;
+		bool SetUniform(char const* name, glm::mat2x2 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::mat3x3& value) const;
+		bool SetUniform(char const* name, glm::mat3x3 const& value) const;
 
 		///
-		bool SetUniform(const char* name, const glm::mat4x4& value) const;
+		bool SetUniform(char const* name, glm::mat4x4 const& value) const;
 
 		///
-		void LoadConfig(const nlohmann::json& config);
+		void LoadConfig(nlohmann::json const& config);
 
 		///
-		void LoadConfig(const char* path);
+		void LoadConfig(char const* path);
 
 		///
 		bool IsValid() const;
@@ -136,11 +136,11 @@ namespace rv
 		void D_SaveConfig(nlohmann::json& config) const;
 
 		///
-		void D_SaveConfig(const char* path) const;
+		void D_SaveConfig(char const* path) const;
 
 		mutable UniMap_t d_uniforms;
 		UniMap_t::iterator d_currentElem = d_uniforms.end();
-		const char* const d_uniTypeNames[std::variant_size_v<UniVariant_t>] = { "bool", "bvec2", "bvec3", "bvec4", "int", "ivec2", "ivec3", "ivec4", "uint", "uvec2", "uvec3", "uvec4", "float", "vec2", "vec3", "vec4", "mat2x2", "mat3x3", "mat4x4" };
+		char const* const d_uniTypeNames[std::variant_size_v<UniVariant_t>] = { "bool", "bvec2", "bvec3", "bvec4", "int", "ivec2", "ivec3", "ivec4", "uint", "uvec2", "uvec3", "uvec4", "float", "vec2", "vec3", "vec4", "mat2x2", "mat3x3", "mat4x4" };
 
 		#endif
 

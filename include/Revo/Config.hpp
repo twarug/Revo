@@ -30,6 +30,11 @@
 #   define RV_ASSERT(__msg, __expr)
 #endif
 
+// Source file informations
+#define RV_FILE __FILE__
+#define RV_LINE __LINE__
+#define RV_HERE (RV_FILE ":" RV_XSTR(RV_LINE))
+
 // Function signature
 #if defined(RV_CXX_CLANG) || defined(RV_CXX_GCC)
 #   define RV_FUNC_SIG __PRETTY_FUNCTION__
@@ -44,3 +49,13 @@ namespace rv
     using ptrdiff_t = decltype((char*)0 - (char*)0);
     using nullptr_t = decltype(nullptr);
 }
+
+// Logger utilities
+namespace rv
+{
+    inline class Logger* loggerGPtr = nullptr;
+}
+
+#define RV_LOG_INFO(...) rv::loggerGPtr->Log(rv::LogType::Info, __VA_ARGS__)
+#define RV_LOG_WARNING(...) rv::loggerGPtr->Log(rv::LogType::Warning, __VA_ARGS__)
+#define RV_LOG_ERROR(...) rv::loggerGPtr->Log(rv::LogType::Error, __VA_ARGS__)

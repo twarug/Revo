@@ -14,13 +14,13 @@ namespace rv
         Transformable();
 
         ///
-        Transformable(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
+        Transformable(glm::vec3 const& position, glm::vec3 const& origin, glm::vec3 const& rotation, glm::vec3 const& scale);
 
         ///
-        Transformable(const Transformable&) = default;
+        Transformable(Transformable const&) = default;
 
         ///
-        Transformable& operator = (const Transformable&) = default;
+        Transformable& operator = (Transformable const&) = default;
 
         ///
         Transformable(Transformable&& rhs) = default;
@@ -32,43 +32,43 @@ namespace rv
         ~Transformable() = default;
 
         ///
-        void SetTransform(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale);
+        void SetTransform(glm::vec3 const& position, glm::vec3 const& origin, glm::vec3 const& rotation, glm::vec3 const& scale);
 
         ///
-        void TranslatePosition(const glm::vec3& offset);
+        void TranslatePosition(glm::vec3 const& offset);
 
         ///
-        void SetPosition(const glm::vec3& position);
+        void SetPosition(glm::vec3 const& position);
 
         ///
-        const glm::vec3& GetPosition() const;
+        glm::vec3 const& GetPosition() const;
 
         ///
-        void TranslateOrigin(const glm::vec3& offset);
+        void TranslateOrigin(glm::vec3 const& offset);
 
         ///
-        void SetOrigin(const glm::vec3& origin);
+        void SetOrigin(glm::vec3 const& origin);
 
         ///
-        const glm::vec3& GetOrigin() const;
+        glm::vec3 const& GetOrigin() const;
 
         ///
-        void Rotate(const glm::vec3& angle);
+        void Rotate(glm::vec3 const& angle);
 
         ///
-        void SetRotation(const glm::vec3& rotation);
+        void SetRotation(glm::vec3 const& rotation);
 
         ///
-        const glm::vec3& GetRotation() const;
+        glm::vec3 const& GetRotation() const;
 
         ///
-        void Scale(const glm::vec3& factor);
+        void Scale(glm::vec3 const& factor);
 
         ///
-        void SetScale(const glm::vec3& scale);
+        void SetScale(glm::vec3 const& scale);
 
         ///
-        const glm::vec3& GetScale() const;
+        glm::vec3 const& GetScale() const;
 
         ///
         Transform GetTransform() const;

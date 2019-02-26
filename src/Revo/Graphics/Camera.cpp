@@ -14,7 +14,7 @@
 
 namespace rv
 {
-    Camera::Camera(const OrthographicProjection& orthographic)
+    Camera::Camera(OrthographicProjection const& orthographic)
         : m_projectionType { ProjectionType::Orthographic }
         , m_projection { orthographic }
         , m_cameraPosition { 0.0f, 0.0f, 1.0f }
@@ -24,7 +24,7 @@ namespace rv
 
     }
 
-    Camera::Camera(const PerspectiveProjection& perspective)
+    Camera::Camera(PerspectiveProjection const& perspective)
         : m_projectionType { ProjectionType::Perspective }
         , m_projection { perspective }
         , m_cameraPosition { 0.0f, 0.0f, 1.0f }
@@ -45,7 +45,7 @@ namespace rv
         return glm::mat4{ 1.0f };
     }
 
-    glm::mat4 Camera::GetProjectionMatrix(const glm::uvec2& targetSize) const
+    glm::mat4 Camera::GetProjectionMatrix(glm::uvec2 const& targetSize) const
     {
         switch (m_projectionType)
         {

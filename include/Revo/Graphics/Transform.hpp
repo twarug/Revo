@@ -30,13 +30,13 @@ namespace rv
         Transform(IdentityTag);
 
         ///
-        Transform(const glm::mat4& matrix);
+        Transform(glm::mat4 const& matrix);
 
         ///
-        Transform(const Transform&) = default;
+        Transform(Transform const&) = default;
 
         ///
-        Transform& operator = (const Transform&) = default;
+        Transform& operator = (Transform const&) = default;
 
         ///
         Transform(Transform&& rhs) = default;
@@ -54,43 +54,43 @@ namespace rv
         Transform& SetIdentity();
 
         ///
-        Transform& Translate(const glm::vec3& offset);
+        Transform& Translate(glm::vec3 const& offset);
 
         ///
-        Transform& Rotate(const glm::vec3& angle);
+        Transform& Rotate(glm::vec3 const& angle);
 
         ///
-        Transform& Scale(const glm::vec3& factor);
+        Transform& Scale(glm::vec3 const& factor);
 
         ///
         Transform& Inverse();
 
         ///
-        Transform& Combine(const Transform& transform);
+        Transform& Combine(Transform const& transform);
 
         ///
-        Transform& Combine(const glm::mat4& matrix);
+        Transform& Combine(glm::mat4 const& matrix);
 
         ///
-        Transform Translated(const glm::vec3& offset);
+        Transform Translated(glm::vec3 const& offset);
 
         ///
-        Transform Rotated(const glm::vec3& angle);
+        Transform Rotated(glm::vec3 const& angle);
 
         ///
-        Transform Scaled(const glm::vec3& factor);
+        Transform Scaled(glm::vec3 const& factor);
 
         ///
         Transform Inversed();
 
         ///
-        Transform Combined(const Transform& transform);
+        Transform Combined(Transform const& transform);
 
         ///
-        Transform Combined(const glm::mat4& matrix);
+        Transform Combined(glm::mat4 const& matrix);
 
         ///
-        const glm::mat4& GetMatrix() const;
+        glm::mat4 const& GetMatrix() const;
 
     private:
 

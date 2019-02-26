@@ -14,10 +14,10 @@ namespace rv
         Drawable() = default;
 
         ///
-        Drawable(const Drawable&) = default;
+        Drawable(Drawable const&) = default;
 
         ///
-        Drawable& operator = (const Drawable&) = default;
+        Drawable& operator = (Drawable const&) = default;
 
         ///
         Drawable(Drawable&&) = default;

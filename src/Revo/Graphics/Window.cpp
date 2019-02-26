@@ -23,7 +23,7 @@ namespace rv
         M_Destroy();
     }
 
-    bool Window::Create(const glm::uvec2& size, const char* name)
+    bool Window::Create(glm::uvec2 const& size, char const* name)
     {
         static bool isGladLoaded = false;
 
@@ -94,7 +94,7 @@ namespace rv
     {
         SDL_Event& implEvent = event.sdlEvent;
 
-        const bool isPolled = SDL_PollEvent(&implEvent) != 0;
+        bool const isPolled = SDL_PollEvent(&implEvent) != 0;
 
         switch (implEvent.type)
         {

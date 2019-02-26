@@ -28,19 +28,19 @@ namespace rv
         VertexBuffer(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(size_t size, const Vertex& value, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(size_t size, Vertex const& value, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(const Vertex* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(Vertex const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(const Vertex* begin, const Vertex* end, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(Vertex const* begin, Vertex const* end, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(const VertexBuffer& rhs);
+        VertexBuffer(VertexBuffer const& rhs);
 
         ///
-        VertexBuffer& operator = (const VertexBuffer& rhs);
+        VertexBuffer& operator = (VertexBuffer const& rhs);
 
         ///
         VertexBuffer(VertexBuffer&& rhs) noexcept;
@@ -58,34 +58,34 @@ namespace rv
         VertexBuffer& Assign(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(size_t size, const Vertex& value, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(size_t size, Vertex const& value, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(const Vertex* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(Vertex const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(const Vertex* begin, const Vertex* end, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(Vertex const* begin, Vertex const* end, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
         void Resize(size_t size);
 
         ///
-        void Resize(size_t size, const Vertex& value);
+        void Resize(size_t size, Vertex const& value);
 
         ///
-        void SetVertex(size_t index, const Vertex& vertex);
+        void SetVertex(size_t index, Vertex const& vertex);
 
         ///
         Vertex& GetVertex(size_t index);
 
         ///
-        const Vertex& GetVertex(size_t index) const;
+        Vertex const& GetVertex(size_t index) const;
 
         ///
         Vertex& operator [] (size_t index);
 
         ///
-        const Vertex& operator [] (size_t index) const;
+        Vertex const& operator [] (size_t index) const;
 
         ///
         void SetPrimitiveType(PrimitiveType type);
@@ -97,7 +97,7 @@ namespace rv
         Vertex* GetData();
 
         ///
-        const Vertex* GetData() const;
+        Vertex const* GetData() const;
 
         ///
         size_t GetSize() const;

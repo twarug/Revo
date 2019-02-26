@@ -19,7 +19,7 @@ namespace rv
     {
     public:
 
-        UniformBinder(GLuint program, const char* name)
+        UniformBinder(GLuint program, char const* name)
             : m_program { program }
             , m_savedProgram { 0 }
             , m_location { -1 }
@@ -40,9 +40,9 @@ namespace rv
             }
         }
 
-        UniformBinder(const UniformBinder&) = delete;
+        UniformBinder(UniformBinder const&) = delete;
 
-        UniformBinder& operator = (const UniformBinder&) = delete;
+        UniformBinder& operator = (UniformBinder const&) = delete;
 
         UniformBinder(UniformBinder&& rhs) = delete;
 
@@ -108,9 +108,9 @@ namespace rv
         }
     }
 
-    bool ShaderProgram::SetUniform(const char* name, bool value) const
+    bool ShaderProgram::SetUniform(char const* name, bool value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -128,9 +128,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::bvec2& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::bvec2 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -148,9 +148,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::bvec3& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::bvec3 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -168,9 +168,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::bvec4& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::bvec4 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -188,9 +188,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, int value) const
+    bool ShaderProgram::SetUniform(char const* name, int value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -208,9 +208,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::ivec2& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::ivec2 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -228,9 +228,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::ivec3& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::ivec3 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -248,9 +248,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::ivec4& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::ivec4 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -268,9 +268,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, unsigned int value) const
+    bool ShaderProgram::SetUniform(char const* name, unsigned int value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -288,9 +288,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::uvec2& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::uvec2 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -308,9 +308,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::uvec3& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::uvec3 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -328,9 +328,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::uvec4& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::uvec4 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -348,9 +348,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, float value) const
+    bool ShaderProgram::SetUniform(char const* name, float value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -368,9 +368,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::vec2& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::vec2 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -388,9 +388,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::vec3& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::vec3 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -408,9 +408,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::vec4& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::vec4 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -428,9 +428,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::mat2x2& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::mat2x2 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -448,9 +448,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::mat3x3& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::mat3x3 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -468,9 +468,9 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(const char* name, const glm::mat4x4& value) const
+    bool ShaderProgram::SetUniform(char const* name, glm::mat4x4 const& value) const
     {
-        const UniformBinder binder{ m_program, name };
+        UniformBinder const binder{ m_program, name };
 
         if (binder.HasValidLocation())
         {
@@ -488,14 +488,14 @@ namespace rv
         return false;
     }
 
-    void ShaderProgram::LoadConfig(const nlohmann::json& config)
+    void ShaderProgram::LoadConfig(nlohmann::json const& config)
     {
         #define case_str(__x) case FNV1a_32(__x)
 
         for (auto it = config.begin(); it != config.end(); ++it)
         {
-            const std::string type = it.value()["type"];
-            const nlohmann::json value = it.value()["value"];
+            std::string const type = it.value()["type"];
+            nlohmann::json const value = it.value()["value"];
 
             switch (FNV1a_32(type.begin(), type.end()))
             {
@@ -600,7 +600,7 @@ namespace rv
         #undef case_str
     }
 
-    void ShaderProgram::LoadConfig(const char* path)
+    void ShaderProgram::LoadConfig(char const* path)
     {
         nlohmann::json config;
 
@@ -792,18 +792,18 @@ namespace rv
 
     void ShaderProgram::D_SaveConfig(nlohmann::json& config) const
     {
-        for (const auto& [ k, v ] : d_uniforms)
+        for (auto const& [ k, v ] : d_uniforms)
         {
             nlohmann::json& j = config[k];
 
-            std::visit([&j, type = d_uniTypeNames[v.index()]](const auto& value) {
+            std::visit([&j, type = d_uniTypeNames[v.index()]](auto const& value) {
                 j["value"] = value;
                 j["type"] = type;
             }, v);
         }
     }
 
-    void ShaderProgram::D_SaveConfig(const char* path) const
+    void ShaderProgram::D_SaveConfig(char const* path) const
     {
         nlohmann::json config;
 

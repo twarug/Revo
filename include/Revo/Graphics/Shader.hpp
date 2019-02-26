@@ -30,10 +30,10 @@ namespace rv
         Shader() = default;
 
         ///
-        Shader(const Shader&) = delete;
+        Shader(Shader const&) = delete;
 
         ///
-        Shader& operator = (const Shader&) = delete;
+        Shader& operator = (Shader const&) = delete;
 
         ///
         Shader(Shader&& rhs) noexcept;
@@ -45,10 +45,10 @@ namespace rv
         ~Shader();
 
         ///
-        bool LoadFromFile(ShaderType type, const char* filePath);
+        bool LoadFromFile(ShaderType type, char const* filePath);
 
         ///
-        bool LoadFromMemory(ShaderType type, const void* data, GLint size = -1);
+        bool LoadFromMemory(ShaderType type, void const* data, GLint size = -1);
 
         ///
         bool IsValid() const;
@@ -62,7 +62,7 @@ namespace rv
         void M_Destroy();
 
         ///
-        bool M_Compile(ShaderType type, const char* data, GLint size);
+        bool M_Compile(ShaderType type, char const* data, GLint size);
 
         NativeHandle_t m_shader = 0;
     };

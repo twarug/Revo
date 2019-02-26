@@ -1,5 +1,4 @@
 #include <Revo/Utility/Functional.hpp>
-#include <Revo/Graphics/Context.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
 #include <Revo/Graphics/Texture.hpp>
@@ -8,6 +7,7 @@
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/Transformable.hpp>
+#include <Revo/System/Event.hpp>
 
 #include <algorithm>
 #include <fstream>
@@ -19,28 +19,38 @@ using namespace std::chrono_literals;
 
 int main(int, char**)
 {
-    rv::Context context;
-    if (!context.Create())
+    if (evMan.Input[rv::Keyboard::Space].Is(rv::StatusType::Pressed || rv::StatusType::Released))
     {
-        // LOG
+        // ...
+    }
+    else if (evMan.Input[rv::Keyboard::Enter].Is(rv::StatusType::Kept).ForLessThan(5s))
+    {
+        // ...
+    }
+    else if (evMan.Input[rv::Keyboard::A || rv::Keyboard::D].Is(rv::StatusType::Unkept))
+    {
+        // ...
+    }
+
+    rv::Context context;
+    if (!context.Initialize())
+    {
         return -1;
     }
 
     rv::Window window;
-    if (!window.Create({ 1280, 720 }, u8"Zażółć gęślą jaźń", true))
+    if (!window.Create({ 1280, 720 }, u8"Zażółć gęślą jaźń"))
     {
-        // LOG
+        return -1;
+    }
+
+    rv::ImGuiContext imguiContext;
+    if (!imguiContext.Initialize(window))
+    {
         return -1;
     }
 
     window.SetFramerateLimit(60u);
-
-    rv::ImGuiContext imguiContext;
-    if (!imguiContext.Create(window))
-    {
-        // LOG
-        return -1;
-    }
 
     //
 
@@ -178,12 +188,12 @@ int main(int, char**)
     {
         imguiContext.NewFrame(window);
 
-        SDL_Event event;
+        rv::Event event;
         while (window.PollEvent(event))
         {
             imguiContext.ProcessEvent(event);
 
-            if (event.type == SDL_QUIT)
+            if (event.GetType() == rv::EventType::AppClosed)
             {
                 window.Close();
             }
@@ -211,6 +221,8 @@ int main(int, char**)
         window.Draw(av3D, { &shaderProgram, &camera3D });
         window.Draw(av3Db, { &shaderProgram, &camera3D });
         window.Draw(avCube, { &shaderProgram, &camera3D });
+
+        imguiContext.Render(window);
 
         window.Display();
     }

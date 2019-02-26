@@ -17,8 +17,7 @@ namespace rv
         PNG,
         BMP,
         TGA,
-        JPG,
-        HDR
+        JPG
     };
 
     ///
@@ -33,10 +32,10 @@ namespace rv
         Image() = default;
 
         ///
-        Image(const Image&) = default;
+        Image(Image const&) = default;
 
         ///
-        Image& operator = (const Image&) = default;
+        Image& operator = (Image const&) = default;
 
         ///
         Image(Image&&) = default;
@@ -48,10 +47,10 @@ namespace rv
         ~Image() = default;
 
         ///
-        bool LoadFromFile(const char* path);
+        bool LoadFromFile(char const* path);
 
         ///
-        bool SaveToFile(const char* path, ImgExtType extension, bool flipVertically = false) const;
+        bool SaveToFile(char const* path, ImgExtType extension, bool flipVertically = false) const;
 
         ///
         void FlipVertically();
@@ -63,7 +62,7 @@ namespace rv
         Byte_t* GetData();
 
         ///
-        const Byte_t* GetData() const;
+        Byte_t const* GetData() const;
 
         ///
         glm::uvec2 GetSize() const;

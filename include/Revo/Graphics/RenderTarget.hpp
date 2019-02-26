@@ -21,10 +21,10 @@ namespace rv
         RenderTarget() = default;
 
         ///
-        RenderTarget(const RenderTarget&) = default;
+        RenderTarget(RenderTarget const&) = default;
 
         ///
-        RenderTarget& operator = (const RenderTarget&) = default;
+        RenderTarget& operator = (RenderTarget const&) = default;
 
         ///
         RenderTarget(RenderTarget&&) = default;
@@ -39,10 +39,10 @@ namespace rv
         virtual void Bind() const = 0;
 
         ///
-        void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 0.0f });
+        void Clear(glm::vec4 const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
         ///
-        void Draw(const Drawable& drawable, const RenderStates& states = {});
+        void Draw(Drawable const& drawable, RenderStates const& states = {});
 
         ///
         glm::uvec2 GetSize() const;

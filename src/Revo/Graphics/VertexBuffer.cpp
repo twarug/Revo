@@ -34,7 +34,7 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(size_t size, const Vertex& value, PrimitiveType type)
+    VertexBuffer::VertexBuffer(size_t size, Vertex const& value, PrimitiveType type)
         : m_vertices { size, value }
         , m_type { type }
         , m_vao { 0 }
@@ -47,7 +47,7 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(const Vertex* vertices, size_t size, PrimitiveType type)
+    VertexBuffer::VertexBuffer(Vertex const* vertices, size_t size, PrimitiveType type)
         : m_vertices { vertices, vertices + size }
         , m_type { type }
         , m_vao { 0 }
@@ -60,7 +60,7 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(const Vertex* begin, const Vertex* end, PrimitiveType type)
+    VertexBuffer::VertexBuffer(Vertex const* begin, Vertex const* end, PrimitiveType type)
         : m_vertices { begin, end }
         , m_type { type }
         , m_vao { 0 }
@@ -73,13 +73,13 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(const VertexBuffer& rhs)
+    VertexBuffer::VertexBuffer(VertexBuffer const& rhs)
         : VertexBuffer { rhs.m_vertices.data(), rhs.m_vertices.size(), rhs.m_type }
     {
 
     }
 
-    VertexBuffer& VertexBuffer::operator = (const VertexBuffer& rhs)
+    VertexBuffer& VertexBuffer::operator = (VertexBuffer const& rhs)
     {
         if (this != &rhs)
         {
@@ -165,7 +165,7 @@ namespace rv
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(size_t size, const Vertex& value, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(size_t size, Vertex const& value, PrimitiveType type)
     {
         if (size != 0)
         {
@@ -182,7 +182,7 @@ namespace rv
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(const Vertex* vertices, size_t size, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(Vertex const* vertices, size_t size, PrimitiveType type)
     {
         if (size != 0)
         {
@@ -199,9 +199,9 @@ namespace rv
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(const Vertex* begin, const Vertex* end, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(Vertex const* begin, Vertex const* end, PrimitiveType type)
     {
-        const ptrdiff_t distance = end - begin;
+        ptrdiff_t const distance = end - begin;
 
         if (distance > 0)
         {
@@ -232,7 +232,7 @@ namespace rv
         }
     }
 
-    void VertexBuffer::Resize(size_t size, const Vertex& value)
+    void VertexBuffer::Resize(size_t size, Vertex const& value)
     {
         if (m_vertices.size() != size)
         {
@@ -246,7 +246,7 @@ namespace rv
         }
     }
 
-    void VertexBuffer::SetVertex(size_t index, const Vertex& vertex)
+    void VertexBuffer::SetVertex(size_t index, Vertex const& vertex)
     {
         m_vertices[index] = vertex;
 
@@ -266,7 +266,7 @@ namespace rv
         return m_vertices[index];
     }
 
-    const Vertex& VertexBuffer::GetVertex(size_t index) const
+    Vertex const& VertexBuffer::GetVertex(size_t index) const
     {
         return m_vertices[index];
     }
@@ -276,7 +276,7 @@ namespace rv
         return GetVertex(index);
     }
 
-    const Vertex& VertexBuffer::operator [] (size_t index) const
+    Vertex const& VertexBuffer::operator [] (size_t index) const
     {
         return GetVertex(index);
     }
@@ -301,7 +301,7 @@ namespace rv
         return m_vertices.empty() ? nullptr : m_vertices.data();
     }
 
-    const Vertex* VertexBuffer::GetData() const
+    Vertex const* VertexBuffer::GetData() const
     {
         return m_vertices.empty() ? nullptr : m_vertices.data();
     }
@@ -337,7 +337,7 @@ namespace rv
 
             for (size_t v = 1; v < m_vertices.size(); ++v)
             {
-                const auto pos = m_vertices[v].position;
+                auto const pos = m_vertices[v].position;
 
                 if (pos.x < left)
                 {
@@ -397,8 +397,8 @@ namespace rv
                 }
                 else
                 {
-                    const GLintptr offset = sizeof(Vertex) * m_lowerIndex;
-                    const GLsizeiptr size = sizeof(Vertex) * (m_upperIndex - m_lowerIndex + 1);
+                    GLintptr const offset = sizeof(Vertex) * m_lowerIndex;
+                    GLsizeiptr const size = sizeof(Vertex) * (m_upperIndex - m_lowerIndex + 1);
 
                     glBufferSubData(GL_ARRAY_BUFFER, offset, size, GetData() + m_lowerIndex);
                 }

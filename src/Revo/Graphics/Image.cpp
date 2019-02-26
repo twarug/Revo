@@ -8,7 +8,7 @@
 
 namespace rv
 {
-    bool Image::LoadFromFile(const char* path)
+    bool Image::LoadFromFile(char const* path)
     {
         int w;
         int h;
@@ -21,7 +21,7 @@ namespace rv
             m_size = { w, h };
             m_channels = bpp;
 
-            const size_t size = m_size.x * m_size.y * 4;
+            size_t const size = m_size.x * m_size.y * 4;
 
             m_pixels.assign(ptr, ptr + size);
 
@@ -33,7 +33,7 @@ namespace rv
         return false;
     }
 
-    bool Image::SaveToFile(const char* path, ImgExtType extension, bool flipVertically) const
+    bool Image::SaveToFile(char const* path, ImgExtType extension, bool flipVertically) const
     {
         stbi_flip_vertically_on_write(flipVertically);
 
@@ -45,7 +45,7 @@ namespace rv
                 case ImgExtType::BMP: return stbi_write_bmp(path, m_size.x, m_size.y, m_channels, m_pixels.data());
                 case ImgExtType::TGA: return stbi_write_tga(path, m_size.x, m_size.y, m_channels, m_pixels.data());
                 case ImgExtType::JPG: return stbi_write_jpg(path, m_size.x, m_size.y, m_channels, m_pixels.data(), 90);
-                case ImgExtType::HDR: return false; // TODO implement when vendor will fix crash
+                // TODO implement HDR when vendor of stb will fix crash
             }
         }
 
@@ -56,7 +56,7 @@ namespace rv
     {
         if (!m_pixels.empty())
         {
-            const size_t rowSize = m_size.x * 4;
+            size_t const rowSize = m_size.x * 4;
 
             auto top    = m_pixels.begin();
             auto bottom = m_pixels.end() - rowSize;
@@ -75,7 +75,7 @@ namespace rv
     {
         if (!m_pixels.empty())
         {
-            const size_t rowSize = m_size.x * 4;
+            size_t const rowSize = m_size.x * 4;
 
             for (size_t y = 0; y < m_size.y; ++y)
             {
@@ -98,7 +98,7 @@ namespace rv
         return m_pixels.data();
     }
 
-    const Image::Byte_t* Image::GetData() const
+    Image::Byte_t const* Image::GetData() const
     {
         return m_pixels.data();
     }

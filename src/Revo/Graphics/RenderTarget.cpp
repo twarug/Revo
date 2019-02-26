@@ -7,7 +7,7 @@
 
 namespace rv
 {
-    void RenderTarget::Clear(const glm::vec4& color)
+    void RenderTarget::Clear(glm::vec4 const& color)
     {
         Bind();
 
@@ -15,7 +15,7 @@ namespace rv
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RenderTarget::Draw(const Drawable& drawable, const RenderStates& states)
+    void RenderTarget::Draw(Drawable const& drawable, RenderStates const& states)
     {
         if (states.shaderProgram && states.camera)
         {

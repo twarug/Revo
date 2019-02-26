@@ -27,14 +27,14 @@ namespace rv
     union ProjectionUnion
     {
         ///
-        ProjectionUnion(const OrthographicProjection& orthographic)
+        ProjectionUnion(OrthographicProjection const& orthographic)
             : orthographic { orthographic }
         {
 
         }
 
         ///
-        ProjectionUnion(const PerspectiveProjection& perspective)
+        ProjectionUnion(PerspectiveProjection const& perspective)
             : perspective { perspective }
         {
 
@@ -50,16 +50,16 @@ namespace rv
     public:
 
         ///
-        Camera(const OrthographicProjection& orthographic);
+        Camera(OrthographicProjection const& orthographic);
 
         ///
-        Camera(const PerspectiveProjection& perspective);
+        Camera(PerspectiveProjection const& perspective);
 
         ///
-        Camera(const Camera&) = delete;
+        Camera(Camera const&) = delete;
 
         ///
-        Camera& operator = (const Camera&) = delete;
+        Camera& operator = (Camera const&) = delete;
 
         ///
         Camera(Camera&&) = delete;
@@ -74,7 +74,7 @@ namespace rv
         glm::mat4 GetViewMatrix() const;
 
         ///
-        glm::mat4 GetProjectionMatrix(const glm::uvec2& targetSize) const;
+        glm::mat4 GetProjectionMatrix(glm::uvec2 const& targetSize) const;
 
         ///
         ProjectionType GetProjectionType() const;

@@ -24,10 +24,10 @@ namespace rv
         Window();
 
         ///
-        Window(const Window&) = delete;
+        Window(Window const&) = delete;
 
         ///
-        Window& operator = (const Window&) = delete;
+        Window& operator = (Window const&) = delete;
 
         ///
         Window(Window&&) = delete;
@@ -39,7 +39,7 @@ namespace rv
         ~Window();
 
         ///
-        bool Create(const glm::uvec2& size, const char* name);
+        bool Create(glm::uvec2 const& size, char const* name);
 
         ///
         void Show();

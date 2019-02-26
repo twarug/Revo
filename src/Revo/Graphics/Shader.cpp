@@ -6,7 +6,7 @@
 
 namespace rv
 {
-    std::unique_ptr<const char[]> GetFileContents(const char* filePath)
+    std::unique_ptr<char const[]> GetFileContents(char const* filePath)
     {
         std::ifstream file{ filePath, std::ios_base::binary };
 
@@ -14,7 +14,7 @@ namespace rv
         {
             file.seekg(0, std::ios_base::end);
 
-            auto size = file.tellg();
+            auto const size = file.tellg();
 
             std::unique_ptr<char[]> ptr;
 
@@ -58,16 +58,16 @@ namespace rv
         M_Destroy();
     }
 
-    bool Shader::LoadFromFile(ShaderType type, const char* filePath)
+    bool Shader::LoadFromFile(ShaderType type, char const* filePath)
     {
         auto ptr = GetFileContents(filePath);
 
         return ptr && M_Compile(type, ptr.get(), -1);
     }
 
-    bool Shader::LoadFromMemory(ShaderType type, const void* data, GLint size)
+    bool Shader::LoadFromMemory(ShaderType type, void const* data, GLint size)
     {
-        return M_Compile(type, reinterpret_cast<const char*>(data), size);
+        return M_Compile(type, reinterpret_cast<char const*>(data), size);
     }
 
     bool Shader::IsValid() const
@@ -88,7 +88,7 @@ namespace rv
         }
     }
 
-    bool Shader::M_Compile(ShaderType type, const char* data, GLint size)
+    bool Shader::M_Compile(ShaderType type, char const* data, GLint size)
     {
         NativeHandle_t shader = glCreateShader(static_cast<int32_t>(type));
         glShaderSource(shader, 1, &data, &size);

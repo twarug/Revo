@@ -18,7 +18,7 @@ namespace rv
 
     }
 
-    Transform::Transform(const glm::mat4& matrix)
+    Transform::Transform(glm::mat4 const& matrix)
         : m_matrix { matrix }
     {
 
@@ -38,14 +38,14 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Translate(const glm::vec3& offset)
+    Transform& Transform::Translate(glm::vec3 const& offset)
     {
         m_matrix = glm::translate(m_matrix, offset);
 
         return *this;
     }
 
-    Transform& Transform::Rotate(const glm::vec3& angle)
+    Transform& Transform::Rotate(glm::vec3 const& angle)
     {
         // TODO remove possible gimbal lock
         m_matrix = glm::rotate(m_matrix, angle.x, { 1.0f, 0.0f, 0.0f });
@@ -55,7 +55,7 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Scale(const glm::vec3& factor)
+    Transform& Transform::Scale(glm::vec3 const& factor)
     {
         m_matrix = glm::scale(m_matrix, factor);
 
@@ -69,31 +69,31 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Combine(const Transform& transform)
+    Transform& Transform::Combine(Transform const& transform)
     {
         m_matrix *= transform.GetMatrix();
 
         return *this;
     }
 
-    Transform& Transform::Combine(const glm::mat4& matrix)
+    Transform& Transform::Combine(glm::mat4 const& matrix)
     {
         m_matrix *= matrix;
 
         return *this;
     }
 
-    Transform Transform::Translated(const glm::vec3& offset)
+    Transform Transform::Translated(glm::vec3 const& offset)
     {
         return Transform{ *this }.Translate(offset);
     }
 
-    Transform Transform::Scaled(const glm::vec3& factor)
+    Transform Transform::Scaled(glm::vec3 const& factor)
     {
         return Transform{ *this }.Scale(factor);
     }
 
-    Transform Transform::Rotated(const glm::vec3& angle)
+    Transform Transform::Rotated(glm::vec3 const& angle)
     {
         return Transform{ *this }.Rotate(angle);
     }
@@ -103,17 +103,17 @@ namespace rv
         return Transform{ *this }.Inverse();
     }
 
-    Transform Transform::Combined(const Transform& transform)
+    Transform Transform::Combined(Transform const& transform)
     {
         return Transform{ *this }.Combine(transform);
     }
 
-    Transform Transform::Combined(const glm::mat4& matrix)
+    Transform Transform::Combined(glm::mat4 const& matrix)
     {
         return Transform{ *this }.Combine(matrix);
     }
 
-    const glm::mat4& Transform::GetMatrix() const
+    glm::mat4 const& Transform::GetMatrix() const
     {
         return m_matrix;
     }

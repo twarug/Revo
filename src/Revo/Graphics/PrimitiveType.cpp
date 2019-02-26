@@ -21,6 +21,8 @@ namespace rv
                 case PrimitiveType::TriangleFan: return GL_TRIANGLE_FAN;
             }
 
+            RV_ASSERT("Invalid PrimitiveType value", false);
+
             return -1;
         }
     }

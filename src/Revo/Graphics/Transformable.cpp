@@ -23,7 +23,7 @@ namespace rv
 
     }
 
-    Transformable::Transformable(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale)
+    Transformable::Transformable(glm::vec3 const& position, glm::vec3 const& origin, glm::vec3 const& rotation, glm::vec3 const& scale)
         : m_position { position }
         , m_origin { origin }
         , m_rotation { rotation }
@@ -34,7 +34,7 @@ namespace rv
         M_UpdateMatrix();
     }
 
-    void Transformable::SetTransform(const glm::vec3& position, const glm::vec3& origin, const glm::vec3& rotation, const glm::vec3& scale)
+    void Transformable::SetTransform(glm::vec3 const& position, glm::vec3 const& origin, glm::vec3 const& rotation, glm::vec3 const& scale)
     {
         m_position = position;
         m_origin = origin;
@@ -46,78 +46,78 @@ namespace rv
         M_UpdateMatrix();
     }
 
-    void Transformable::TranslatePosition(const glm::vec3& offset)
+    void Transformable::TranslatePosition(glm::vec3 const& offset)
     {
         m_position += offset;
 
         m_needsUpdate = true;
     }
 
-    void Transformable::SetPosition(const glm::vec3& position)
+    void Transformable::SetPosition(glm::vec3 const& position)
     {
         m_position = position;
 
         m_needsUpdate = true;
     }
 
-    const glm::vec3& Transformable::GetPosition() const
+    glm::vec3 const& Transformable::GetPosition() const
     {
         return m_position;
     }
 
-    void Transformable::TranslateOrigin(const glm::vec3& offset)
+    void Transformable::TranslateOrigin(glm::vec3 const& offset)
     {
         m_origin += offset;
 
         m_needsUpdate = true;
     }
 
-    void Transformable::SetOrigin(const glm::vec3& origin)
+    void Transformable::SetOrigin(glm::vec3 const& origin)
     {
         m_origin = origin;
 
         m_needsUpdate = true;
     }
 
-    const glm::vec3& Transformable::GetOrigin() const
+    glm::vec3 const& Transformable::GetOrigin() const
     {
         return m_origin;
     }
 
-    void Transformable::Rotate(const glm::vec3& angle)
+    void Transformable::Rotate(glm::vec3 const& angle)
     {
         m_rotation += angle;
 
         m_needsUpdate = true;
     }
 
-    void Transformable::SetRotation(const glm::vec3& rotation)
+    void Transformable::SetRotation(glm::vec3 const& rotation)
     {
         m_rotation = rotation;
 
         m_needsUpdate = true;
     }
 
-    const glm::vec3& Transformable::GetRotation() const
+    glm::vec3 const& Transformable::GetRotation() const
     {
         return m_rotation;
     }
 
-    void Transformable::Scale(const glm::vec3& factor)
+    void Transformable::Scale(glm::vec3 const& factor)
     {
         m_scale *= factor;
 
         m_needsUpdate = true;
     }
 
-    void Transformable::SetScale(const glm::vec3& scale)
+    void Transformable::SetScale(glm::vec3 const& scale)
     {
         m_scale = scale;
 
         m_needsUpdate = true;
     }
 
-    const glm::vec3& Transformable::GetScale() const
+    glm::vec3 const& Transformable::GetScale() const
     {
         return m_scale;
     }
