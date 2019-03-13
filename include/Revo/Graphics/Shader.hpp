@@ -11,13 +11,19 @@ namespace rv
     ///
     enum class ShaderType : int32_t
     {
-        Vertex = GL_VERTEX_SHADER,
-        Geometry = GL_GEOMETRY_SHADER,
-        Fragment = GL_FRAGMENT_SHADER,
-        TessControl = GL_TESS_CONTROL_SHADER,
-        TessEvaluation = GL_TESS_EVALUATION_SHADER,
-        Compute = GL_COMPUTE_SHADER
+        Vertex,
+        Geometry,
+        Fragment,
+        TessControl,
+        TessEvaluation,
+        Compute
     };
+
+    namespace impl
+    {
+        ///
+        int32_t GetNativeHandle(ShaderType type);
+    }
 
     ///
     class Shader
