@@ -1,3 +1,4 @@
+#include <Revo/Debug/GfxCall.hpp>
 #include <Revo/Utility/Functional.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
@@ -14,24 +15,12 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <functional>
 
 using namespace std::chrono_literals;
 
 int main(int, char**)
 {
-    if (evMan.Input[rv::Keyboard::Space].Is(rv::StatusType::Pressed || rv::StatusType::Released))
-    {
-        // ...
-    }
-    else if (evMan.Input[rv::Keyboard::Enter].Is(rv::StatusType::Kept).ForLessThan(5s))
-    {
-        // ...
-    }
-    else if (evMan.Input[rv::Keyboard::A || rv::Keyboard::D].Is(rv::StatusType::Unkept))
-    {
-        // ...
-    }
-
     rv::Context context;
     if (!context.Initialize())
     {
@@ -127,24 +116,6 @@ int main(int, char**)
     av3D.SetTransform(glm::vec3{ 1.0f, 0.5625f, 0 }, glm::vec3{ 0.5f, 0, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 2, 1 });
     av3Db.SetTransform(glm::vec3{ 0.0f, 0.0f, 0 }, glm::vec3{ 0.5f, 0.28125f, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 2, 1, 1 });
 
-    std::cout << "---------------------" << '\n';
-    const auto m1 = av2D.GetTransform().GetMatrix();
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
-            std::cout << m1[j][i] << ' ';
-        }
-        std::cout << '\n';
-    }
-    std::cout << "---------------------" << '\n';
-    const auto m2 = av3D.GetTransform().GetMatrix();
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
-            std::cout << m2[j][i] << ' ';
-        }
-        std::cout << '\n';
-    }
-    std::cout << "---------------------" << '\n';
-
     rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
 
     rv::Shader defaultVert;
@@ -169,18 +140,20 @@ int main(int, char**)
 
     int width = window.GetSize().x;
     int height = window.GetSize().y;
-    // glfwGetFramebufferSize(window.GetNativeHandle(), &width, &height);
     glViewport(0, 0, width, height);
 
     //
 
     glEnable(GL_BLEND);
-    glBlendFuncSeparate(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
+    RV_GFX_CALL(glBlendFuncSeparate, GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
     glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
     glFrontFace(GL_CW);
+
+    auto x = RV_GFX_CALL(glCreateShader, GL_FUNC_ADD);
+    RV_GFX_CALL(glDeleteShader, x);
 
     //
 

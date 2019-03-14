@@ -2,6 +2,7 @@
 
 // Revo
 #include <Revo/Graphics/Window.hpp>
+#include <Revo/System/Event.hpp>
 
 // ImGui
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD

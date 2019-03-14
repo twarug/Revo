@@ -49,8 +49,6 @@ namespace rv
     {
     public:
 
-        friend class Window;
-
         /// Default ctor that takes event type
         Event(EventType type = EventType::None);
 

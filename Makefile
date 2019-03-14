@@ -13,7 +13,7 @@ INFORM_OBJECT     := printf "\033[33m[Object] %s\033[0m\n"
 
 # Compiler
 CXX       := g++
-CXX_FLAGS := -std=c++17 -g -Wall -Wextra -Wpedantic -DRV_DEBUG
+CXX_FLAGS := -std=c++17 -g -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL
 
 # Linker
 LD       := g++
@@ -38,7 +38,7 @@ TCH_PATH    := $(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION)/$(TCH_BUILD)
 TARGET = app
 
 # Project directories
-SRC_DIR := src
+SRC_DIR := Revo/source
 OBJ_DIR := obj
 OUT_DIR := out
 
@@ -98,7 +98,7 @@ STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
 # Final libraries config
-IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON_IDIR) $(STB_IDIR) -Iinclude
+IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON_IDIR) $(STB_IDIR) -IRevo/include
 LIBS := $(IMGUI_SDL2_LIBS) $(SDL2_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(NLOHMANN_JSON_LIBS) $(STB_LIBS)
 
 # .PHONY

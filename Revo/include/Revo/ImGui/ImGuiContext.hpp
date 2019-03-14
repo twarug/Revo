@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/System/Event.hpp>
+#include <Revo/Config.hpp>
 
 // ImGui
 #include <imgui.h>
@@ -11,6 +11,7 @@ namespace rv
     // FWD
     class RenderTarget;
     class Window;
+    class Event;
 
     ///
     class ImGuiContext

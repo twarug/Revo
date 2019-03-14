@@ -51,6 +51,8 @@ namespace rv
 }
 
 // Logger utilities
+#if defined(RV_DEBUG)
+
 namespace rv
 {
     inline class Logger* loggerGPtr = nullptr;
@@ -59,3 +61,11 @@ namespace rv
 #define RV_LOG_INFO(...) rv::loggerGPtr->Log(rv::LogType::Info, __VA_ARGS__)
 #define RV_LOG_WARNING(...) rv::loggerGPtr->Log(rv::LogType::Warning, __VA_ARGS__)
 #define RV_LOG_ERROR(...) rv::loggerGPtr->Log(rv::LogType::Error, __VA_ARGS__)
+
+#else
+
+#define RV_LOG_INFO(...)
+#define RV_LOG_WARNING(...)
+#define RV_LOG_ERROR(...)
+
+#endif

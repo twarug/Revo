@@ -100,145 +100,145 @@ namespace rv
         {
             case SDL_WINDOWEVENT_SHOWN:
             {
-                event.m_type = EventType::WindowShown;
+                event = Event{ EventType::WindowShown };
             }
             break;
 
             case SDL_WINDOWEVENT_HIDDEN:
             {
-                event.m_type = EventType::WindowHidden;
+                event = Event{ EventType::WindowHidden };
             }
             break;
 
             case SDL_WINDOWEVENT_EXPOSED:
             {
-                event.m_type = EventType::WindowExposed;
+                event = Event{ EventType::WindowExposed };
             }
             break;
 
             case SDL_WINDOWEVENT_MOVED:
             {
-                event.m_type = EventType::WindowMoved;
+                event = Event{ EventType::WindowMoved };
             }
             break;
 
             case SDL_WINDOWEVENT_RESIZED:
             {
-                event.m_type = EventType::WindowResized;
+                event = Event{ EventType::WindowResized };
             }
             break;
 
             case SDL_WINDOWEVENT_SIZE_CHANGED:
             {
-                event.m_type = EventType::WindowSizeChanged;
+                event = Event{ EventType::WindowSizeChanged };
             }
             break;
 
             case SDL_WINDOWEVENT_MINIMIZED:
             {
-                event.m_type = EventType::WindowMinimized;
+                event = Event{ EventType::WindowMinimized };
             }
             break;
 
             case SDL_WINDOWEVENT_MAXIMIZED:
             {
-                event.m_type = EventType::WindowMaximized;
+                event = Event{ EventType::WindowMaximized };
             }
             break;
 
             case SDL_WINDOWEVENT_RESTORED:
             {
-                event.m_type = EventType::WindowRestored;
+                event = Event{ EventType::WindowRestored };
             }
             break;
 
             case SDL_WINDOWEVENT_ENTER:
             {
-                event.m_type = EventType::WindowMouseEntered;
+                event = Event{ EventType::WindowMouseEntered };
             }
             break;
 
             case SDL_WINDOWEVENT_LEAVE:
             {
-                event.m_type = EventType::WindowMouseLeft;
+                event = Event{ EventType::WindowMouseLeft };
             }
             break;
 
             case SDL_WINDOWEVENT_FOCUS_GAINED:
             {
-                event.m_type = EventType::WindowFocusGained;
+                event = Event{ EventType::WindowFocusGained };
             }
             break;
 
             case SDL_WINDOWEVENT_FOCUS_LOST:
             {
-                event.m_type = EventType::WindowFocusLost;
+                event = Event{ EventType::WindowFocusLost };
             }
             break;
 
             case SDL_WINDOWEVENT_CLOSE:
             {
-                event.m_type = EventType::WindowClosed;
+                event = Event{ EventType::WindowClosed };
             }
             break;
 
             case SDL_WINDOWEVENT_TAKE_FOCUS:
             {
-                event.m_type = EventType::WindowFocusOffered;
+                event = Event{ EventType::WindowFocusOffered };
             }
             break;
 
             case SDL_KEYDOWN:
             {
-                event.m_type = EventType::KeyPressed;
+                event = Event{ EventType::KeyPressed };
             }
             break;
 
             case SDL_KEYUP:
             {
-                event.m_type = EventType::KeyReleased;
+                event = Event{ EventType::KeyReleased };
             }
             break;
 
             case SDL_TEXTINPUT:
             {
-                event.m_type = EventType::TextEntered;
+                event = Event{ EventType::TextEntered };
             }
             break;
 
             case SDL_MOUSEMOTION:
             {
-                event.m_type = EventType::MouseMoved;
+                event = Event{ EventType::MouseMoved };
             }
             break;
 
             case SDL_MOUSEBUTTONDOWN:
             {
-                event.m_type = EventType::MosueButtonPressed;
+                event = Event{ EventType::MosueButtonPressed };
             }
             break;
 
             case SDL_MOUSEBUTTONUP:
             {
-                event.m_type = EventType::MosueButtonReleased;
+                event = Event{ EventType::MosueButtonReleased };
             }
             break;
 
             case SDL_MOUSEWHEEL:
             {
-                event.m_type = EventType::MouseScrollMoved;
+                event = Event{ EventType::MouseScrollMoved };
             }
             break;
 
             case SDL_QUIT:
             {
-                event.m_type = EventType::AppClosed;
+                event = Event{ EventType::AppClosed };
             }
             break;
 
             case SDL_DROPFILE:
             {
-                event.m_type = EventType::FileDropped;
+                event = Event{ EventType::FileDropped };
             }
             break;
 

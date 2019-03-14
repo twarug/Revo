@@ -4,5 +4,5 @@
 -IE:/Dev/Libraries/glm-0.9.9/include
 -IE:/Dev/Libraries/nlohmannJson-3.1.2/include
 -IE:/Dev/Libraries/stb/include
--Iinclude
+-IRevo/include
 -DRV_DEBUG
