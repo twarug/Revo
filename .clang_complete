@@ -6,3 +6,4 @@
 -IE:/Dev/Libraries/stb/include
 -IRevo/include
 -DRV_DEBUG
+-DRV_OPENGL
