@@ -326,7 +326,7 @@ namespace rv
         return m_vao && m_vbo;
     }
 
-    glm::vec4 VertexBuffer::GetBounds2D() const
+    Vec4f VertexBuffer::GetBounds2D() const
     {
         if (!m_vertices.empty())
         {

@@ -8,6 +8,38 @@
 
 namespace rv
 {
+    Image::Image()
+        : m_pixels {}
+        , m_size { 0, 0 }
+        , m_channels { 0 }
+    {
+
+    }
+
+    Image::Image(Image&& rhs) noexcept
+        : m_pixels { std::move(rhs.m_pixels) }
+        , m_size { rhs.m_size }
+        , m_channels { rhs.m_channels }
+    {
+        rhs.m_size = { 0, 0 };
+        rhs.m_channels = 0;
+    }
+
+    Image& Image::operator = (Image&& rhs) noexcept
+    {
+        if (this != &rhs)
+        {
+            m_pixels = std::move(rhs.m_pixels);
+            m_size = rhs.m_size;
+            m_channels = rhs.m_channels;
+
+            rhs.m_size = { 0, 0 };
+            rhs.m_channels = 0;
+        }
+
+        return *this;
+    }
+
     bool Image::LoadFromFile(char const* path)
     {
         int w;
@@ -21,9 +53,7 @@ namespace rv
             m_size = { w, h };
             m_channels = bpp;
 
-            size_t const size = m_size.x * m_size.y * 4;
-
-            m_pixels.assign(ptr, ptr + size);
+            m_pixels.assign(ptr, ptr + (m_size.x * m_size.y * 4));
 
             stbi_image_free(ptr);
 
@@ -103,7 +133,7 @@ namespace rv
         return m_pixels.data();
     }
 
-    glm::uvec2 Image::GetSize() const
+    Vec2u Image::GetSize() const
     {
         return m_size;
     }

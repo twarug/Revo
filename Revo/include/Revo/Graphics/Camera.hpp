@@ -1,9 +1,8 @@
 #pragma once
 
-// glm
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+// Revo
+#include <Revo/Utility/Matrix.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 namespace rv
 {
@@ -74,7 +73,7 @@ namespace rv
         glm::mat4 GetViewMatrix() const;
 
         ///
-        glm::mat4 GetProjectionMatrix(glm::uvec2 const& targetSize) const;
+        glm::mat4 GetProjectionMatrix(Vec2u const& targetSize) const;
 
         ///
         ProjectionType GetProjectionType() const;
@@ -90,8 +89,8 @@ namespace rv
 
         ProjectionType m_projectionType;
         ProjectionUnion m_projection;
-        glm::vec3 m_cameraPosition;
-        glm::vec3 m_centerPosition;
-        glm::vec3 m_upDirection;
+        Vec3f m_cameraPosition;
+        Vec3f m_centerPosition;
+        Vec3f m_upDirection;
     };
 }

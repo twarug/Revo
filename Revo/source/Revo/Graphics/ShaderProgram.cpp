@@ -128,7 +128,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::bvec2 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec2b const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -148,7 +148,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::bvec3 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec3b const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -168,7 +168,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::bvec4 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec4b const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -208,7 +208,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::ivec2 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec2i const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -228,7 +228,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::ivec3 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec3i const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -248,7 +248,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::ivec4 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec4i const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -288,7 +288,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::uvec2 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec2u const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -308,7 +308,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::uvec3 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec3u const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -328,7 +328,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::uvec4 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec4u const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -368,7 +368,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::vec2 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec2f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -388,7 +388,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::vec3 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec3f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -408,7 +408,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::vec4 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Vec4f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -428,7 +428,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::mat2x2 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Mat2x2f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -448,7 +448,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::mat3x3 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Mat3x3f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -468,7 +468,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, glm::mat4x4 const& value) const
+    bool ShaderProgram::SetUniform(char const* name, Mat4x4f const& value) const
     {
         UniformBinder const binder{ m_program, name };
 
@@ -506,17 +506,17 @@ namespace rv
                 break;
                 case_str("bvec2"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::bvec2>());
+                    SetUniform(it.key().data(), value.get<Vec2b>());
                 }
                 break;
                 case_str("bvec3"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::bvec3>());
+                    SetUniform(it.key().data(), value.get<Vec3b>());
                 }
                 break;
                 case_str("bvec4"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::bvec4>());
+                    SetUniform(it.key().data(), value.get<Vec4b>());
                 }
                 break;
                 case_str("int"):
@@ -526,17 +526,17 @@ namespace rv
                 break;
                 case_str("ivec2"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::ivec2>());
+                    SetUniform(it.key().data(), value.get<Vec2i>());
                 }
                 break;
                 case_str("ivec3"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::ivec3>());
+                    SetUniform(it.key().data(), value.get<Vec3i>());
                 }
                 break;
                 case_str("ivec4"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::ivec4>());
+                    SetUniform(it.key().data(), value.get<Vec4i>());
                 }
                 break;
                 case_str("uint"):
@@ -546,17 +546,17 @@ namespace rv
                 break;
                 case_str("uvec2"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::uvec2>());
+                    SetUniform(it.key().data(), value.get<Vec2u>());
                 }
                 break;
                 case_str("uvec3"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::uvec3>());
+                    SetUniform(it.key().data(), value.get<Vec3u>());
                 }
                 break;
                 case_str("uvec4"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::uvec4>());
+                    SetUniform(it.key().data(), value.get<Vec4u>());
                 }
                 break;
                 case_str("float"):
@@ -566,32 +566,32 @@ namespace rv
                 break;
                 case_str("vec2"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::vec2>());
+                    SetUniform(it.key().data(), value.get<Vec2f>());
                 }
                 break;
                 case_str("vec3"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::vec3>());
+                    SetUniform(it.key().data(), value.get<Vec3f>());
                 }
                 break;
                 case_str("vec4"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::vec4>());
+                    SetUniform(it.key().data(), value.get<Vec4f>());
                 }
                 break;
                 case_str("mat2x2"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::mat2x2>());
+                    SetUniform(it.key().data(), value.get<Mat2x2f>());
                 }
                 break;
                 case_str("mat3x3"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::mat3x3>());
+                    SetUniform(it.key().data(), value.get<Mat3x3f>());
                 }
                 break;
                 case_str("mat4x4"):
                 {
-                    SetUniform(it.key().data(), value.get<glm::mat4x4>());
+                    SetUniform(it.key().data(), value.get<Mat4x4f>());
                 }
                 break;
             }
@@ -674,20 +674,20 @@ namespace rv
                             ImGui::Checkbox(RV_IMGUI_ID(), &value);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::bvec2& value) {
+                        [this](Vec2b& value) {
                             ImGui::Text("Checkboxes");
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[0]); ImGui::SameLine();
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[1]);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::bvec3& value) {
+                        [this](Vec3b& value) {
                             ImGui::Text("Checkboxes");
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[0]); ImGui::SameLine();
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[1]); ImGui::SameLine();
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[2]);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::bvec4& value) {
+                        [this](Vec4b& value) {
                             ImGui::Text("Checkboxes");
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[0]); ImGui::SameLine();
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[1]); ImGui::SameLine();
@@ -700,17 +700,17 @@ namespace rv
                             ImGui::InputInt(RV_IMGUI_ID(), &value);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::ivec2& value) {
+                        [this](Vec2i& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputInt2(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::ivec3& value) {
+                        [this](Vec3i& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputInt3(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::ivec4& value) {
+                        [this](Vec4i& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputInt4(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
@@ -720,17 +720,17 @@ namespace rv
                             ImGui::InputScalar(RV_IMGUI_ID(), ImGuiDataType_U32, &value);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::uvec2& value) {
+                        [this](Vec2u& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputScalarN(RV_IMGUI_ID(), ImGuiDataType_U32, glm::value_ptr(value), 2);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::uvec3& value) {
+                        [this](Vec3u& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputScalarN(RV_IMGUI_ID(), ImGuiDataType_U32, glm::value_ptr(value), 3);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::uvec4& value) {
+                        [this](Vec4u& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputScalarN(RV_IMGUI_ID(), ImGuiDataType_U32, glm::value_ptr(value), 4);
                             SetUniform(d_currentElem->first.data(), value);
@@ -740,12 +740,12 @@ namespace rv
                             ImGui::DragFloat(RV_IMGUI_ID(), &value, 0.01f);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::vec2& value) {
+                        [this](Vec2f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat2(RV_IMGUI_ID(), glm::value_ptr(value), 0.01f);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::vec3& value) {
+                        [this](Vec3f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat3(RV_IMGUI_ID(), glm::value_ptr(value), 0.01f);
                             ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
@@ -753,7 +753,7 @@ namespace rv
                             ImGui::ColorEdit3(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::vec4& value) {
+                        [this](Vec4f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat4(RV_IMGUI_ID(), glm::value_ptr(value), 0.01f);
                             ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
@@ -761,20 +761,20 @@ namespace rv
                             ImGui::ColorEdit4(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::mat2x2& value) {
+                        [this](Mat2x2f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat2(RV_IMGUI_ID(), glm::value_ptr(value[0]), 0.01f);
                             ImGui::DragFloat2(RV_IMGUI_ID(), glm::value_ptr(value[1]), 0.01f);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::mat3x3& value) {
+                        [this](Mat3x3f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat3(RV_IMGUI_ID(), glm::value_ptr(value[0]), 0.01f);
                             ImGui::DragFloat3(RV_IMGUI_ID(), glm::value_ptr(value[1]), 0.01f);
                             ImGui::DragFloat3(RV_IMGUI_ID(), glm::value_ptr(value[2]), 0.01f);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](glm::mat4x4& value) {
+                        [this](Mat4x4f& value) {
                             ImGui::Text("DragInput"); ImGui::Spacing();
                             ImGui::DragFloat4(RV_IMGUI_ID(), glm::value_ptr(value[0]), 0.01f);
                             ImGui::DragFloat4(RV_IMGUI_ID(), glm::value_ptr(value[1]), 0.01f);
@@ -864,23 +864,23 @@ namespace rv
                         break;
                         case GL_BOOL_VEC2:
                         {
-                            glm::ivec2 value;
+                            Vec2i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
-                            d_uniforms.emplace(name, glm::bvec2{ value });
+                            d_uniforms.emplace(name, Vec2b{ value });
                         }
                         break;
                         case GL_BOOL_VEC3:
                         {
-                            glm::ivec3 value;
+                            Vec3i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
-                            d_uniforms.emplace(name, glm::bvec3{ value });
+                            d_uniforms.emplace(name, Vec3b{ value });
                         }
                         break;
                         case GL_BOOL_VEC4:
                         {
-                            glm::ivec4 value;
+                            Vec4i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
-                            d_uniforms.emplace(name, glm::bvec4{ value });
+                            d_uniforms.emplace(name, Vec4b{ value });
                         }
                         break;
                         case GL_INT:
@@ -892,21 +892,21 @@ namespace rv
                         break;
                         case GL_INT_VEC2:
                         {
-                            glm::ivec2 value;
+                            Vec2i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_INT_VEC3:
                         {
-                            glm::ivec3 value;
+                            Vec3i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_INT_VEC4:
                         {
-                            glm::ivec4 value;
+                            Vec4i value;
                             glGetUniformiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
@@ -920,21 +920,21 @@ namespace rv
                         break;
                         case GL_UNSIGNED_INT_VEC2:
                         {
-                            glm::uvec2 value;
+                            Vec2u value;
                             glGetUniformuiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_UNSIGNED_INT_VEC3:
                         {
-                            glm::uvec3 value;
+                            Vec3u value;
                             glGetUniformuiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_UNSIGNED_INT_VEC4:
                         {
-                            glm::uvec4 value;
+                            Vec4u value;
                             glGetUniformuiv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
@@ -948,42 +948,42 @@ namespace rv
                         break;
                         case GL_FLOAT_VEC2:
                         {
-                            glm::vec2 value;
+                            Vec2f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_FLOAT_VEC3:
                         {
-                            glm::vec3 value;
+                            Vec3f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_FLOAT_VEC4:
                         {
-                            glm::vec4 value;
+                            Vec4f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_FLOAT_MAT2:
                         {
-                            glm::mat2x2 value;
+                            Mat2x2f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_FLOAT_MAT3:
                         {
-                            glm::mat3x3 value;
+                            Mat3x3f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }
                         break;
                         case GL_FLOAT_MAT4:
                         {
-                            glm::mat4x4 value;
+                            Mat4x4f value;
                             glGetUniformfv(m_program, i, glm::value_ptr(value));
                             d_uniforms.emplace(name, value);
                         }

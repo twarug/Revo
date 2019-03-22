@@ -6,9 +6,7 @@
 #include <Revo/System/Clock.hpp>
 #include <Revo/System/Context.hpp>
 #include <Revo/System/Event.hpp>
-
-// glm
-#include <glm/vec2.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 namespace rv
 {
@@ -39,7 +37,7 @@ namespace rv
         ~Window();
 
         ///
-        bool Create(glm::uvec2 const& size, char const* name);
+        bool Create(Vec2u const& size, char const* name);
 
         ///
         void Show();

@@ -1,11 +1,8 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
-
-// glm
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+#include <Revo/Utility/Matrix.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 namespace rv
 {
@@ -54,13 +51,13 @@ namespace rv
         Transform& SetIdentity();
 
         ///
-        Transform& Translate(glm::vec3 const& offset);
+        Transform& Translate(Vec3f const& offset);
 
         ///
-        Transform& Rotate(glm::vec3 const& angle);
+        Transform& Rotate(Vec3f const& angle);
 
         ///
-        Transform& Scale(glm::vec3 const& factor);
+        Transform& Scale(Vec3f const& factor);
 
         ///
         Transform& Inverse();
@@ -72,13 +69,13 @@ namespace rv
         Transform& Combine(glm::mat4 const& matrix);
 
         ///
-        Transform Translated(glm::vec3 const& offset);
+        Transform Translated(Vec3f const& offset);
 
         ///
-        Transform Rotated(glm::vec3 const& angle);
+        Transform Rotated(Vec3f const& angle);
 
         ///
-        Transform Scaled(glm::vec3 const& factor);
+        Transform Scaled(Vec3f const& factor);
 
         ///
         Transform Inversed();

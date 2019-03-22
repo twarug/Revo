@@ -1,13 +1,10 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 // C++
 #include <vector>
-
-// glm
-#include <glm/vec2.hpp>
 
 namespace rv
 {
@@ -29,7 +26,7 @@ namespace rv
         using PixelsHolder_t = std::vector<Byte_t>;
 
         ///
-        Image() = default;
+        Image();
 
         ///
         Image(Image const&) = default;
@@ -38,10 +35,10 @@ namespace rv
         Image& operator = (Image const&) = default;
 
         ///
-        Image(Image&&) = default;
+        Image(Image&& rhs) noexcept;
 
         ///
-        Image& operator = (Image&&) = default;
+        Image& operator = (Image&& rhs) noexcept;
 
         ///
         ~Image() = default;
@@ -65,7 +62,7 @@ namespace rv
         Byte_t const* GetData() const;
 
         ///
-        glm::uvec2 GetSize() const;
+        Vec2u GetSize() const;
 
         ///
         size_t GetPixelsCount() const;
@@ -79,7 +76,7 @@ namespace rv
     private:
 
         PixelsHolder_t m_pixels;
-        glm::uvec2 m_size;
+        Vec2u m_size;
         size_t m_channels;
     };
 }

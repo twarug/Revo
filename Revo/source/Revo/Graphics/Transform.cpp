@@ -38,14 +38,14 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Translate(glm::vec3 const& offset)
+    Transform& Transform::Translate(Vec3f const& offset)
     {
         m_matrix = glm::translate(m_matrix, offset);
 
         return *this;
     }
 
-    Transform& Transform::Rotate(glm::vec3 const& angle)
+    Transform& Transform::Rotate(Vec3f const& angle)
     {
         // TODO remove possible gimbal lock
         m_matrix = glm::rotate(m_matrix, angle.x, { 1.0f, 0.0f, 0.0f });
@@ -55,7 +55,7 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Scale(glm::vec3 const& factor)
+    Transform& Transform::Scale(Vec3f const& factor)
     {
         m_matrix = glm::scale(m_matrix, factor);
 
@@ -83,17 +83,17 @@ namespace rv
         return *this;
     }
 
-    Transform Transform::Translated(glm::vec3 const& offset)
+    Transform Transform::Translated(Vec3f const& offset)
     {
         return Transform{ *this }.Translate(offset);
     }
 
-    Transform Transform::Scaled(glm::vec3 const& factor)
+    Transform Transform::Scaled(Vec3f const& factor)
     {
         return Transform{ *this }.Scale(factor);
     }
 
-    Transform Transform::Rotated(glm::vec3 const& angle)
+    Transform Transform::Rotated(Vec3f const& angle)
     {
         return Transform{ *this }.Rotate(angle);
     }

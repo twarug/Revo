@@ -45,7 +45,7 @@ namespace rv
         return glm::mat4{ 1.0f };
     }
 
-    glm::mat4 Camera::GetProjectionMatrix(glm::uvec2 const& targetSize) const
+    glm::mat4 Camera::GetProjectionMatrix(Vec2u const& targetSize) const
     {
         switch (m_projectionType)
         {

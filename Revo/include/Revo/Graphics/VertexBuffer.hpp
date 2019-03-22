@@ -112,7 +112,7 @@ namespace rv
         bool IsValid() const;
 
         /// Returns { left, top, width, height } 2D bounds of vertices
-        glm::vec4 GetBounds2D() const;
+        Vec4f GetBounds2D() const;
 
         ///
         void Bind() const;

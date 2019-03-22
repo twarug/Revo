@@ -7,7 +7,7 @@
 
 namespace rv
 {
-    void RenderTarget::Clear(glm::vec4 const& color)
+    void RenderTarget::Clear(Vec4f const& color)
     {
         Bind();
 
@@ -33,7 +33,7 @@ namespace rv
         }
     }
 
-    glm::uvec2 RenderTarget::GetSize() const
+    Vec2u RenderTarget::GetSize() const
     {
         return m_size;
     }

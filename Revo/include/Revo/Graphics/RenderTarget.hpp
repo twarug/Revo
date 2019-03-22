@@ -2,10 +2,7 @@
 
 // Revo
 #include <Revo/Graphics/RenderStates.hpp>
-
-// glm
-#include <glm/vec2.hpp>
-#include <glm/vec4.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 namespace rv
 {
@@ -39,16 +36,16 @@ namespace rv
         virtual void Bind() const = 0;
 
         ///
-        void Clear(glm::vec4 const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
+        void Clear(Vec4f const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
         ///
         void Draw(Drawable const& drawable, RenderStates const& states = {});
 
         ///
-        glm::uvec2 GetSize() const;
+        Vec2u GetSize() const;
 
     protected:
 
-        glm::uvec2 m_size;
+        Vec2u m_size;
     };
 }

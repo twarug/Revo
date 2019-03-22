@@ -36,7 +36,7 @@ namespace rv
         M_Destroy();
     }
 
-    bool Texture::Create(const glm::uvec2& size, const void* data)
+    bool Texture::Create(const Vec2u& size, const void* data)
     {
         M_Destroy();
 
@@ -71,7 +71,7 @@ namespace rv
         return false;
     }
 
-    glm::uvec2 Texture::GetSize() const
+    Vec2u Texture::GetSize() const
     {
         return m_size;
     }

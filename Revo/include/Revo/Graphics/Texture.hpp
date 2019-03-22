@@ -2,9 +2,7 @@
 
 // Revo
 #include <Revo/Graphics/Backend.hpp>
-
-// glm
-#include <glm/vec2.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 namespace rv
 {
@@ -35,13 +33,13 @@ namespace rv
         ~Texture();
 
         ///
-        bool Create(glm::uvec2 const& size, void const* data = nullptr);
+        bool Create(Vec2u const& size, void const* data = nullptr);
 
         ///
         bool LoadFromFile(char const* path);
 
         ///
-        glm::uvec2 GetSize() const;
+        Vec2u GetSize() const;
 
         ///
         bool IsValid() const;
@@ -61,7 +59,7 @@ namespace rv
         void M_Destroy();
 
         NativeHandle_t m_texture;
-        glm::uvec2 m_size;
+        Vec2u m_size;
     };
 
 }

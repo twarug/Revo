@@ -2,14 +2,8 @@
 
 // Revo
 #include <Revo/Graphics/Shader.hpp>
-
-// glm
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat2x2.hpp>
-#include <glm/mat3x3.hpp>
-#include <glm/mat4x4.hpp>
+#include <Revo/Utility/Matrix.hpp>
+#include <Revo/Utility/Vector.hpp>
 
 // nlohmann Json
 #include <nlohmann/json_fwd.hpp>
@@ -58,58 +52,58 @@ namespace rv
 		bool SetUniform(char const* name, bool value) const;
 
 		///
-		bool SetUniform(char const* name, glm::bvec2 const& value) const;
+		bool SetUniform(char const* name, Vec2b const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::bvec3 const& value) const;
+		bool SetUniform(char const* name, Vec3b const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::bvec4 const& value) const;
+		bool SetUniform(char const* name, Vec4b const& value) const;
 
 		///
 		bool SetUniform(char const* name, int value) const;
 
 		///
-		bool SetUniform(char const* name, glm::ivec2 const& value) const;
+		bool SetUniform(char const* name, Vec2i const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::ivec3 const& value) const;
+		bool SetUniform(char const* name, Vec3i const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::ivec4 const& value) const;
+		bool SetUniform(char const* name, Vec4i const& value) const;
 
 		///
 		bool SetUniform(char const* name, unsigned int value) const;
 
 		///
-		bool SetUniform(char const* name, glm::uvec2 const& value) const;
+		bool SetUniform(char const* name, Vec2u const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::uvec3 const& value) const;
+		bool SetUniform(char const* name, Vec3u const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::uvec4 const& value) const;
+		bool SetUniform(char const* name, Vec4u const& value) const;
 
 		///
 		bool SetUniform(char const* name, float value) const;
 
 		///
-		bool SetUniform(char const* name, glm::vec2 const& value) const;
+		bool SetUniform(char const* name, Vec2f const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::vec3 const& value) const;
+		bool SetUniform(char const* name, Vec3f const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::vec4 const& value) const;
+		bool SetUniform(char const* name, Vec4f const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::mat2x2 const& value) const;
+		bool SetUniform(char const* name, Mat2x2f const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::mat3x3 const& value) const;
+		bool SetUniform(char const* name, Mat3x3f const& value) const;
 
 		///
-		bool SetUniform(char const* name, glm::mat4x4 const& value) const;
+		bool SetUniform(char const* name, Mat4x4f const& value) const;
 
 		///
 		void LoadConfig(nlohmann::json const& config);
@@ -126,7 +120,7 @@ namespace rv
 		#if defined(RV_DEBUG)
 
 		using UniKey_t     = std::string;
-		using UniVariant_t = std::variant<bool, glm::bvec2, glm::bvec3, glm::bvec4, int, glm::ivec2, glm::ivec3, glm::ivec4, unsigned, glm::uvec2, glm::uvec3, glm::uvec4, float, glm::vec2, glm::vec3, glm::vec4, glm::mat2x2, glm::mat3x3, glm::mat4x4>;
+		using UniVariant_t = std::variant<bool, Vec2b, Vec3b, Vec4b, int, Vec2i, Vec3i, Vec4i, unsigned, Vec2u, Vec3u, Vec4u, float, Vec2f, Vec3f, Vec4f, Mat2x2f, Mat3x3f, Mat4x4f>;
 		using UniMap_t     = std::map<UniKey_t, UniVariant_t>;
 
 		///
