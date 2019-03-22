@@ -24,13 +24,13 @@ namespace rv
         Transform() = default;
 
         ///
-        Transform(ZeroTag);
+        explicit Transform(ZeroTag);
 
         ///
-        Transform(IdentityTag);
+        explicit Transform(IdentityTag);
 
         ///
-        Transform(glm::mat4 const& matrix);
+        explicit Transform(glm::mat4 const& matrix);
 
         ///
         Transform(Transform const&) = default;

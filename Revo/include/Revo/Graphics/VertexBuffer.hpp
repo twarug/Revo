@@ -22,10 +22,10 @@ namespace rv
         VertexBuffer() = delete;
 
         ///
-        VertexBuffer(PrimitiveType type = PrimitiveType::Triangles);
+        explicit VertexBuffer(PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(size_t size, PrimitiveType type = PrimitiveType::Triangles);
+        explicit VertexBuffer(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
         VertexBuffer(size_t size, Vertex const& value, PrimitiveType type = PrimitiveType::Triangles);
