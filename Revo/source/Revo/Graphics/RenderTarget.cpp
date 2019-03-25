@@ -21,7 +21,7 @@ namespace rv
         {
             Bind();
 
-            glm::mat4 mvp = glm::mat4{ 1.0f };
+            Mat4x4f mvp = Mat4x4f{ 1.0f };
             mvp *= states.camera->GetProjectionMatrix(m_size);
             mvp *= states.camera->GetViewMatrix();
             mvp *= drawable.GetTransform().GetMatrix();

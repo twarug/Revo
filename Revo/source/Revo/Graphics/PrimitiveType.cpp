@@ -7,7 +7,6 @@ namespace rv
 {
     namespace impl
     {
-        ///
         int32_t GetNativeHandle(PrimitiveType type)
         {
             switch (type)

@@ -70,10 +70,10 @@ namespace rv
         ~Camera() = default;
 
         ///
-        glm::mat4 GetViewMatrix() const;
+        Mat4x4f GetViewMatrix() const;
 
         ///
-        glm::mat4 GetProjectionMatrix(Vec2u const& targetSize) const;
+        Mat4x4f GetProjectionMatrix(Vec2u const& targetSize) const;
 
         ///
         ProjectionType GetProjectionType() const;

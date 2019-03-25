@@ -112,9 +112,9 @@ int main(int, char**)
     rv::VertexBuffer av3Db{ vexPixFan3D, 4u, rv::PrimitiveType::TriangleFan };
     rv::VertexBuffer avCube{ vexCube, 36u, rv::PrimitiveType::Triangles };
 
-    av2D.SetTransform(glm::vec3{ 640, 360, 0 }, glm::vec3{ 320, 0, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 2, 1 });
-    av3D.SetTransform(glm::vec3{ 1.0f, 0.5625f, 0 }, glm::vec3{ 0.5f, 0, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 2, 1 });
-    av3Db.SetTransform(glm::vec3{ 0.0f, 0.0f, 0 }, glm::vec3{ 0.5f, 0.28125f, 0 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 2, 1, 1 });
+    av2D.SetTransform(rv::Vec3f{ 640, 360, 0 }, rv::Vec3f{ 320, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
+    av3D.SetTransform(rv::Vec3f{ 1.0f, 0.5625f, 0 }, rv::Vec3f{ 0.5f, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
+    av3Db.SetTransform(rv::Vec3f{ 0.0f, 0.0f, 0 }, rv::Vec3f{ 0.5f, 0.28125f, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 2, 1, 1 });
 
     rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
 
@@ -166,7 +166,7 @@ int main(int, char**)
         {
             imguiContext.ProcessEvent(event);
 
-            if (event.GetType() == rv::EventType::AppClosed)
+            if (event.type == rv::EventType::AppClosed)
             {
                 window.Close();
             }
@@ -176,7 +176,7 @@ int main(int, char**)
 
         shaderProgram.D_ShowShaderProgramEditor(nullptr);
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
-        shaderProgram.SetUniform("resolution", glm::vec2{ width, height });
+        shaderProgram.SetUniform("resolution", rv::Vec2f{ width, height });
 
         av2D.D_ShowTransformableEditor(nullptr);
         av3D.D_ShowTransformableEditor(nullptr);

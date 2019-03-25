@@ -23,7 +23,7 @@ namespace rv
         M_Destroy();
     }
 
-    bool Window::Create(glm::uvec2 const& size, char const* name)
+    bool Window::Create(Vec2u const& size, char const* name)
     {
         static bool isGladLoaded = false;
 

@@ -34,18 +34,18 @@ namespace rv
 
     }
 
-    glm::mat4 Camera::GetViewMatrix() const
+    Mat4x4f Camera::GetViewMatrix() const
     {
         switch (m_projectionType)
         {
-            case ProjectionType::Orthographic: return glm::mat4{ 1.0f };
+            case ProjectionType::Orthographic: return Mat4x4f{ 1.0f };
             case ProjectionType::Perspective: return glm::lookAt(m_cameraPosition, m_centerPosition, m_upDirection);
         }
 
-        return glm::mat4{ 1.0f };
+        return Mat4x4f{ 1.0f };
     }
 
-    glm::mat4 Camera::GetProjectionMatrix(Vec2u const& targetSize) const
+    Mat4x4f Camera::GetProjectionMatrix(Vec2u const& targetSize) const
     {
         switch (m_projectionType)
         {
@@ -53,7 +53,7 @@ namespace rv
             case ProjectionType::Perspective: return glm::perspectiveFov(glm::radians(45.0f), (float)targetSize.x, (float)targetSize.y, 0.1f, 100.0f);
         }
 
-        return glm::mat4{ 1.0f };
+        return Mat4x4f{ 1.0f };
     }
 
     ProjectionType Camera::GetProjectionType() const

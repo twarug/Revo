@@ -18,7 +18,7 @@ namespace rv
 
     }
 
-    Transform::Transform(glm::mat4 const& matrix)
+    Transform::Transform(Mat4x4f const& matrix)
         : m_matrix { matrix }
     {
 
@@ -26,14 +26,14 @@ namespace rv
 
     Transform& Transform::SetZero()
     {
-        m_matrix = glm::mat4{};
+        m_matrix = Mat4x4f{};
 
         return *this;
     }
 
     Transform& Transform::SetIdentity()
     {
-        m_matrix = glm::mat4{ 1.0f };
+        m_matrix = Mat4x4f{ 1.0f };
 
         return *this;
     }
@@ -76,7 +76,7 @@ namespace rv
         return *this;
     }
 
-    Transform& Transform::Combine(glm::mat4 const& matrix)
+    Transform& Transform::Combine(Mat4x4f const& matrix)
     {
         m_matrix *= matrix;
 
@@ -108,12 +108,12 @@ namespace rv
         return Transform{ *this }.Combine(transform);
     }
 
-    Transform Transform::Combined(glm::mat4 const& matrix)
+    Transform Transform::Combined(Mat4x4f const& matrix)
     {
         return Transform{ *this }.Combine(matrix);
     }
 
-    glm::mat4 const& Transform::GetMatrix() const
+    Mat4x4f const& Transform::GetMatrix() const
     {
         return m_matrix;
     }

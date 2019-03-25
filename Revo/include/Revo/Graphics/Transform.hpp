@@ -27,7 +27,7 @@ namespace rv
         explicit Transform(IdentityTag);
 
         ///
-        explicit Transform(glm::mat4 const& matrix);
+        explicit Transform(Mat4x4f const& matrix);
 
         ///
         Transform(Transform const&) = default;
@@ -66,7 +66,7 @@ namespace rv
         Transform& Combine(Transform const& transform);
 
         ///
-        Transform& Combine(glm::mat4 const& matrix);
+        Transform& Combine(Mat4x4f const& matrix);
 
         ///
         Transform Translated(Vec3f const& offset);
@@ -84,13 +84,13 @@ namespace rv
         Transform Combined(Transform const& transform);
 
         ///
-        Transform Combined(glm::mat4 const& matrix);
+        Transform Combined(Mat4x4f const& matrix);
 
         ///
-        glm::mat4 const& GetMatrix() const;
+        Mat4x4f const& GetMatrix() const;
 
     private:
 
-        glm::mat4 m_matrix;
+        Mat4x4f m_matrix;
     };
 }
