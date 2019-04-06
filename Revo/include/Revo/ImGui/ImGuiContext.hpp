@@ -57,4 +57,4 @@ namespace rv
     };
 }
 
-#define RV_IMGUI_ID(__name) (__name "##" RV_HERE)
+#define RV_IMGUI_ID(__name) __name "##" RV_HERE
