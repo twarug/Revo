@@ -73,3 +73,8 @@ namespace rv
         return detail::InvokeImpl(std::forward<F>(f), std::forward<Args>(args)...);
     }
 }
+
+#define RV_LIFT(__f)\
+    [](auto&&... args) noexcept(noexcept(__f(std::forward<decltype(args)>(args)...)))\
+        -> decltype(__f(std::forward<decltype(args)>(args)...))\
+    { return __f(std::forward<decltype(args)>(args)...); }
