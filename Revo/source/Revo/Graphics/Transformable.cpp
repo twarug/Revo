@@ -159,7 +159,12 @@ namespace rv
     {
         if (m_needsUpdate)
         {
-            m_transform.SetIdentity().Translate(m_position).Rotate(m_rotation).Scale(m_scale).Translate(-m_origin);
+            m_transform
+                .SetIdentity()
+                .Translate(m_position)
+                .Rotate(m_rotation)
+                .Scale(m_scale)
+                .Translate(-m_origin);
 
             m_needsUpdate = false;
         }
