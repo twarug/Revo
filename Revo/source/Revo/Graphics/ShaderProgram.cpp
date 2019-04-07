@@ -68,7 +68,7 @@ namespace rv
 
     private:
 
-        const GLuint m_program;
+        GLuint const m_program;
         GLuint m_savedProgram;
         GLint m_location;
     };

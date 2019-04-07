@@ -36,7 +36,7 @@ namespace rv
         M_Destroy();
     }
 
-    bool Texture::Create(const Vec2u& size, const void* data)
+    bool Texture::Create(Vec2u const& size, void const* data)
     {
         M_Destroy();
 
@@ -59,7 +59,7 @@ namespace rv
         return true;
     }
 
-    bool Texture::LoadFromFile(const char* path)
+    bool Texture::LoadFromFile(char const* path)
     {
         Image img;
 

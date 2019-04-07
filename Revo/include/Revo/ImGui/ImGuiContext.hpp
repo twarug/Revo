@@ -22,10 +22,10 @@ namespace rv
         ImGuiContext();
 
         ///
-        ImGuiContext(const ImGuiContext&) = delete;
+        ImGuiContext(ImGuiContext const&) = delete;
 
         ///
-        ImGuiContext& operator = (const ImGuiContext&) = delete;
+        ImGuiContext& operator = (ImGuiContext const&) = delete;
 
         ///
         ImGuiContext(ImGuiContext&&) = delete;

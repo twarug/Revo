@@ -75,7 +75,7 @@ namespace rv
 
     Duration_t Clock::Restart()
     {
-        const Duration_t ret = GetElapsedDuration();
+        Duration_t const ret = GetElapsedDuration();
 
         m_pausePoint = TimePoint_t{ Duration_t::zero() };
 
