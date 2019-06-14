@@ -2,7 +2,7 @@
 
 // Revo
 #include <Revo/Graphics/Backend.hpp>
-#include <Revo/Utility/Vector.hpp>
+#include <Revo/Math/Vector.hpp>
 
 namespace rv
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Utility/Vector.hpp>
+#include <Revo/Math/Vector.hpp>
 
 // C++
 #include <vector>

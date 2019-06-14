@@ -6,7 +6,7 @@
 #include <Revo/System/Clock.hpp>
 #include <Revo/System/Context.hpp>
 #include <Revo/System/Event.hpp>
-#include <Revo/Utility/Vector.hpp>
+#include <Revo/Math/Vector.hpp>
 
 namespace rv
 {

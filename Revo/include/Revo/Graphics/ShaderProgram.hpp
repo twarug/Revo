@@ -2,8 +2,8 @@
 
 // Revo
 #include <Revo/Graphics/Shader.hpp>
-#include <Revo/Utility/Matrix.hpp>
-#include <Revo/Utility/Vector.hpp>
+#include <Revo/Math/Matrix.hpp>
+#include <Revo/Math/Vector.hpp>
 
 // nlohmann Json
 #include <nlohmann/json_fwd.hpp>

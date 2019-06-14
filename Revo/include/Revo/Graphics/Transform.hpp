@@ -1,8 +1,8 @@
 #pragma once
 
 // Revo
-#include <Revo/Utility/Matrix.hpp>
-#include <Revo/Utility/Vector.hpp>
+#include <Revo/Math/Matrix.hpp>
+#include <Revo/Math/Vector.hpp>
 
 namespace rv
 {
