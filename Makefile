@@ -97,9 +97,14 @@ STB_NAME := stb
 STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
+# fmt
+FMT_NAME := fmt-5.3.0
+FMT_IDIR := -isystem $(LIBS_DIR)/$(FMT_NAME)/include
+FMT_LIBS :=
+
 # Final libraries config
-IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON_IDIR) $(STB_IDIR) -IRevo/include
-LIBS := $(IMGUI_SDL2_LIBS) $(SDL2_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(NLOHMANN_JSON_LIBS) $(STB_LIBS)
+IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON_IDIR) $(STB_IDIR) $(FMT_IDIR) -IRevo/include
+LIBS := $(IMGUI_SDL2_LIBS) $(SDL2_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(NLOHMANN_JSON_LIBS) $(STB_LIBS) $(FMT_LIBS)
 
 # .PHONY
 .PHONY := all dirs re run rerun clean

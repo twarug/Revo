@@ -4,6 +4,8 @@
 -IE:/Dev/Libraries/glm-0.9.9.3/include
 -IE:/Dev/Libraries/nlohmannJson-3.5.0/include
 -IE:/Dev/Libraries/stb/include
+-IE:/Dev/Libraries/fmt-5.3.0/include
 -IRevo/include
 -DRV_DEBUG
 -DRV_OPENGL
+-DFMT_HEADER_ONLY
