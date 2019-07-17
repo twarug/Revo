@@ -818,7 +818,7 @@ namespace rv
     {
         if (m_program)
         {
-        	glDeleteProgram(m_program);
+            glDeleteProgram(m_program);
 
             #if defined(RV_DEBUG)
             {
