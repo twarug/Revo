@@ -823,7 +823,7 @@ namespace rv
             #if defined(RV_DEBUG)
             {
                 d_uniforms.clear();
-            	d_currentElem = d_uniforms.end();
+                d_currentElem = d_uniforms.end();
             }
             #endif
         }
