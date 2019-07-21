@@ -15,66 +15,9 @@
 
 namespace rv
 {
-    class UniformBinder
-    {
-    public:
-
-        UniformBinder(GLuint program, char const* name)
-            : m_program { program }
-            , m_savedProgram { 0 }
-            , m_location { -1 }
-        {
-            if (m_program)
-            {
-                GLint currentProgram;
-                glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-
-                m_savedProgram = currentProgram;
-
-                if (m_program != m_savedProgram)
-                {
-                    glUseProgram(m_program);
-                }
-
-                m_location = glGetUniformLocation(m_program, name);
-            }
-        }
-
-        UniformBinder(UniformBinder const&) = delete;
-
-        UniformBinder& operator = (UniformBinder const&) = delete;
-
-        UniformBinder(UniformBinder&& rhs) = delete;
-
-        UniformBinder& operator = (UniformBinder&& rhs) = delete;
-
-        ~UniformBinder()
-        {
-            if (m_program && (m_program != m_savedProgram))
-            {
-                glUseProgram(m_savedProgram);
-            }
-        }
-
-        GLint GetLocation() const
-        {
-            return m_location;
-        }
-
-        bool HasValidLocation() const
-        {
-            return m_location != -1;
-        }
-
-    private:
-
-        GLuint const m_program;
-        GLuint m_savedProgram;
-        GLint m_location;
-    };
-
     ShaderProgram::ShaderProgram(ShaderProgram&& rhs) noexcept
         : m_program { rhs.m_program }
+        , m_uniformsLocation { std::move(rhs.m_uniformsLocation) }
     {
         rhs.m_program = 0;
     }
@@ -86,6 +29,8 @@ namespace rv
             M_Destroy();
 
             m_program = rhs.m_program;
+            m_uniformsLocation = std::move(rhs.m_uniformsLocation);
+
             rhs.m_program = 0;
         }
 
@@ -97,22 +42,47 @@ namespace rv
         M_Destroy();
     }
 
+    bool ShaderProgram::LinkShaders(std::initializer_list<Shader*> il)
+    {
+        if (std::all_of(il.begin(), il.end(), [](auto const ptr) { return ptr->IsValid(); }))
+        {
+            NativeHandle_t program = glCreateProgram();
+
+            for (auto const ptr : il)
+            {
+                glAttachShader(program, ptr->GetNativeHandle());
+            }
+
+            glLinkProgram(program);
+
+            for (auto const ptr : il)
+            {
+                glDetachShader(program, ptr->GetNativeHandle());
+            }
+
+            return M_FinishLinking(program);
+        }
+
+        #if defined(RV_DEBUG)
+        {
+            // TODO better logging
+            std::fprintf(stderr, "Sent shaders must be valid ones\n");
+        }
+        #endif
+
+        return false;
+    }
+
     void ShaderProgram::UseProgram() const
     {
-        GLint currentProgram;
-        glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-
-        if (m_program != static_cast<GLuint>(currentProgram))
-        {
-            glUseProgram(m_program);
-        }
+        glUseProgram(m_program);
     }
 
     bool ShaderProgram::SetUniform(char const* name, bool value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -120,7 +90,7 @@ namespace rv
             }
             #endif
 
-            glUniform1i(binder.GetLocation(), value);
+            glUniform1i(it->second, value);
 
             return true;
         }
@@ -130,9 +100,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2b const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -140,7 +110,7 @@ namespace rv
             }
             #endif
 
-            glUniform2i(binder.GetLocation(), value.x, value.y);
+            glUniform2i(it->second, value.x, value.y);
 
             return true;
         }
@@ -150,9 +120,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3b const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -160,7 +130,7 @@ namespace rv
             }
             #endif
 
-            glUniform3i(binder.GetLocation(), value.x, value.y, value.z);
+            glUniform3i(it->second, value.x, value.y, value.z);
 
             return true;
         }
@@ -170,9 +140,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4b const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -180,7 +150,7 @@ namespace rv
             }
             #endif
 
-            glUniform4i(binder.GetLocation(), value.x, value.y, value.z, value.w);
+            glUniform4i(it->second, value.x, value.y, value.z, value.w);
 
             return true;
         }
@@ -190,9 +160,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, int value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -200,7 +170,7 @@ namespace rv
             }
             #endif
 
-            glUniform1i(binder.GetLocation(), value);
+            glUniform1i(it->second, value);
 
             return true;
         }
@@ -210,9 +180,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2i const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -220,7 +190,7 @@ namespace rv
             }
             #endif
 
-            glUniform2i(binder.GetLocation(), value.x, value.y);
+            glUniform2i(it->second, value.x, value.y);
 
             return true;
         }
@@ -230,9 +200,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3i const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -240,7 +210,7 @@ namespace rv
             }
             #endif
 
-            glUniform3i(binder.GetLocation(), value.x, value.y, value.z);
+            glUniform3i(it->second, value.x, value.y, value.z);
 
             return true;
         }
@@ -250,9 +220,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4i const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -260,7 +230,7 @@ namespace rv
             }
             #endif
 
-            glUniform4i(binder.GetLocation(), value.x, value.y, value.z, value.w);
+            glUniform4i(it->second, value.x, value.y, value.z, value.w);
 
             return true;
         }
@@ -270,9 +240,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, unsigned int value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -280,7 +250,7 @@ namespace rv
             }
             #endif
 
-            glUniform1ui(binder.GetLocation(), value);
+            glUniform1ui(it->second, value);
 
             return true;
         }
@@ -290,9 +260,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2u const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -300,7 +270,7 @@ namespace rv
             }
             #endif
 
-            glUniform2ui(binder.GetLocation(), value.x, value.y);
+            glUniform2ui(it->second, value.x, value.y);
 
             return true;
         }
@@ -310,9 +280,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3u const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -320,7 +290,7 @@ namespace rv
             }
             #endif
 
-            glUniform3ui(binder.GetLocation(), value.x, value.y, value.z);
+            glUniform3ui(it->second, value.x, value.y, value.z);
 
             return true;
         }
@@ -330,9 +300,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4u const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -340,7 +310,7 @@ namespace rv
             }
             #endif
 
-            glUniform4ui(binder.GetLocation(), value.x, value.y, value.z, value.w);
+            glUniform4ui(it->second, value.x, value.y, value.z, value.w);
 
             return true;
         }
@@ -350,9 +320,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, float value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -360,7 +330,7 @@ namespace rv
             }
             #endif
 
-            glUniform1f(binder.GetLocation(), value);
+            glUniform1f(it->second, value);
 
             return true;
         }
@@ -370,9 +340,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -380,7 +350,7 @@ namespace rv
             }
             #endif
 
-            glUniform2f(binder.GetLocation(), value.x, value.y);
+            glUniform2f(it->second, value.x, value.y);
 
             return true;
         }
@@ -390,9 +360,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -400,7 +370,7 @@ namespace rv
             }
             #endif
 
-            glUniform3f(binder.GetLocation(), value.x, value.y, value.z);
+            glUniform3f(it->second, value.x, value.y, value.z);
 
             return true;
         }
@@ -410,9 +380,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -420,7 +390,7 @@ namespace rv
             }
             #endif
 
-            glUniform4f(binder.GetLocation(), value.x, value.y, value.z, value.w);
+            glUniform4f(it->second, value.x, value.y, value.z, value.w);
 
             return true;
         }
@@ -430,9 +400,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat2x2f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -440,7 +410,7 @@ namespace rv
             }
             #endif
 
-            glUniformMatrix2fv(binder.GetLocation(), 1, GL_FALSE, glm::value_ptr(value));
+            glUniformMatrix2fv(it->second, 1, GL_FALSE, glm::value_ptr(value));
 
             return true;
         }
@@ -450,9 +420,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat3x3f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -460,7 +430,7 @@ namespace rv
             }
             #endif
 
-            glUniformMatrix3fv(binder.GetLocation(), 1, GL_FALSE, glm::value_ptr(value));
+            glUniformMatrix3fv(it->second, 1, GL_FALSE, glm::value_ptr(value));
 
             return true;
         }
@@ -470,9 +440,9 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat4x4f const& value) const
     {
-        UniformBinder const binder{ m_program, name };
+        auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
-        if (binder.HasValidLocation())
+        if (it != m_uniformsLocation.end())
         {
             #if defined(RV_DEBUG)
             {
@@ -480,7 +450,7 @@ namespace rv
             }
             #endif
 
-            glUniformMatrix4fv(binder.GetLocation(), 1, GL_FALSE, glm::value_ptr(value));
+            glUniformMatrix4fv(it->second, 1, GL_FALSE, glm::value_ptr(value));
 
             return true;
         }
@@ -504,91 +474,109 @@ namespace rv
                     SetUniform(it.key().data(), value.get<bool>());
                 }
                 break;
+
                 case_str("bvec2"):
                 {
                     SetUniform(it.key().data(), value.get<Vec2b>());
                 }
                 break;
+
                 case_str("bvec3"):
                 {
                     SetUniform(it.key().data(), value.get<Vec3b>());
                 }
                 break;
+
                 case_str("bvec4"):
                 {
                     SetUniform(it.key().data(), value.get<Vec4b>());
                 }
                 break;
+
                 case_str("int"):
                 {
-                    SetUniform(it.key().data(), value.get<int>());
+                    SetUniform(it.key().data(), value.get<int32_t>());
                 }
                 break;
+
                 case_str("ivec2"):
                 {
                     SetUniform(it.key().data(), value.get<Vec2i>());
                 }
                 break;
+
                 case_str("ivec3"):
                 {
                     SetUniform(it.key().data(), value.get<Vec3i>());
                 }
                 break;
+
                 case_str("ivec4"):
                 {
                     SetUniform(it.key().data(), value.get<Vec4i>());
                 }
                 break;
+
                 case_str("uint"):
                 {
-                    SetUniform(it.key().data(), value.get<unsigned int>());
+                    SetUniform(it.key().data(), value.get<uint32_t>());
                 }
                 break;
+
                 case_str("uvec2"):
                 {
                     SetUniform(it.key().data(), value.get<Vec2u>());
                 }
                 break;
+
                 case_str("uvec3"):
                 {
                     SetUniform(it.key().data(), value.get<Vec3u>());
                 }
                 break;
+
                 case_str("uvec4"):
                 {
                     SetUniform(it.key().data(), value.get<Vec4u>());
                 }
                 break;
+
                 case_str("float"):
                 {
                     SetUniform(it.key().data(), value.get<float>());
                 }
                 break;
+
                 case_str("vec2"):
                 {
                     SetUniform(it.key().data(), value.get<Vec2f>());
                 }
                 break;
+
                 case_str("vec3"):
                 {
                     SetUniform(it.key().data(), value.get<Vec3f>());
                 }
                 break;
+
                 case_str("vec4"):
                 {
                     SetUniform(it.key().data(), value.get<Vec4f>());
                 }
                 break;
+
                 case_str("mat2x2"):
                 {
                     SetUniform(it.key().data(), value.get<Mat2x2f>());
                 }
                 break;
+
                 case_str("mat3x3"):
                 {
                     SetUniform(it.key().data(), value.get<Mat3x3f>());
                 }
                 break;
+
                 case_str("mat4x4"):
                 {
                     SetUniform(it.key().data(), value.get<Mat4x4f>());
@@ -611,7 +599,7 @@ namespace rv
 
     bool ShaderProgram::IsValid() const
     {
-        return m_program != 0;
+        return m_program;
     }
 
     GLuint ShaderProgram::GetNativeHandle() const
@@ -792,11 +780,13 @@ namespace rv
 
     void ShaderProgram::D_SaveConfig(nlohmann::json& config) const
     {
+        static char const* uniTypeNames[] = { "bool", "bvec2", "bvec3", "bvec4", "int", "ivec2", "ivec3", "ivec4", "uint", "uvec2", "uvec3", "uvec4", "float", "vec2", "vec3", "vec4", "mat2x2", "mat3x3", "mat4x4" };
+
         for (auto const& [ k, v ] : d_uniforms)
         {
             nlohmann::json& j = config[k];
 
-            std::visit([&j, type = d_uniTypeNames[v.index()]](auto const& value) {
+            std::visit([&j, type = uniTypeNames[v.index()]](auto const& value) {
                 j["value"] = value;
                 j["type"] = type;
             }, v);
@@ -852,6 +842,8 @@ namespace rv
                 for (GLint i = 0; i < count; ++i)
                 {
                     glGetActiveUniform(m_program, i, sizeof(name), nullptr, &size, &type, name);
+
+                    m_uniformsLocation.emplace(FNV1a_32(name), i);
 
                     switch (type)
                     {

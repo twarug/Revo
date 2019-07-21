@@ -1,5 +1,4 @@
 #include <Revo/Debug/GfxCall.hpp>
-#include <Revo/Utility/Functional.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
 #include <Revo/Graphics/Texture.hpp>
@@ -10,14 +9,7 @@
 #include <Revo/Graphics/Transformable.hpp>
 #include <Revo/System/Event.hpp>
 
-#include <algorithm>
-#include <fstream>
-#include <memory>
-#include <string>
 #include <iostream>
-#include <functional>
-
-using namespace std::chrono_literals;
 
 int main(int, char**)
 {
@@ -118,20 +110,22 @@ int main(int, char**)
 
     rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
 
+    std::cout << std::boolalpha;
+
     rv::Shader defaultVert;
-    std::cout << defaultVert.LoadFromFile(rv::ShaderType::Vertex, "default.vert") << '\n';
+    std::cout << defaultVert.LoadFromFile(rv::ShaderType::Vertex, "default.vert") << ' ';
     rv::Shader defaultFrag;
-    std::cout << defaultFrag.LoadFromFile(rv::ShaderType::Fragment, "default.frag") << '\n';
+    std::cout << defaultFrag.LoadFromFile(rv::ShaderType::Fragment, "default.frag") << ' ';
     rv::Shader testFrag;
-    std::cout << testFrag.LoadFromFile(rv::ShaderType::Fragment, "test.frag") << '\n';
+    std::cout << testFrag.LoadFromFile(rv::ShaderType::Fragment, "test.frag") << ' ';
 
     rv::ShaderProgram shaderProgram;
-    std::cout << shaderProgram.LinkShaders(defaultVert, testFrag) << '\n';
+    std::cout << shaderProgram.LinkShaders({ &defaultVert, &testFrag }) << ' ';
 
     rv::Texture tex1;
-    std::cout << tex1.LoadFromFile("map1.png") << '\n';
+    std::cout << tex1.LoadFromFile("map1.png") << ' ';
     rv::Texture tex2;
-    std::cout << tex2.LoadFromFile("map2.png") << '\n';
+    std::cout << tex2.LoadFromFile("map2.png") << ' ';
 
     rv::Clock cl;
 
@@ -175,6 +169,7 @@ int main(int, char**)
         ImGui::ShowDemoWindow(nullptr);
 
         shaderProgram.D_ShowShaderProgramEditor(nullptr);
+        shaderProgram.UseProgram();
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", rv::Vec2f{ width, height });
 
