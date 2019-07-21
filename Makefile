@@ -62,20 +62,10 @@ IMGUI_SDL2_NAME := ImGuiSDL2-1.67
 IMGUI_SDL2_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_SDL2_NAME)/include
 IMGUI_SDL2_LIBS := -L$(LIBS_DIR)/$(IMGUI_SDL2_NAME)/lib/$(TCH_PATH) -limgui
 
-# ImGui GLFW
-IMGUI_GLFW_NAME := ImGuiGLFW-1.65
-IMGUI_GLFW_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_GLFW_NAME)/include
-IMGUI_GLFW_LIBS := -L$(LIBS_DIR)/$(IMGUI_GLFW_NAME)/lib/$(TCH_PATH) -limgui
-
 # SDL2
 SDL2_NAME := SDL2-2.0.9
 SDL2_IDIR := -isystem $(LIBS_DIR)/$(SDL2_NAME)/include
 SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_PATH) -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lgdi32 -limm32
-
-# GLFW
-GLFW_NAME := GLFW-3.2.1
-GLFW_IDIR := -isystem $(LIBS_DIR)/$(GLFW_NAME)/include
-GLFW_LIBS := -L$(LIBS_DIR)/$(GLFW_NAME)/lib/$(TCH_PATH) -lglfw3 -lgdi32 -lopengl32
 
 # glad
 GLAD_NAME := glad-3.3.0
@@ -83,12 +73,12 @@ GLAD_IDIR := -isystem $(LIBS_DIR)/$(GLAD_NAME)/include
 GLAD_LIBS := -L$(LIBS_DIR)/$(GLAD_NAME)/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
 
 # glm
-GLM_NAME := glm-0.9.9.3
+GLM_NAME := glm-0.9.9.5
 GLM_IDIR := -isystem $(LIBS_DIR)/$(GLM_NAME)/include
 GLM_LIBS :=
 
 # nlohmann Json
-NLOHMANN_JSON_NAME := nlohmannJson-3.5.0
+NLOHMANN_JSON_NAME := nlohmannJson-3.6.1
 NLOHMANN_JSON_IDIR := -isystem $(LIBS_DIR)/$(NLOHMANN_JSON_NAME)/include
 NLOHMANN_JSON_LIBS :=
 
