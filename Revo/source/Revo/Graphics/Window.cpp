@@ -96,156 +96,163 @@ namespace rv
 
         bool const isPolled = SDL_PollEvent(&implEvent) != 0;
 
-        switch (implEvent.type)
+        if (isPolled)
         {
-            case SDL_WINDOWEVENT_SHOWN:
+            switch (implEvent.type)
             {
-                event = Event{ EventType::WindowShown };
-            }
-            break;
+                case SDL_WINDOWEVENT_SHOWN:
+                {
+                    event.type = EventType::WindowShown;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_HIDDEN:
-            {
-                event = Event{ EventType::WindowHidden };
-            }
-            break;
+                case SDL_WINDOWEVENT_HIDDEN:
+                {
+                    event.type = EventType::WindowHidden;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_EXPOSED:
-            {
-                event = Event{ EventType::WindowExposed };
-            }
-            break;
+                case SDL_WINDOWEVENT_EXPOSED:
+                {
+                    event.type = EventType::WindowExposed;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_MOVED:
-            {
-                event = Event{ EventType::WindowMoved };
-            }
-            break;
+                case SDL_WINDOWEVENT_MOVED:
+                {
+                    event.type = EventType::WindowMoved;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_RESIZED:
-            {
-                event = Event{ EventType::WindowResized };
-            }
-            break;
+                case SDL_WINDOWEVENT_RESIZED:
+                {
+                    event.type = EventType::WindowResized;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_SIZE_CHANGED:
-            {
-                event = Event{ EventType::WindowSizeChanged };
-            }
-            break;
+                case SDL_WINDOWEVENT_SIZE_CHANGED:
+                {
+                    event.type = EventType::WindowSizeChanged;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_MINIMIZED:
-            {
-                event = Event{ EventType::WindowMinimized };
-            }
-            break;
+                case SDL_WINDOWEVENT_MINIMIZED:
+                {
+                    event.type = EventType::WindowMinimized;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_MAXIMIZED:
-            {
-                event = Event{ EventType::WindowMaximized };
-            }
-            break;
+                case SDL_WINDOWEVENT_MAXIMIZED:
+                {
+                    event.type = EventType::WindowMaximized;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_RESTORED:
-            {
-                event = Event{ EventType::WindowRestored };
-            }
-            break;
+                case SDL_WINDOWEVENT_RESTORED:
+                {
+                    event.type = EventType::WindowRestored;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_ENTER:
-            {
-                event = Event{ EventType::WindowMouseEntered };
-            }
-            break;
+                case SDL_WINDOWEVENT_ENTER:
+                {
+                    event.type = EventType::WindowMouseEntered;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_LEAVE:
-            {
-                event = Event{ EventType::WindowMouseLeft };
-            }
-            break;
+                case SDL_WINDOWEVENT_LEAVE:
+                {
+                    event.type = EventType::WindowMouseLeft;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_FOCUS_GAINED:
-            {
-                event = Event{ EventType::WindowFocusGained };
-            }
-            break;
+                case SDL_WINDOWEVENT_FOCUS_GAINED:
+                {
+                    event.type = EventType::WindowFocusGained;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_FOCUS_LOST:
-            {
-                event = Event{ EventType::WindowFocusLost };
-            }
-            break;
+                case SDL_WINDOWEVENT_FOCUS_LOST:
+                {
+                    event.type = EventType::WindowFocusLost;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_CLOSE:
-            {
-                event = Event{ EventType::WindowClosed };
-            }
-            break;
+                case SDL_WINDOWEVENT_CLOSE:
+                {
+                    event.type = EventType::WindowClosed;
+                }
+                break;
 
-            case SDL_WINDOWEVENT_TAKE_FOCUS:
-            {
-                event = Event{ EventType::WindowFocusOffered };
-            }
-            break;
+                case SDL_WINDOWEVENT_TAKE_FOCUS:
+                {
+                    event.type = EventType::WindowFocusOffered;
+                }
+                break;
 
-            case SDL_KEYDOWN:
-            {
-                event = Event{ EventType::KeyPressed };
-            }
-            break;
+                case SDL_KEYDOWN:
+                {
+                    event.type = EventType::KeyPressed;
+                }
+                break;
 
-            case SDL_KEYUP:
-            {
-                event = Event{ EventType::KeyReleased };
-            }
-            break;
+                case SDL_KEYUP:
+                {
+                    event.type = EventType::KeyReleased;
+                }
+                break;
 
-            case SDL_TEXTINPUT:
-            {
-                event = Event{ EventType::TextEntered };
-            }
-            break;
+                case SDL_TEXTINPUT:
+                {
+                    event.type = EventType::TextEntered;
+                }
+                break;
 
-            case SDL_MOUSEMOTION:
-            {
-                event = Event{ EventType::MouseMoved };
-            }
-            break;
+                case SDL_MOUSEMOTION:
+                {
+                    event.type = EventType::MouseMoved;
+                }
+                break;
 
-            case SDL_MOUSEBUTTONDOWN:
-            {
-                event = Event{ EventType::MosueButtonPressed };
-            }
-            break;
+                case SDL_MOUSEBUTTONDOWN:
+                {
+                    event.type = EventType::MosueButtonPressed;
+                }
+                break;
 
-            case SDL_MOUSEBUTTONUP:
-            {
-                event = Event{ EventType::MosueButtonReleased };
-            }
-            break;
+                case SDL_MOUSEBUTTONUP:
+                {
+                    event.type = EventType::MosueButtonReleased;
+                }
+                break;
 
-            case SDL_MOUSEWHEEL:
-            {
-                event = Event{ EventType::MouseScrollMoved };
-            }
-            break;
+                case SDL_MOUSEWHEEL:
+                {
+                    event.type = EventType::MouseScrollMoved;
+                }
+                break;
 
-            case SDL_QUIT:
-            {
-                event = Event{ EventType::AppClosed };
-            }
-            break;
+                case SDL_QUIT:
+                {
+                    event.type = EventType::AppClosed;
+                }
+                break;
 
-            case SDL_DROPFILE:
-            {
-                event = Event{ EventType::FileDropped };
-            }
-            break;
+                case SDL_DROPFILE:
+                {
+                    event.type = EventType::FileDropped;
+                }
+                break;
 
-            default: break;
+                default: break;
+            }
+
+            return true;
         }
-
-        return isPolled;
+        else
+        {
+            return false;
+        }
     }
 
     void Window::SetFramerateLimit(uint32_t limit)

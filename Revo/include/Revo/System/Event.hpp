@@ -1,7 +1,8 @@
 #pragma once
 
 // Revo
-#include <Revo/System/Context.hpp>
+#include <Revo/System/Clock.hpp>
+#include <Revo/System/Context.hpp> // TODO get rid off it
 
 // C++
 #include <cstdint>
@@ -44,31 +45,11 @@ namespace rv
         FileDropped, // SDL_DROPFILE
     };
 
-    /// Simple event class that holds event type and its data
-    class Event
+    /// Simple trivial event class that holds event type and its data
+    struct Event
     {
-    public:
-
-        /// Default ctor that takes event type
-        Event(EventType type = EventType::None);
-
-        /// Defaulted copy-ctor
-        Event(Event const&) = default;
-
-        /// Defaulted copy-assign-op
-        Event& operator = (Event const&) = default;
-
-        /// Defaulted move-ctor
-        Event(Event&&) noexcept = default;
-
-        /// Defaulted move-assign-op
-        Event& operator = (Event&&) noexcept = default;
-
-        /// Defaulted destructor
-        ~Event() = default;
-
-        /// Returns type of currently stored event
-        EventType GetType() const;
+        EventType type;
+        uint32_t timestamp;
 
         union
         {
@@ -76,9 +57,5 @@ namespace rv
         };
 
         SDL_Event sdlEvent; // TODO get rid off it
-
-    private:
-
-        EventType m_type;
     };
 }
