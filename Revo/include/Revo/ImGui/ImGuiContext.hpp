@@ -11,7 +11,7 @@ namespace rv
     // FWD
     class RenderTarget;
     class Window;
-    class Event;
+    struct Event;
 
     ///
     class ImGuiContext
