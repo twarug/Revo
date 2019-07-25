@@ -41,7 +41,7 @@ namespace rv
             else
             {
                 static_assert(std::is_member_object_pointer_v<decltype(member)>);
-                static_assert(sizeof...(args) == 0u);
+                static_assert(sizeof...(args) == 0);
 
                 if constexpr (std::is_base_of_v<Class, std::decay_t<T>>)
                 {

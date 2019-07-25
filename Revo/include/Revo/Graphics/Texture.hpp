@@ -12,7 +12,7 @@ namespace rv
     {
     public:
 
-        using NativeHandle_t = GLuint;
+        using NativeHandle_t = uint32_t;
 
         ///
         Texture();

@@ -38,7 +38,7 @@
 //         return -1;
 //     }
 //
-//     window.SetFramerateLimit(60u);
+//     window.SetFramerateLimit(60);
 //
 //     while (window.IsOpen())
 //     {

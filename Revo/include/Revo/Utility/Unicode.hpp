@@ -9,7 +9,7 @@ namespace rv
     template <typename InputIt>
     size_t GetUnicodeBytesCount(InputIt begin, InputIt end)
     {
-        size_t n = 0u;
+        size_t n = 0;
 
         while (begin != end)
         {
@@ -43,7 +43,7 @@ namespace rv
     template <typename InputIt>
     size_t GetUTF8BytesCount(InputIt begin, InputIt end)
     {
-        size_t n = 0u;
+        size_t n = 0;
 
         while (begin != end)
         {
@@ -87,7 +87,7 @@ namespace rv
             }
             else
             {
-                helper = 0u;
+                helper = 0;
 
                 if ((*begin & 0xF0) == 0xF0)
                 {

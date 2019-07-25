@@ -7,7 +7,7 @@ namespace rv
 {
     Texture::Texture()
         : m_texture { 0 }
-        , m_size { 0u, 0u }
+        , m_size { 0, 0 }
     {
 
     }

@@ -31,7 +31,7 @@ int main(int, char**)
         return -1;
     }
 
-    window.SetFramerateLimit(60u);
+    window.SetFramerateLimit(60);
 
     //
 
@@ -168,8 +168,8 @@ int main(int, char**)
 
         ImGui::ShowDemoWindow(nullptr);
 
-        shaderProgram.D_ShowShaderProgramEditor(nullptr);
         shaderProgram.UseProgram();
+        shaderProgram.D_ShowShaderProgramEditor(nullptr);
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", rv::Vec2f{ width, height });
 
@@ -179,13 +179,13 @@ int main(int, char**)
         avCube.D_ShowTransformableEditor(nullptr);
         camera3D.D_ShowCameraEditor(nullptr);
 
-        window.Clear({ 0.0f, 0.0f, 0.0f, 1.0f });
+        window.Clear();
 
         tex1.Bind(0);
 
-        glDisable(GL_DEPTH_TEST);
+        // glDisable(GL_DEPTH_TEST);
         window.Draw(av2D, shaderProgram, camera2D);
-        glEnable(GL_DEPTH_TEST);
+        // glEnable(GL_DEPTH_TEST);
         window.Draw(av3D, shaderProgram, camera3D);
         window.Draw(av3Db, shaderProgram, camera3D);
         window.Draw(avCube, shaderProgram, camera3D);

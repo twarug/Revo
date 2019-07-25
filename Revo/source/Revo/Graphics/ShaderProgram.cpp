@@ -15,6 +15,13 @@
 
 namespace rv
 {
+    ShaderProgram::ShaderProgram()
+        : m_program { 0 }
+        , m_uniformsLocation {}
+    {
+
+    }
+
     ShaderProgram::ShaderProgram(ShaderProgram&& rhs) noexcept
         : m_program { rhs.m_program }
         , m_uniformsLocation { std::move(rhs.m_uniformsLocation) }
@@ -158,7 +165,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, int value) const
+    bool ShaderProgram::SetUniform(char const* name, int32_t value) const
     {
         auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
@@ -238,7 +245,7 @@ namespace rv
         return false;
     }
 
-    bool ShaderProgram::SetUniform(char const* name, unsigned int value) const
+    bool ShaderProgram::SetUniform(char const* name, uint32_t value) const
     {
         auto const it = m_uniformsLocation.find(FNV1a_32(name));
 
@@ -632,10 +639,10 @@ namespace rv
 
             ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
 
-            if (ImGui::BeginChild("##uniformsSelectPane", ImVec2(160, 0), true))
+            if (ImGui::BeginChild("##uniformsSelectPane", ImVec2{ 160, 0 }, true))
             {
-                static int selected = -1;
-                int i = 0;
+                static int32_t selected = -1;
+                int32_t i = 0;
 
                 for (auto it = d_uniforms.begin(); it != d_uniforms.end(); ++it)
                 {
@@ -652,7 +659,7 @@ namespace rv
 
             ImGui::SameLine();
 
-            if (ImGui::BeginChild("##uniformsEditPane", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())))
+            if (ImGui::BeginChild("##uniformsEditPane", ImVec2{ 0, -ImGui::GetFrameHeightWithSpacing() }))
             {
                 if (d_currentElem != d_uniforms.end())
                 {
@@ -683,7 +690,7 @@ namespace rv
                             ImGui::Checkbox(RV_IMGUI_ID(), &value[3]);
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](int& value) {
+                        [this](int32_t& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputInt(RV_IMGUI_ID(), &value);
                             SetUniform(d_currentElem->first.data(), value);
@@ -703,7 +710,7 @@ namespace rv
                             ImGui::InputInt4(RV_IMGUI_ID(), glm::value_ptr(value));
                             SetUniform(d_currentElem->first.data(), value);
                         },
-                        [this](unsigned& value) {
+                        [this](uint32_t& value) {
                             ImGui::Text("Input"); ImGui::Spacing();
                             ImGui::InputScalar(RV_IMGUI_ID(), ImGuiDataType_U32, &value);
                             SetUniform(d_currentElem->first.data(), value);
@@ -780,7 +787,13 @@ namespace rv
 
     void ShaderProgram::D_SaveConfig(nlohmann::json& config) const
     {
-        static char const* uniTypeNames[] = { "bool", "bvec2", "bvec3", "bvec4", "int", "ivec2", "ivec3", "ivec4", "uint", "uvec2", "uvec3", "uvec4", "float", "vec2", "vec3", "vec4", "mat2x2", "mat3x3", "mat4x4" };
+        static char const* uniTypeNames[] = {
+            "bool", "bvec2", "bvec3", "bvec4",
+            "int", "ivec2", "ivec3", "ivec4",
+            "uint", "uvec2", "uvec3", "uvec4",
+            "float", "vec2", "vec3", "vec4",
+            "mat2x2", "mat3x3", "mat4x4"
+        };
 
         for (auto const& [ k, v ] : d_uniforms)
         {
@@ -821,7 +834,7 @@ namespace rv
 
     bool ShaderProgram::M_FinishLinking(NativeHandle_t program)
     {
-        GLint success;
+        int32_t success;
         glGetProgramiv(program, GL_LINK_STATUS, &success);
 
         if (success)
@@ -832,14 +845,14 @@ namespace rv
 
             #if defined(RV_DEBUG)
             {
-                GLint count;
-                GLint size;
+                int32_t count;
+                int32_t size;
                 GLenum type;
-                GLchar name[64];
+                char name[64];
 
                 glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &count);
 
-                for (GLint i = 0; i < count; ++i)
+                for (int32_t i = 0; i < count; ++i)
                 {
                     glGetActiveUniform(m_program, i, sizeof(name), nullptr, &size, &type, name);
 
@@ -849,11 +862,12 @@ namespace rv
                     {
                         case GL_BOOL:
                         {
-                            int value;
+                            int32_t value;
                             glGetUniformiv(m_program, i, &value);
                             d_uniforms.emplace(name, static_cast<bool>(value));
                         }
                         break;
+
                         case GL_BOOL_VEC2:
                         {
                             Vec2i value;
@@ -861,6 +875,7 @@ namespace rv
                             d_uniforms.emplace(name, Vec2b{ value });
                         }
                         break;
+
                         case GL_BOOL_VEC3:
                         {
                             Vec3i value;
@@ -868,6 +883,7 @@ namespace rv
                             d_uniforms.emplace(name, Vec3b{ value });
                         }
                         break;
+
                         case GL_BOOL_VEC4:
                         {
                             Vec4i value;
@@ -875,13 +891,15 @@ namespace rv
                             d_uniforms.emplace(name, Vec4b{ value });
                         }
                         break;
+
                         case GL_INT:
                         {
-                            int value;
+                            int32_t value;
                             glGetUniformiv(m_program, i, &value);
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_INT_VEC2:
                         {
                             Vec2i value;
@@ -889,6 +907,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_INT_VEC3:
                         {
                             Vec3i value;
@@ -896,6 +915,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_INT_VEC4:
                         {
                             Vec4i value;
@@ -903,13 +923,15 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_UNSIGNED_INT:
                         {
-                            unsigned value;
+                            uint32_t value;
                             glGetUniformuiv(m_program, i, &value);
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_UNSIGNED_INT_VEC2:
                         {
                             Vec2u value;
@@ -917,6 +939,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_UNSIGNED_INT_VEC3:
                         {
                             Vec3u value;
@@ -924,6 +947,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_UNSIGNED_INT_VEC4:
                         {
                             Vec4u value;
@@ -931,6 +955,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT:
                         {
                             float value;
@@ -938,6 +963,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_VEC2:
                         {
                             Vec2f value;
@@ -945,6 +971,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_VEC3:
                         {
                             Vec3f value;
@@ -952,6 +979,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_VEC4:
                         {
                             Vec4f value;
@@ -959,6 +987,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_MAT2:
                         {
                             Mat2x2f value;
@@ -966,6 +995,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_MAT3:
                         {
                             Mat3x3f value;
@@ -973,6 +1003,7 @@ namespace rv
                             d_uniforms.emplace(name, value);
                         }
                         break;
+
                         case GL_FLOAT_MAT4:
                         {
                             Mat4x4f value;
@@ -991,7 +1022,7 @@ namespace rv
         {
             #if defined(RV_DEBUG)
             {
-                GLchar infoLog[512];
+                char infoLog[512];
                 glGetProgramInfoLog(program, sizeof(infoLog), nullptr, infoLog);
 
                 // TODO better log 'infoLog'

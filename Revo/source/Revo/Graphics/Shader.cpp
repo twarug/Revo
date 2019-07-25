@@ -54,6 +54,12 @@ namespace rv
         }
     }
 
+    Shader::Shader()
+        : m_shader { 0 }
+    {
+
+    }
+
     Shader::Shader(Shader&& rhs) noexcept
         : m_shader { rhs.m_shader }
     {
@@ -85,7 +91,7 @@ namespace rv
         return ptr && M_Compile(type, ptr.get(), -1);
     }
 
-    bool Shader::LoadFromMemory(ShaderType type, void const* data, GLint size)
+    bool Shader::LoadFromMemory(ShaderType type, void const* data, int32_t size)
     {
         return M_Compile(type, reinterpret_cast<char const*>(data), size);
     }
@@ -108,13 +114,13 @@ namespace rv
         }
     }
 
-    bool Shader::M_Compile(ShaderType type, char const* data, GLint size)
+    bool Shader::M_Compile(ShaderType type, char const* data, int32_t size)
     {
         NativeHandle_t shader = glCreateShader(impl::GetNativeHandle(type));
         glShaderSource(shader, 1, &data, &size);
         glCompileShader(shader);
 
-        GLint success;
+        int32_t success;
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 
         if (success)
@@ -129,7 +135,7 @@ namespace rv
         {
             #if defined(RV_DEBUG)
             {
-                GLchar infoLog[512];
+                char infoLog[512];
                 glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
 
                 // TODO better logging

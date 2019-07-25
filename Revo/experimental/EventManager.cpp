@@ -66,7 +66,7 @@ namespace rv
             m_recentlyReleased = {};
         }
 
-        m_enteredCharacter = 0u;
+        m_enteredCharacter = 0;
     }
 
     // void EventManager::Press(const InputCode& code)

@@ -24,11 +24,11 @@ namespace rv
     {
     public:
 
-        using NativeHandle_t     = GLuint;
-        using UniformsLocation_t = std::map<Hash32_t, int>;
+        using NativeHandle_t     = uint32_t;
+        using UniformsLocation_t = std::map<Hash32_t, int32_t>;
 
         ///
-        ShaderProgram() = default;
+        ShaderProgram();
 
         ///
         ShaderProgram(ShaderProgram const&) = delete;
@@ -64,7 +64,7 @@ namespace rv
         bool SetUniform(char const* name, Vec4b const& value) const;
 
         ///
-        bool SetUniform(char const* name, int value) const;
+        bool SetUniform(char const* name, int32_t value) const;
 
         ///
         bool SetUniform(char const* name, Vec2i const& value) const;
@@ -76,7 +76,7 @@ namespace rv
         bool SetUniform(char const* name, Vec4i const& value) const;
 
         ///
-        bool SetUniform(char const* name, unsigned int value) const;
+        bool SetUniform(char const* name, uint32_t value) const;
 
         ///
         bool SetUniform(char const* name, Vec2u const& value) const;
@@ -146,7 +146,7 @@ namespace rv
         ///
         bool M_FinishLinking(NativeHandle_t program);
 
-        NativeHandle_t m_program = 0;
-        UniformsLocation_t m_uniformsLocation = {};
+        NativeHandle_t m_program;
+        UniformsLocation_t m_uniformsLocation;
     };
 }

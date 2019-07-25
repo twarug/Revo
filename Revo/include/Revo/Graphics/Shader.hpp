@@ -30,10 +30,10 @@ namespace rv
     {
     public:
 
-        using NativeHandle_t = GLuint;
+        using NativeHandle_t = uint32_t;
 
         ///
-        Shader() = default;
+        Shader();
 
         ///
         Shader(Shader const&) = delete;
@@ -54,7 +54,7 @@ namespace rv
         bool LoadFromFile(ShaderType type, char const* filePath);
 
         ///
-        bool LoadFromMemory(ShaderType type, void const* data, GLint size = -1);
+        bool LoadFromMemory(ShaderType type, void const* data, int32_t size = -1);
 
         ///
         bool IsValid() const;
@@ -68,8 +68,8 @@ namespace rv
         void M_Destroy();
 
         ///
-        bool M_Compile(ShaderType type, char const* data, GLint size);
+        bool M_Compile(ShaderType type, char const* data, int32_t size);
 
-        NativeHandle_t m_shader = 0;
+        NativeHandle_t m_shader;
     };
 }
