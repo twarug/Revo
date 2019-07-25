@@ -122,7 +122,7 @@ namespace rv
         return m_scale;
     }
 
-    Transform Transformable::GetTransform() const
+    Transform const& Transformable::GetTransform() const
     {
         M_UpdateMatrix();
 

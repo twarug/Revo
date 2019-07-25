@@ -7,7 +7,7 @@
 namespace rv
 {
     Transform::Transform(ZeroTag)
-        : m_matrix {}
+        : m_matrix { 0.0f }
     {
 
     }
@@ -26,7 +26,7 @@ namespace rv
 
     Transform& Transform::SetZero()
     {
-        m_matrix = Mat4x4f{};
+        m_matrix = Mat4x4f{ 0.0f };
 
         return *this;
     }

@@ -71,7 +71,7 @@ namespace rv
         Vec3f const& GetScale() const;
 
         ///
-        Transform GetTransform() const;
+        Transform const& GetTransform() const;
 
         ///
         Transform GetInverseTransform() const;
