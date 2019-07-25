@@ -7,8 +7,8 @@ namespace rv
 {
     // FWD
     class Camera;
-    class Drawable;
     class ShaderProgram;
+    class Transformable;
 
     ///
     class RenderTarget
@@ -40,7 +40,10 @@ namespace rv
         void Clear(Vec4f const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
         ///
-        void Draw(Drawable const& drawable, ShaderProgram const& shaderProgram, Camera const& camera);
+        void PrepareToDraw(ShaderProgram const& shaderProgram, Camera const& camera) const;
+
+        ///
+        void PrepareToDraw(Transformable const& transformable, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
         Vec2u GetSize() const;

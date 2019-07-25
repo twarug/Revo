@@ -2,8 +2,8 @@
 
 // Revo
 #include <Revo/Graphics/Camera.hpp>
-#include <Revo/Graphics/Drawable.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
+#include <Revo/Graphics/Transformable.hpp>
 
 namespace rv
 {
@@ -15,19 +15,29 @@ namespace rv
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RenderTarget::Draw(Drawable const& drawable, ShaderProgram const& shaderProgram, Camera const& camera)
+    void RenderTarget::PrepareToDraw(ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         Bind();
 
         Mat4x4f mvp = Mat4x4f{ 1.0f };
         mvp *= camera.GetProjectionMatrix(m_size);
         mvp *= camera.GetViewMatrix();
-        mvp *= drawable.GetTransform().GetMatrix();
 
         shaderProgram.UseProgram();
         shaderProgram.SetUniform("mvp", mvp);
+    }
 
-        drawable.Draw();
+    void RenderTarget::PrepareToDraw(Transformable const& transformable, ShaderProgram const& shaderProgram, Camera const& camera) const
+    {
+        Bind();
+
+        Mat4x4f mvp = Mat4x4f{ 1.0f };
+        mvp *= camera.GetProjectionMatrix(m_size);
+        mvp *= camera.GetViewMatrix();
+        mvp *= transformable.GetTransform().GetMatrix();
+
+        shaderProgram.UseProgram();
+        shaderProgram.SetUniform("mvp", mvp);
     }
 
     Vec2u RenderTarget::GetSize() const

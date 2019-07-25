@@ -2,17 +2,22 @@
 
 // Revo
 #include <Revo/Graphics/Backend.hpp>
-#include <Revo/Graphics/Drawable.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Vertex.hpp>
+#include <Revo/Graphics/Transformable.hpp>
 
 // C++
 #include <vector>
 
 namespace rv
 {
+    // FWD
+    class Camera;
+    class RenderTarget;
+    class ShaderProgram;
+
     ///
-    class VertexBuffer : public Drawable
+    class VertexBuffer : public Transformable
     {
     public:
 
@@ -121,7 +126,7 @@ namespace rv
         void Unbind() const;
 
         ///
-        virtual void Draw() const override;
+        void Draw(RenderTarget const& renderTarget, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
     private:
 

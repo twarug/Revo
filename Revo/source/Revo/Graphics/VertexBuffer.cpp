@@ -1,6 +1,9 @@
 #include <Revo/Graphics/VertexBuffer.hpp>
 
 // Revo
+#include <Revo/Graphics/Camera.hpp>
+#include <Revo/Graphics/RenderTarget.hpp>
+#include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Utility/OffsetOf.hpp>
 
 namespace rv
@@ -381,10 +384,12 @@ namespace rv
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void VertexBuffer::Draw() const
+    void VertexBuffer::Draw(RenderTarget const& renderTarget, ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {
+            renderTarget.PrepareToDraw(*this, shaderProgram, camera);
+
             Bind();
 
             if (m_needsUpdate)
