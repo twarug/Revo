@@ -13,11 +13,11 @@ INFORM_OBJECT     := printf "\033[33m[Object] %s\033[0m\n"
 
 # Compiler
 CXX       := g++
-CXX_FLAGS := -std=c++17 -g -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL
+CXX_FLAGS := -std=c++17 -O2 -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL
 
 # Linker
 LD       := g++
-LD_FLAGS := -lcomdlg32 -lstdc++fs
+LD_FLAGS :=
 
 # Static linker
 STATIC_LD       := ar rcs
