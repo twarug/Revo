@@ -388,7 +388,7 @@ namespace rv
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {
-            renderTarget.PrepareToDraw(*this, shaderProgram, camera);
+            renderTarget.PrepareToDraw(GetTransform(), shaderProgram, camera);
 
             Bind();
 

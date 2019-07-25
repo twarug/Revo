@@ -3,7 +3,7 @@
 // Revo
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
-#include <Revo/Graphics/Transformable.hpp>
+#include <Revo/Graphics/Transform.hpp>
 
 namespace rv
 {
@@ -27,14 +27,14 @@ namespace rv
         shaderProgram.SetUniform("mvp", mvp);
     }
 
-    void RenderTarget::PrepareToDraw(Transformable const& transformable, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void RenderTarget::PrepareToDraw(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         Bind();
 
         Mat4x4f mvp = Mat4x4f{ 1.0f };
         mvp *= camera.GetProjectionMatrix(m_size);
         mvp *= camera.GetViewMatrix();
-        mvp *= transformable.GetTransform().GetMatrix();
+        mvp *= transform.GetMatrix();
 
         shaderProgram.UseProgram();
         shaderProgram.SetUniform("mvp", mvp);

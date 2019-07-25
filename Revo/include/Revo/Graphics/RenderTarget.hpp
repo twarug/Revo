@@ -8,7 +8,7 @@ namespace rv
     // FWD
     class Camera;
     class ShaderProgram;
-    class Transformable;
+    class Transform;
 
     ///
     class RenderTarget
@@ -43,7 +43,7 @@ namespace rv
         void PrepareToDraw(ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
-        void PrepareToDraw(Transformable const& transformable, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void PrepareToDraw(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
         Vec2u GetSize() const;
