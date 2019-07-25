@@ -184,11 +184,11 @@ int main(int, char**)
         tex1.Bind(0);
 
         glDisable(GL_DEPTH_TEST);
-        window.Draw(av2D, { &shaderProgram, &camera2D });
+        window.Draw(av2D, shaderProgram, camera2D);
         glEnable(GL_DEPTH_TEST);
-        window.Draw(av3D, { &shaderProgram, &camera3D });
-        window.Draw(av3Db, { &shaderProgram, &camera3D });
-        window.Draw(avCube, { &shaderProgram, &camera3D });
+        window.Draw(av3D, shaderProgram, camera3D);
+        window.Draw(av3Db, shaderProgram, camera3D);
+        window.Draw(avCube, shaderProgram, camera3D);
 
         imguiContext.Render(window);
 

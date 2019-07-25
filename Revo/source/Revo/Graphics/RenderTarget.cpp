@@ -15,22 +15,19 @@ namespace rv
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RenderTarget::Draw(Drawable const& drawable, RenderStates const& states)
+    void RenderTarget::Draw(Drawable const& drawable, ShaderProgram const& shaderProgram, Camera const& camera)
     {
-        if (states.shaderProgram && states.camera)
-        {
-            Bind();
+        Bind();
 
-            Mat4x4f mvp = Mat4x4f{ 1.0f };
-            mvp *= states.camera->GetProjectionMatrix(m_size);
-            mvp *= states.camera->GetViewMatrix();
-            mvp *= drawable.GetTransform().GetMatrix();
+        Mat4x4f mvp = Mat4x4f{ 1.0f };
+        mvp *= camera.GetProjectionMatrix(m_size);
+        mvp *= camera.GetViewMatrix();
+        mvp *= drawable.GetTransform().GetMatrix();
 
-            states.shaderProgram->UseProgram();
-            states.shaderProgram->SetUniform("mvp", mvp);
+        shaderProgram.UseProgram();
+        shaderProgram.SetUniform("mvp", mvp);
 
-            drawable.Draw();
-        }
+        drawable.Draw();
     }
 
     Vec2u RenderTarget::GetSize() const

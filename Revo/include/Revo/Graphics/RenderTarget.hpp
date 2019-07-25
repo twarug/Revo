@@ -1,13 +1,14 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/RenderStates.hpp>
 #include <Revo/Math/Vector.hpp>
 
 namespace rv
 {
     // FWD
+    class Camera;
     class Drawable;
+    class ShaderProgram;
 
     ///
     class RenderTarget
@@ -39,7 +40,7 @@ namespace rv
         void Clear(Vec4f const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
         ///
-        void Draw(Drawable const& drawable, RenderStates const& states = {});
+        void Draw(Drawable const& drawable, ShaderProgram const& shaderProgram, Camera const& camera);
 
         ///
         Vec2u GetSize() const;
