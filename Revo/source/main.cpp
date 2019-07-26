@@ -106,9 +106,8 @@ int main(int, char**)
 
     av2D.SetTransform(rv::Vec3f{ 640, 360, 0 }, rv::Vec3f{ 320, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
     av3D.SetTransform(rv::Vec3f{ 1.0f, 0.5625f, 0 }, rv::Vec3f{ 0.5f, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
-    av3Db.SetTransform(rv::Vec3f{ 0.0f, 0.0f, 0 }, rv::Vec3f{ 0.5f, 0.28125f, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 2, 1, 1 });
-
-    rv::VertexBuffer fboVA{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
+    av3Db.SetTransform(rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 0.5f, 0.28125f, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 2, 1, 1 });
+    avCube.SetTransform(rv::Vec3f{ 0, 0, -4 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 0.5f, 0.5f, 0 }, rv::Vec3f{ 1, 1, 1 });
 
     std::cout << std::boolalpha;
 
@@ -146,9 +145,6 @@ int main(int, char**)
     glCullFace(GL_FRONT);
     glFrontFace(GL_CW);
 
-    auto x = RV_GFX_CALL(glCreateShader, GL_FUNC_ADD);
-    RV_GFX_CALL(glDeleteShader, x);
-
     //
 
     while (window.IsOpen())
@@ -173,21 +169,21 @@ int main(int, char**)
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", rv::Vec2f{ width, height });
 
-        av2D.D_ShowTransformableEditor(nullptr);
-        av3D.D_ShowTransformableEditor(nullptr);
-        av3Db.D_ShowTransformableEditor(nullptr);
+        // av2D.D_ShowTransformableEditor(nullptr);
+        // av3D.D_ShowTransformableEditor(nullptr);
+        // av3Db.D_ShowTransformableEditor(nullptr);
         avCube.D_ShowTransformableEditor(nullptr);
-        camera3D.D_ShowCameraEditor(nullptr);
+        // camera3D.D_ShowCameraEditor(nullptr);
 
         window.Clear();
 
         tex1.Bind(0);
 
         // glDisable(GL_DEPTH_TEST);
-        av2D.Draw(window, shaderProgram, camera2D);
+        // av2D.Draw(window, shaderProgram, camera2D);
         // glEnable(GL_DEPTH_TEST);
-        av3D.Draw(window, shaderProgram, camera3D);
-        av3Db.Draw(window, shaderProgram, camera3D);
+        // av3D.Draw(window, shaderProgram, camera3D);
+        // av3Db.Draw(window, shaderProgram, camera3D);
         avCube.Draw(window, shaderProgram, camera3D);
 
         imguiContext.Render(window);

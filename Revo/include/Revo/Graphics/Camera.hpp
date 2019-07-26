@@ -6,9 +6,6 @@
 
 namespace rv
 {
-    // FWD
-    class RenderTarget;
-
     ///
     struct OrthographicProjection {};
 

@@ -13,8 +13,9 @@ namespace rv
 {
     // FWD
     class Camera;
-    class RenderTarget;
+    class RenderTexture;
     class ShaderProgram;
+    class Window;
 
     ///
     class VertexBuffer : public Transformable
@@ -126,7 +127,10 @@ namespace rv
         void Unbind() const;
 
         ///
-        void Draw(RenderTarget const& renderTarget, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void Draw(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const;
+
+        ///
+        void Draw(RenderTexture const& renderTexture, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
     private:
 
@@ -135,6 +139,9 @@ namespace rv
 
         ///
         void M_Destroy();
+
+        ///
+        void M_Draw() const;
 
         Vertices_t m_vertices;
         PrimitiveType m_type;

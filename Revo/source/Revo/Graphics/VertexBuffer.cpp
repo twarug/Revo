@@ -2,7 +2,7 @@
 
 // Revo
 #include <Revo/Graphics/Camera.hpp>
-#include <Revo/Graphics/RenderTarget.hpp>
+#include <Revo/Graphics/Window.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Utility/OffsetOf.hpp>
 
@@ -384,40 +384,25 @@ namespace rv
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void VertexBuffer::Draw(RenderTarget const& renderTarget, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void VertexBuffer::Draw(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {
-            renderTarget.PrepareToDraw(GetTransform(), shaderProgram, camera);
+            window.PrepareToDraw(GetTransform(), shaderProgram, camera);
 
-            Bind();
-
-            if (m_needsUpdate)
-            {
-                if (m_needsReallocate)
-                {
-                    glBufferData(GL_ARRAY_BUFFER, GetBytesCount(), GetData(), GL_DYNAMIC_DRAW);
-
-                    m_needsReallocate = false;
-                }
-                else
-                {
-                    GLintptr const offset = sizeof(Vertex) * m_lowerIndex;
-                    GLsizeiptr const size = sizeof(Vertex) * (m_upperIndex - m_lowerIndex + 1);
-
-                    glBufferSubData(GL_ARRAY_BUFFER, offset, size, GetData() + m_lowerIndex);
-                }
-
-                m_lowerIndex = maxIndex;
-                m_upperIndex = minIndex;
-
-                m_needsUpdate = false;
-            }
-
-            glDrawArrays(impl::GetNativeHandle(m_type), 0, m_vertices.size());
-
-            Unbind();
+            M_Draw();
         }
+    }
+
+    void VertexBuffer::Draw(RenderTexture const& /*renderTexture*/, ShaderProgram const& /*shaderProgram*/, Camera const& /*camera*/) const
+    {
+        // TODO uncomment when RenderTexture is implemented
+        /*if (!m_vertices.empty() && m_vao && m_vbo)
+        {
+            renderTexture.PrepareToDraw(GetTransform(), shaderProgram, camera);
+
+            M_Draw();
+        }*/
     }
 
     void VertexBuffer::M_Init()
@@ -454,5 +439,36 @@ namespace rv
 
         m_needsUpdate = false;
         m_needsReallocate = false;
+    }
+
+    void VertexBuffer::M_Draw() const
+    {
+        Bind();
+
+        if (m_needsUpdate)
+        {
+            if (m_needsReallocate)
+            {
+                glBufferData(GL_ARRAY_BUFFER, GetBytesCount(), GetData(), GL_DYNAMIC_DRAW);
+
+                m_needsReallocate = false;
+            }
+            else
+            {
+                GLintptr const offset = sizeof(Vertex) * m_lowerIndex;
+                GLsizeiptr const size = sizeof(Vertex) * (m_upperIndex - m_lowerIndex + 1);
+
+                glBufferSubData(GL_ARRAY_BUFFER, offset, size, GetData() + m_lowerIndex);
+            }
+
+            m_lowerIndex = maxIndex;
+            m_upperIndex = minIndex;
+
+            m_needsUpdate = false;
+        }
+
+        glDrawArrays(impl::GetNativeHandle(m_type), 0, m_vertices.size());
+
+        Unbind();
     }
 }
