@@ -11,10 +11,11 @@ namespace rv
     ///
     enum class ImgExtType : int32_t
     {
-        PNG,
         BMP,
-        TGA,
-        JPG
+        HDR,
+        JPG,
+        PNG,
+        TGA
     };
 
     ///
@@ -22,8 +23,8 @@ namespace rv
     {
     public:
 
-        using Byte_t         = uint8_t;
-        using PixelsHolder_t = std::vector<Byte_t>;
+        using Byte_t   = uint8_t;
+        using Pixels_t = std::vector<Byte_t>;
 
         ///
         Image();
@@ -77,6 +78,6 @@ namespace rv
 
         PixelsHolder_t m_pixels;
         Vec2u m_size;
-        size_t m_channels;
+        uint32_t m_channels;
     };
 }
