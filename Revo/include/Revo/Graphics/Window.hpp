@@ -1,7 +1,6 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/RenderTarget.hpp>
 #include <Revo/ImGui/ImGuiContext.hpp>
 #include <Revo/System/Clock.hpp>
 #include <Revo/System/Context.hpp>
@@ -10,8 +9,13 @@
 
 namespace rv
 {
+    // FWD
+    class Camera;
+    class ShaderProgram;
+    class Transform;
+
     ///
-    class Window : public RenderTarget
+    class Window
     {
     public:
 
@@ -67,7 +71,19 @@ namespace rv
         float GetFramerate() const;
 
         ///
+        Vec2u GetSize() const;
+
+        ///
         void Bind() const;
+
+        ///
+        void Clear(Vec4f const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
+
+        ///
+        void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const;
+
+        ///
+        void PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
         void Display();
@@ -94,6 +110,7 @@ namespace rv
 
         NativeHandle_t m_window;
         GraphicsContext_t m_graphicsContext;
+        Vec2u m_size;
         Duration_t m_framerateLimit;
         Clock m_dtClock;
         bool m_isOpen;

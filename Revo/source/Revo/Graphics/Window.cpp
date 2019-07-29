@@ -2,6 +2,9 @@
 
 // Revo
 #include <Revo/Graphics/Backend.hpp>
+#include <Revo/Graphics/Camera.hpp>
+#include <Revo/Graphics/ShaderProgram.hpp>
+#include <Revo/Graphics/Transform.hpp>
 
 // C++
 #include <thread>
@@ -11,6 +14,7 @@ namespace rv
     Window::Window()
         : m_window { nullptr }
         , m_graphicsContext { nullptr }
+        , m_size {}
         , m_framerateLimit {}
         , m_dtClock {}
         , m_isOpen { false }
@@ -287,9 +291,47 @@ namespace rv
         return 1.0f / AsFSeconds(GetDeltaDuration());
     }
 
+    Vec2u Window::GetSize() const
+    {
+        return m_size;
+    }
+
     void Window::Bind() const
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void Window::Clear(Vec4f const& color)
+    {
+        Bind();
+
+        glClearColor(color.x, color.y, color.z, color.w);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+    void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const
+    {
+        Bind();
+
+        Mat4x4f mvp = Mat4x4f{ 1.0f };
+        mvp *= camera.GetProjectionMatrix(m_size);
+        mvp *= camera.GetViewMatrix();
+
+        shaderProgram.UseProgram();
+        shaderProgram.SetUniform("mvp", mvp);
+    }
+
+    void Window::PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const
+    {
+        Bind();
+
+        Mat4x4f mvp = Mat4x4f{ 1.0f };
+        mvp *= camera.GetProjectionMatrix(m_size);
+        mvp *= camera.GetViewMatrix();
+        mvp *= transform.GetMatrix();
+
+        shaderProgram.UseProgram();
+        shaderProgram.SetUniform("mvp", mvp);
     }
 
     void Window::Display()
