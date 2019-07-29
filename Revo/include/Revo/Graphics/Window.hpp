@@ -67,7 +67,7 @@ namespace rv
         float GetFramerate() const;
 
         ///
-        virtual void Bind() const override;
+        void Bind() const;
 
         ///
         void Display();

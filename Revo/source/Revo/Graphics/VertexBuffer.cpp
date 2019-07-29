@@ -384,25 +384,14 @@ namespace rv
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void VertexBuffer::Draw(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void VertexBuffer::Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {
-            window.PrepareToDraw(GetTransform(), shaderProgram, camera);
+            window.PrepareToRender(GetTransform(), shaderProgram, camera);
 
-            M_Draw();
+            M_Render();
         }
-    }
-
-    void VertexBuffer::Draw(RenderTexture const& /*renderTexture*/, ShaderProgram const& /*shaderProgram*/, Camera const& /*camera*/) const
-    {
-        // TODO uncomment when RenderTexture is implemented
-        /*if (!m_vertices.empty() && m_vao && m_vbo)
-        {
-            renderTexture.PrepareToDraw(GetTransform(), shaderProgram, camera);
-
-            M_Draw();
-        }*/
     }
 
     void VertexBuffer::M_Init()
@@ -441,7 +430,7 @@ namespace rv
         m_needsReallocate = false;
     }
 
-    void VertexBuffer::M_Draw() const
+    void VertexBuffer::M_Render() const
     {
         Bind();
 

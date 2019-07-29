@@ -34,16 +34,13 @@ namespace rv
         ~RenderTarget() = default;
 
         ///
-        virtual void Bind() const = 0;
-
-        ///
         void Clear(Vec4f const& color = { 0.0f, 0.0f, 0.0f, 0.0f });
 
         ///
-        void PrepareToDraw(ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
-        void PrepareToDraw(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
         Vec2u GetSize() const;

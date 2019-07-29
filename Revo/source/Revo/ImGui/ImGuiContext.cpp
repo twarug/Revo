@@ -43,21 +43,21 @@ namespace rv
         }
     }
 
-    void ImGuiContext::NewFrame(Window const& window)
+    void ImGuiContext::NewFrame(Window const& window) const
     {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window.GetNativeHandle());
         ImGui::NewFrame();
     }
 
-    void ImGuiContext::ProcessEvent(Event const& event)
+    void ImGuiContext::ProcessEvent(Event const& event) const
     {
         ImGui_ImplSDL2_ProcessEvent(&event.sdlEvent);
     }
 
-    void ImGuiContext::Render(RenderTarget const& renderTarget)
+    void ImGuiContext::Render(Window const& window) const
     {
-        renderTarget.Bind();
+        window.Bind();
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

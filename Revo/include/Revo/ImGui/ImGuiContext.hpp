@@ -9,9 +9,8 @@
 namespace rv
 {
     // FWD
-    class RenderTarget;
-    class Window;
     struct Event;
+    class Window;
 
     ///
     class ImGuiContext
@@ -43,13 +42,13 @@ namespace rv
         void Shutdown();
 
         ///
-        void NewFrame(Window const& window);
+        void NewFrame(Window const& window) const;
 
         ///
-        void ProcessEvent(Event const& event);
+        void ProcessEvent(Event const& event) const;
 
         ///
-        void Render(RenderTarget const& renderTarget);
+        void Render(Window const& window) const;
 
     private:
 

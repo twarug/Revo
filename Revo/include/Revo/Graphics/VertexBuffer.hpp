@@ -127,10 +127,7 @@ namespace rv
         void Unbind() const;
 
         ///
-        void Draw(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const;
-
-        ///
-        void Draw(RenderTexture const& renderTexture, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const;
 
     private:
 
@@ -141,7 +138,7 @@ namespace rv
         void M_Destroy();
 
         ///
-        void M_Draw() const;
+        void M_Render() const;
 
         Vertices_t m_vertices;
         PrimitiveType m_type;

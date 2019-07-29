@@ -15,7 +15,7 @@ namespace rv
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RenderTarget::PrepareToDraw(ShaderProgram const& shaderProgram, Camera const& camera) const
+    void RenderTarget::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         Bind();
 
@@ -27,7 +27,7 @@ namespace rv
         shaderProgram.SetUniform("mvp", mvp);
     }
 
-    void RenderTarget::PrepareToDraw(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void RenderTarget::PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const
     {
         Bind();
 
