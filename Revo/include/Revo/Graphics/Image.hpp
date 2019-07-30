@@ -76,7 +76,7 @@ namespace rv
 
     private:
 
-        PixelsHolder_t m_pixels;
+        Pixels_t m_pixels;
         Vec2u m_size;
         uint32_t m_channels;
     };
