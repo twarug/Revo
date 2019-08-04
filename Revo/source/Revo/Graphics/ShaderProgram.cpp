@@ -62,12 +62,21 @@ namespace rv
 
             glLinkProgram(program);
 
-            for (auto const ptr : il)
-            {
-                glDetachShader(program, ptr->GetNativeHandle());
-            }
+            bool success = M_FinishLinking(program);
 
-            return M_FinishLinking(program);
+            if (success)
+            {
+                for (auto const ptr : il)
+                {
+                    glDetachShader(program, ptr->GetNativeHandle());
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #if defined(RV_DEBUG)
