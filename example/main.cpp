@@ -20,7 +20,7 @@ int main(int, char**)
     }
 
     rv::Window window;
-    if (!window.Create({ 1280, 720 }, u8"Zażółć gęślą jaźń"))
+    if (!window.Create({ 1280, 720 }, "Zażółć gęślą jaźń"))
     {
         return -1;
     }
