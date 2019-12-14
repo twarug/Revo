@@ -13,11 +13,11 @@ INFORM_OBJECT     := printf "\033[33m[Object] %s\033[0m\n"
 
 # Compiler
 CXX       := g++
-CXX_FLAGS := -std=c++17 -O2 -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL
+CXX_FLAGS := -std=c++17 -O2 -flto -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL
 
 # Linker
 LD       := g++
-LD_FLAGS :=
+LD_FLAGS := -flto -s
 
 # Static linker
 STATIC_LD       := ar rcs
@@ -28,19 +28,15 @@ DYNAMIC_LD       := g++
 DYNAMIC_LD_FLAGS := -shared
 
 # Toolchain info
-TCH_TARGET  := x86_64
-TCH_NAME    := MinGW
-TCH_VERSION := 7.3.0
-TCH_BUILD   := Debug
-TCH_PATH    := $(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION)/$(TCH_BUILD)
+TCH_NAME := MinGW
 
 # Target (app | dynamic | static)
 TARGET = app
 
 # Project directories
-SRC_DIR := Revo/source
+SRC_DIR := Revo/source example
 OBJ_DIR := obj
-OUT_DIR := out
+OUT_DIR := example
 
 # Sources & objects
 SRC_GLOB := '*.cpp'
@@ -51,34 +47,34 @@ SOURCES  := $(shell find $(SRC_DIR) -type f -name $(SRC_GLOB))
 OBJECTS  := $(addprefix $(OBJ_DIR)/,$(addsuffix .o,$(SOURCES)))
 
 # Executable
-EXE_NAME := a.exe
+EXE_NAME := RevoTest.exe
 EXE      := $(OUT_DIR)/$(EXE_NAME)
 
 # Directory for all libraries
 LIBS_DIR := E:/Dev/Libraries
 
 # ImGui SDL2
-IMGUI_SDL2_NAME := ImGuiSDL2-1.67
+IMGUI_SDL2_NAME := ImGuiSDL2
 IMGUI_SDL2_IDIR := -isystem $(LIBS_DIR)/$(IMGUI_SDL2_NAME)/include
-IMGUI_SDL2_LIBS := -L$(LIBS_DIR)/$(IMGUI_SDL2_NAME)/lib/$(TCH_PATH) -limgui
+IMGUI_SDL2_LIBS := -L$(LIBS_DIR)/$(IMGUI_SDL2_NAME)/lib/$(TCH_NAME) -limgui
 
 # SDL2
-SDL2_NAME := SDL2-2.0.9
+SDL2_NAME := SDL2
 SDL2_IDIR := -isystem $(LIBS_DIR)/$(SDL2_NAME)/include
-SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_PATH) -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lgdi32 -limm32
+SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_NAME) -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lgdi32 -limm32
 
 # glad
-GLAD_NAME := glad-3.3.0
+GLAD_NAME := glad
 GLAD_IDIR := -isystem $(LIBS_DIR)/$(GLAD_NAME)/include
-GLAD_LIBS := -L$(LIBS_DIR)/$(GLAD_NAME)/lib/$(TCH_TARGET)/$(TCH_NAME)/$(TCH_VERSION) -lglad
+GLAD_LIBS := -L$(LIBS_DIR)/$(GLAD_NAME)/lib/$(TCH_NAME) -lglad
 
 # glm
-GLM_NAME := glm-0.9.9.5
+GLM_NAME := glm
 GLM_IDIR := -isystem $(LIBS_DIR)/$(GLM_NAME)/include
 GLM_LIBS :=
 
 # nlohmann Json
-NLOHMANN_JSON_NAME := nlohmannJson-3.6.1
+NLOHMANN_JSON_NAME := nlohmannJson
 NLOHMANN_JSON_IDIR := -isystem $(LIBS_DIR)/$(NLOHMANN_JSON_NAME)/include
 NLOHMANN_JSON_LIBS :=
 
@@ -88,7 +84,7 @@ STB_IDIR := -isystem $(LIBS_DIR)/$(STB_NAME)/include
 STB_LIBS :=
 
 # fmt
-FMT_NAME := fmt-5.3.0
+FMT_NAME := fmt
 FMT_IDIR := -isystem $(LIBS_DIR)/$(FMT_NAME)/include
 FMT_LIBS :=
 
@@ -97,7 +93,7 @@ IDIR := $(IMGUI_SDL2_IDIR) $(SDL2_IDIR) $(GLAD_IDIR) $(GLM_IDIR) $(NLOHMANN_JSON
 LIBS := $(IMGUI_SDL2_LIBS) $(SDL2_LIBS) $(GLAD_LIBS) $(GLM_LIBS) $(NLOHMANN_JSON_LIBS) $(STB_LIBS) $(FMT_LIBS)
 
 # .PHONY
-.PHONY := all dirs re run rerun clean
+.PHONY := all dirs re run rf rrf clean pure
 
 all: dirs $(EXE)
 
@@ -120,8 +116,6 @@ run: all
 
 re: clean all
 
-rerun: re run
-
 rf:
 	make clean && make -j4
 
@@ -130,6 +124,10 @@ rrf:
 
 clean:
 	$(V) find $(OBJ_DIRS) -type f -name '*.o' -delete
+	rm $(EXE)
+
+pure:
+	$(V) rm -rf $(OBJ_DIR)
 
 info:
 	$(V) $(INFORM_INFO_COUNT) "Sources directories" $(words $(SRC_DIRS))
