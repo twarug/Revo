@@ -50,6 +50,9 @@ namespace rv
     using nullptr_t = decltype(nullptr);
 }
 
+// Integer aliases
+#include <cstdint>
+
 // Logger utilities
 #if defined(RV_DEBUG)
 

@@ -3,9 +3,6 @@
 // Revo
 #include <Revo/Graphics/Backend.hpp>
 
-// C++
-#include <cstdint>
-
 namespace rv
 {
     ///
@@ -46,6 +43,12 @@ namespace rv
 
         ///
         Shader& operator = (Shader&& rhs) noexcept;
+
+        ///
+        Shader(Shader const&&) = delete;
+
+        ///
+        Shader& operator = (Shader const&&) = delete;
 
         ///
         ~Shader();

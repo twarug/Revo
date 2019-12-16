@@ -1,10 +1,10 @@
 #include <Revo/Graphics/Window.hpp>
 
 // Revo
-#include <Revo/Graphics/Backend.hpp>
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Graphics/Transform.hpp>
+#include <Revo/Debug/GfxCall.hpp>
 
 // C++
 #include <thread>
@@ -39,6 +39,8 @@ namespace rv
 
         m_size = size;
         m_window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_size.x, m_size.y, SDL_WINDOW_OPENGL);
+
+        RV_GFX_CALL(glViewport, 0, 0, m_size.x, m_size.y);
 
         if (m_window)
         {
@@ -298,15 +300,15 @@ namespace rv
 
     void Window::Bind() const
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        RV_GFX_CALL(glBindFramebuffer, GL_FRAMEBUFFER, 0);
     }
 
     void Window::Clear(Vec4f const& color)
     {
         Bind();
 
-        glClearColor(color.x, color.y, color.z, color.w);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        RV_GFX_CALL(glClearColor, color.x, color.y, color.z, color.w);
+        RV_GFX_CALL(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const

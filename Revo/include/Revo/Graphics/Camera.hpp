@@ -78,7 +78,7 @@ namespace rv
         #if defined(RV_DEBUG)
 
         ///
-        void D_ShowCameraEditor(bool* open);
+        void D_ShowCameraEditor(bool* open = nullptr);
 
         #endif
 

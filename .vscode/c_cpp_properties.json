@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "MinGW",
+            "name": "C++ Extra",
             "compilerPath": "E:/Dev/MSYS2/mingw64/bin/g++.exe",
             "includePath": [
                 "${workspaceFolder}/**",

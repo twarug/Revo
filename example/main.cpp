@@ -1,4 +1,3 @@
-#include <Revo/Debug/GfxCall.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
 #include <Revo/Graphics/Texture.hpp>
@@ -131,10 +130,6 @@ int main(int, char**)
     rv::Camera camera2D{ rv::OrthographicProjection{} };
     rv::Camera camera3D{ rv::PerspectiveProjection{} };
 
-    int width = window.GetSize().x;
-    int height = window.GetSize().y;
-    glViewport(0, 0, width, height);
-
     //
 
     glEnable(GL_BLEND);
@@ -165,15 +160,15 @@ int main(int, char**)
         ImGui::ShowDemoWindow(nullptr);
 
         shaderProgram.UseProgram();
-        shaderProgram.D_ShowShaderProgramEditor(nullptr);
+        shaderProgram.D_ShowShaderProgramEditor();
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
-        shaderProgram.SetUniform("resolution", rv::Vec2f{ width, height });
+        shaderProgram.SetUniform("resolution", window.GetSize());
 
-        // av2D.D_ShowTransformableEditor(nullptr);
-        // av3D.D_ShowTransformableEditor(nullptr);
-        // av3Db.D_ShowTransformableEditor(nullptr);
-        avCube.D_ShowTransformableEditor(nullptr);
-        // camera3D.D_ShowCameraEditor(nullptr);
+        // av2D.D_ShowTransformableEditor();
+        // av3D.D_ShowTransformableEditor();
+        // av3Db.D_ShowTransformableEditor();
+        avCube.D_ShowTransformableEditor();
+        // camera3D.D_ShowCameraEditor();
 
         window.Clear();
 

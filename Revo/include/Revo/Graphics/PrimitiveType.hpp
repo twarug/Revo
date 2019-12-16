@@ -3,9 +3,6 @@
 // Revo
 #include <Revo/Config.hpp>
 
-// C++
-#include <cstdint>
-
 namespace rv
 {
     ///
@@ -23,6 +20,6 @@ namespace rv
     namespace impl
     {
         ///
-        int32_t GetNativeHandle(PrimitiveType type);        
+        int32_t GetNativeHandle(PrimitiveType type);
     }
 }

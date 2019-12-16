@@ -1,5 +1,8 @@
 #include <Revo/Graphics/Shader.hpp>
 
+// Revo
+#include <Revo/Debug/GfxCall.hpp>
+
 // C++
 #include <fstream>
 #include <memory>
@@ -90,7 +93,7 @@ namespace rv
 
         return ptr && M_Compile(type, ptr.get(), -1);
     }
-
+    
     bool Shader::LoadFromMemory(ShaderType type, void const* data, int32_t size)
     {
         return M_Compile(type, reinterpret_cast<char const*>(data), size);
@@ -108,20 +111,17 @@ namespace rv
 
     void Shader::M_Destroy()
     {
-        if (m_shader)
-        {
-            glDeleteShader(m_shader);
-        }
+        RV_GFX_CALL(glDeleteShader, m_shader);
     }
 
     bool Shader::M_Compile(ShaderType type, char const* data, int32_t size)
     {
-        NativeHandle_t shader = glCreateShader(impl::GetNativeHandle(type));
-        glShaderSource(shader, 1, &data, &size);
-        glCompileShader(shader);
+        NativeHandle_t shader = RV_GFX_CALL(glCreateShader, impl::GetNativeHandle(type));
+        RV_GFX_CALL(glShaderSource, shader, 1, &data, &size);
+        RV_GFX_CALL(glCompileShader, shader);
 
         int32_t success;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+        RV_GFX_CALL(glGetShaderiv, shader, GL_COMPILE_STATUS, &success);
 
         if (success)
         {
@@ -136,14 +136,14 @@ namespace rv
             #if defined(RV_DEBUG)
             {
                 char infoLog[512];
-                glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
+                RV_GFX_CALL(glGetShaderInfoLog, shader, sizeof(infoLog), nullptr, infoLog);
 
                 // TODO better logging
                 std::fprintf(stderr, "%s", infoLog);
             }
             #endif
 
-            glDeleteShader(shader);
+            RV_GFX_CALL(glDeleteShader, shader);
 
             return false;
         }

@@ -125,7 +125,7 @@ namespace rv
         using UniMap_t = std::map<std::string, std::variant<bool, Vec2b, Vec3b, Vec4b, int32_t, Vec2i, Vec3i, Vec4i, uint32_t, Vec2u, Vec3u, Vec4u, float, Vec2f, Vec3f, Vec4f, Mat2x2f, Mat3x3f, Mat4x4f>>;
 
         ///
-        void D_ShowShaderProgramEditor(bool* open);
+        void D_ShowShaderProgramEditor(bool* open = nullptr);
 
         ///
         void D_SaveConfig(nlohmann::json& config) const;

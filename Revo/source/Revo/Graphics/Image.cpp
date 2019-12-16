@@ -2,9 +2,9 @@
 
 // stb
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
+#include <stb/stb_image.h>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <stb_image_write.h>
+#include <stb/stb_image_write.h>
 
 namespace rv
 {
@@ -40,13 +40,13 @@ namespace rv
         return *this;
     }
 
-    bool Image::LoadFromFile(char const* path)
+    bool Image::LoadFromFile(char const* filePath)
     {
         int32_t w;
         int32_t h;
         int32_t bpp;
 
-        Byte_t* ptr = stbi_load(path, &w, &h, &bpp, STBI_rgb_alpha);
+        Byte_t* ptr = stbi_load(filePath, &w, &h, &bpp, STBI_rgb_alpha);
 
         if (ptr)
         {
@@ -63,7 +63,7 @@ namespace rv
         return false;
     }
 
-    bool Image::SaveToFile(char const* path, ImgExtType extension, bool flipVertically) const
+    bool Image::SaveToFile(char const* filePath, ImgExtType extension, bool flipVertically) const
     {
         stbi_flip_vertically_on_write(flipVertically);
 
@@ -71,15 +71,15 @@ namespace rv
         {
             switch (extension)
             {
-                case ImgExtType::BMP: return stbi_write_bmp(path, m_size.x, m_size.y, m_channels, m_pixels.data());
+                case ImgExtType::BMP: return stbi_write_bmp(filePath, m_size.x, m_size.y, m_channels, m_pixels.data());
 
                 case ImgExtType::HDR: return false; // TODO implement
 
-                case ImgExtType::JPG: return stbi_write_jpg(path, m_size.x, m_size.y, m_channels, m_pixels.data(), 90);
+                case ImgExtType::JPG: return stbi_write_jpg(filePath, m_size.x, m_size.y, m_channels, m_pixels.data(), 90);
 
-                case ImgExtType::PNG: return stbi_write_png(path, m_size.x, m_size.y, m_channels, m_pixels.data(), 0);
+                case ImgExtType::PNG: return stbi_write_png(filePath, m_size.x, m_size.y, m_channels, m_pixels.data(), 0);
 
-                case ImgExtType::TGA: return stbi_write_tga(path, m_size.x, m_size.y, m_channels, m_pixels.data());
+                case ImgExtType::TGA: return stbi_write_tga(filePath, m_size.x, m_size.y, m_channels, m_pixels.data());
             }
         }
 
@@ -147,7 +147,7 @@ namespace rv
         return m_size.x * m_size.y;
     }
 
-    size_t Image::GetChannelsCount() const
+    uint32_t Image::GetChannelsCount() const
     {
         return m_channels;
     }

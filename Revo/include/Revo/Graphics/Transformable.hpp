@@ -81,7 +81,7 @@ namespace rv
         #if defined(RV_DEBUG)
 
         ///
-        void D_ShowTransformableEditor(bool* open);
+        void D_ShowTransformableEditor(bool* open = nullptr);
 
         #endif
 

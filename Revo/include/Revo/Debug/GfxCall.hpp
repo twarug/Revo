@@ -21,7 +21,7 @@ namespace rv
         template <typename F, typename... Args>
         auto GfxCall(char const* where, char const* which, F f, Args&&... args)
         {
-            constexpr auto translateErrorCode = [](GLenum error) -> char const* {
+            auto const translateErrorCode = [](GLenum error) -> char const* {
                 switch (error)
                 {
                     case GL_INVALID_ENUM: return "Invalid enum";

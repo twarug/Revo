@@ -62,7 +62,7 @@ namespace rv
 
             glLinkProgram(program);
 
-            bool success = M_FinishLinking(program);
+            bool const success = M_FinishLinking(program);
 
             if (success)
             {

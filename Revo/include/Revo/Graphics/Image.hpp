@@ -23,8 +23,8 @@ namespace rv
     {
     public:
 
-        using Byte_t   = uint8_t;
-        using Pixels_t = std::vector<Byte_t>;
+        using Byte_t  = uint8_t;
+        using Bytes_t = std::vector<Byte_t>;
 
         ///
         Image();
@@ -42,13 +42,19 @@ namespace rv
         Image& operator = (Image&& rhs) noexcept;
 
         ///
+        Image(Image const&&) = delete;
+
+        ///
+        Image& operator = (Image const&&) = delete;
+
+        ///
         ~Image() = default;
 
         ///
-        bool LoadFromFile(char const* path);
+        bool LoadFromFile(char const* filePath);
 
         ///
-        bool SaveToFile(char const* path, ImgExtType extension, bool flipVertically = false) const;
+        bool SaveToFile(char const* filePath, ImgExtType extension, bool flipVertically = false) const;
 
         ///
         void FlipVertically();
@@ -69,14 +75,14 @@ namespace rv
         size_t GetPixelsCount() const;
 
         ///
-        size_t GetChannelsCount() const;
+        uint32_t GetChannelsCount() const;
 
         ///
         bool IsEmpty() const;
 
     private:
 
-        Pixels_t m_pixels;
+        Bytes_t m_pixels;
         Vec2u m_size;
         uint32_t m_channels;
     };
