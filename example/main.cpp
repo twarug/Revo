@@ -1,3 +1,4 @@
+#include <Revo/Debug/GfxCall.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
 #include <Revo/Graphics/Texture.hpp>
@@ -34,79 +35,54 @@ int main(int, char**)
 
     //
 
-    const rv::Vertex vexPixFan2D[] = {
-        { {    0/* + 100*/,   0/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-        { { 1280/* + 100*/,   0/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
-        { { 1280/* + 100*/, 720/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {    0/* + 100*/, 720/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+    rv::Vec4f white = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    rv::Vertex const vexCube[] = {
+        { { -1,  1,  1 }, white, { 0, 0 } }, // front
+        { {  1,  1,  1 }, white, { 1, 0 } },
+        { { -1, -1,  1 }, white, { 0, 1 } },
+        { { -1, -1,  1 }, white, { 0, 1 } },
+        { {  1,  1,  1 }, white, { 1, 0 } },
+        { {  1, -1,  1 }, white, { 1, 1 } },
+
+        { {  1,  1,  1 }, white, { 0, 0 } }, // right
+        { {  1,  1, -1 }, white, { 1, 0 } },
+        { {  1, -1,  1 }, white, { 0, 1 } },
+        { {  1, -1,  1 }, white, { 0, 1 } },
+        { {  1,  1, -1 }, white, { 1, 0 } },
+        { {  1, -1, -1 }, white, { 1, 1 } },
+
+        { {  1,  1, -1 }, white, { 0, 0 } }, // back
+        { { -1,  1, -1 }, white, { 1, 0 } },
+        { {  1, -1, -1 }, white, { 0, 1 } },
+        { {  1, -1, -1 }, white, { 0, 1 } },
+        { { -1,  1, -1 }, white, { 1, 0 } },
+        { { -1, -1, -1 }, white, { 1, 1 } },
+
+        { { -1,  1, -1 }, white, { 0, 0 } }, // left
+        { { -1,  1,  1 }, white, { 1, 0 } },
+        { { -1, -1, -1 }, white, { 0, 1 } },
+        { { -1, -1, -1 }, white, { 0, 1 } },
+        { { -1,  1,  1 }, white, { 1, 0 } },
+        { { -1, -1,  1 }, white, { 1, 1 } },
+
+        { { -1,  1, -1 }, white, { 0, 0 } }, // top
+        { {  1,  1, -1 }, white, { 1, 0 } },
+        { { -1,  1,  1 }, white, { 0, 1 } },
+        { { -1,  1,  1 }, white, { 0, 1 } },
+        { {  1,  1, -1 }, white, { 1, 0 } },
+        { {  1,  1,  1 }, white, { 1, 1 } },
+
+        { {  1, -1, -1 }, white, { 0, 0 } }, // bottom
+        { { -1, -1, -1 }, white, { 1, 0 } },
+        { {  1, -1,  1 }, white, { 0, 1 } },
+        { {  1, -1,  1 }, white, { 0, 1 } },
+        { { -1, -1, -1 }, white, { 1, 0 } },
+        { { -1, -1,  1 }, white, { 1, 1 } },
     };
 
-    const rv::Vertex vexPixFan3D[] = {
-        { {    0/* + 100*/,   0/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-        { { 1.0f/* + 100*/,   0/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
-        { { 1.0f/* + 100*/, 0.5625f/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {    0/* + 100*/, 0.5625f/* + 100*/, 0 }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-    };
-
-    const rv::Vertex vexCube[] = {
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {  1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { {  1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { { -1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { {  1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {  1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { {  1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { {  1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f,  1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { { -1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-
-        { {  1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-        { { -1.0f,  1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
-        { {  1.0f, -1.0f,  1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-    };
-
-    rv::VertexBuffer av2D{ vexPixFan2D, 4u, rv::PrimitiveType::TriangleFan };
-    rv::VertexBuffer av3D{ vexPixFan3D, 4u, rv::PrimitiveType::TriangleFan };
-    rv::VertexBuffer av3Db{ vexPixFan3D, 4u, rv::PrimitiveType::TriangleFan };
-    rv::VertexBuffer avCube{ vexCube, 36u, rv::PrimitiveType::Triangles };
-
-    av2D.SetTransform(rv::Vec3f{ 640, 360, 0 }, rv::Vec3f{ 320, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
-    av3D.SetTransform(rv::Vec3f{ 1.0f, 0.5625f, 0 }, rv::Vec3f{ 0.5f, 0, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 1, 2, 1 });
-    av3Db.SetTransform(rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 0.5f, 0.28125f, 0 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 2, 1, 1 });
-    avCube.SetTransform(rv::Vec3f{ 0, 0, -4 }, rv::Vec3f{ 0, 0, 0 }, rv::Vec3f{ 0.5f, 0.5f, 0 }, rv::Vec3f{ 1, 1, 1 });
+    rv::VertexBuffer avCube{ vexCube, std::size(vexCube), rv::PrimitiveType::Triangles };
+    rv::Transformable trCube{ rv::Vec3f{ 0.0f, 0.0f, -4.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 1.0f, 1.0f, 1.0f } };
 
     std::cout << std::boolalpha;
 
@@ -120,25 +96,22 @@ int main(int, char**)
     rv::ShaderProgram shaderProgram;
     std::cout << shaderProgram.LinkShaders({ &defaultVert, &testFrag }) << ' ';
 
-    rv::Texture tex1;
-    std::cout << tex1.LoadFromFile("map1.png") << ' ';
-    rv::Texture tex2;
-    std::cout << tex2.LoadFromFile("map2.png") << ' ';
+    rv::Texture tex;
+    std::cout << tex.LoadFromFile("tex.png") << ' ';
 
     rv::Clock cl;
 
-    rv::Camera camera2D{ rv::OrthographicProjection{} };
     rv::Camera camera3D{ rv::PerspectiveProjection{} };
 
     //
 
-    glEnable(GL_BLEND);
+    RV_GFX_CALL(glEnable, GL_BLEND);
     RV_GFX_CALL(glBlendFuncSeparate, GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
-    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+    RV_GFX_CALL(glBlendEquationSeparate, GL_FUNC_ADD, GL_FUNC_ADD);
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-    glFrontFace(GL_CW);
+    RV_GFX_CALL(glEnable, GL_CULL_FACE);
+    RV_GFX_CALL(glCullFace, GL_FRONT);
+    RV_GFX_CALL(glFrontFace, GL_CCW);
 
     //
 
@@ -164,22 +137,12 @@ int main(int, char**)
         shaderProgram.SetUniform("time", rv::AsFSeconds(cl.GetElapsedDuration()));
         shaderProgram.SetUniform("resolution", window.GetSize());
 
-        // av2D.D_ShowTransformableEditor();
-        // av3D.D_ShowTransformableEditor();
-        // av3Db.D_ShowTransformableEditor();
-        avCube.D_ShowTransformableEditor();
-        // camera3D.D_ShowCameraEditor();
-
         window.Clear();
 
-        tex1.Bind(0);
+        trCube.D_ShowTransformableEditor();
 
-        // glDisable(GL_DEPTH_TEST);
-        // av2D.Render(window, shaderProgram, camera2D);
-        // glEnable(GL_DEPTH_TEST);
-        // av3D.Render(window, shaderProgram, camera3D);
-        // av3Db.Render(window, shaderProgram, camera3D);
-        avCube.Render(window, shaderProgram, camera3D);
+        tex.Bind(0);
+        avCube.Render(window, shaderProgram, camera3D, trCube.GetTransform());
 
         imguiContext.Render(window);
 

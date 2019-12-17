@@ -40,8 +40,6 @@ namespace rv
         m_size = size;
         m_window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_size.x, m_size.y, SDL_WINDOW_OPENGL);
 
-        RV_GFX_CALL(glViewport, 0, 0, m_size.x, m_size.y);
-
         if (m_window)
         {
             m_graphicsContext = SDL_GL_CreateContext(m_window);
@@ -63,6 +61,8 @@ namespace rv
                     }
                 }
             }
+
+            RV_GFX_CALL(glViewport, 0, 0, m_size.x, m_size.y);
 
             m_framerateLimit = Duration_t::zero();
 
@@ -323,7 +323,7 @@ namespace rv
         shaderProgram.SetUniform("mvp", mvp);
     }
 
-    void Window::PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const
     {
         Bind();
 

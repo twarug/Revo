@@ -76,8 +76,6 @@ namespace rv
         ///
         Transform GetInverseTransform() const;
 
-    public:
-
         #if defined(RV_DEBUG)
 
         ///

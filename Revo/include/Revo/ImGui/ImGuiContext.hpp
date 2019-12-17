@@ -4,7 +4,7 @@
 #include <Revo/Config.hpp>
 
 // ImGui
-#include <imgui.h>
+#include <ImGui/imgui.h>
 
 namespace rv
 {

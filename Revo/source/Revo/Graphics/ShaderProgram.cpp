@@ -828,17 +828,14 @@ namespace rv
 
     void ShaderProgram::M_Destroy()
     {
-        if (m_program)
-        {
-            glDeleteProgram(m_program);
+        glDeleteProgram(m_program);
 
-            #if defined(RV_DEBUG)
-            {
-                d_uniforms.clear();
-                d_currentElem = d_uniforms.end();
-            }
-            #endif
+        #if defined(RV_DEBUG)
+        {
+            d_uniforms.clear();
+            d_currentElem = d_uniforms.end();
         }
+        #endif
     }
 
     bool ShaderProgram::M_FinishLinking(NativeHandle_t program)

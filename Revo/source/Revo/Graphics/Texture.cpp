@@ -89,10 +89,7 @@ namespace rv
 
     void Texture::M_Destroy()
     {
-        if (m_texture)
-        {
-            glDeleteTextures(1, &m_texture);
-        }
+        glDeleteTextures(1, &m_texture);
     }
 
     void Texture::Bind(size_t slot)

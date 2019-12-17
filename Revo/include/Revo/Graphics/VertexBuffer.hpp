@@ -1,10 +1,8 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/Backend.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Vertex.hpp>
-#include <Revo/Graphics/Transformable.hpp>
 
 // C++
 #include <vector>
@@ -15,14 +13,16 @@ namespace rv
     class Camera;
     class RenderTexture;
     class ShaderProgram;
+    class Transform;
     class Window;
 
     ///
-    class VertexBuffer : public Transformable
+    class VertexBuffer
     {
     public:
 
-        using Vertices_t = std::vector<Vertex>;
+        using Vertex_t   = Vertex;
+        using Vertices_t = std::vector<Vertex_t>;
 
         ///
         VertexBuffer() = delete;
@@ -34,13 +34,13 @@ namespace rv
         explicit VertexBuffer(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(size_t size, Vertex const& value, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(size_t size, Vertex_t const& vertex, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(Vertex const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(Vertex_t const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer(Vertex const* begin, Vertex const* end, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer(Vertex_t const* begin, Vertex_t const* end, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
         VertexBuffer(VertexBuffer const& rhs);
@@ -55,6 +55,12 @@ namespace rv
         VertexBuffer& operator = (VertexBuffer&& rhs) noexcept;
 
         ///
+        VertexBuffer(VertexBuffer const&&) = delete;
+
+        ///
+        VertexBuffer& operator = (VertexBuffer const&&) = delete;
+
+        ///
         ~VertexBuffer();
 
         ///
@@ -64,34 +70,34 @@ namespace rv
         VertexBuffer& Assign(size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(size_t size, Vertex const& value, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(size_t size, Vertex_t const& vertex, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(Vertex const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(Vertex_t const* vertices, size_t size, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
-        VertexBuffer& Assign(Vertex const* begin, Vertex const* end, PrimitiveType type = PrimitiveType::Triangles);
+        VertexBuffer& Assign(Vertex_t const* begin, Vertex_t const* end, PrimitiveType type = PrimitiveType::Triangles);
 
         ///
         void Resize(size_t size);
 
         ///
-        void Resize(size_t size, Vertex const& value);
+        void Resize(size_t size, Vertex_t const& vertex);
 
         ///
-        void SetVertex(size_t index, Vertex const& vertex);
+        void SetVertex(size_t index, Vertex_t const& vertex);
 
         ///
-        Vertex& GetVertex(size_t index);
+        Vertex_t& GetVertex(size_t index);
 
         ///
-        Vertex const& GetVertex(size_t index) const;
+        Vertex_t const& GetVertex(size_t index) const;
 
         ///
-        Vertex& operator [] (size_t index);
+        Vertex_t& operator [] (size_t index);
 
         ///
-        Vertex const& operator [] (size_t index) const;
+        Vertex_t const& operator [] (size_t index) const;
 
         ///
         void SetPrimitiveType(PrimitiveType type);
@@ -100,10 +106,10 @@ namespace rv
         PrimitiveType GetPrimitiveType() const;
 
         ///
-        Vertex* GetData();
+        Vertex_t* GetData();
 
         ///
-        Vertex const* GetData() const;
+        Vertex_t const* GetData() const;
 
         ///
         size_t GetSize() const;
@@ -127,7 +133,10 @@ namespace rv
         void Unbind() const;
 
         ///
-        void Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void Update() const;
+
+        ///
+        void Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const;
 
     private:
 
@@ -137,13 +146,10 @@ namespace rv
         ///
         void M_Destroy();
 
-        ///
-        void M_Render() const;
-
         Vertices_t m_vertices;
         PrimitiveType m_type;
-        GLuint m_vao;
-        GLuint m_vbo;
+        uint32_t m_vao;
+        uint32_t m_vbo;
         mutable size_t m_lowerIndex;
         mutable size_t m_upperIndex;
         mutable bool m_needsUpdate;

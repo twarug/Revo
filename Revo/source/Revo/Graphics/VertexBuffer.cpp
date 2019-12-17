@@ -9,7 +9,7 @@
 namespace rv
 {
     inline constexpr size_t minIndex = 0;
-    inline constexpr size_t maxIndex = -1;
+    inline constexpr size_t maxIndex = static_cast<size_t>(-1);
 
     VertexBuffer::VertexBuffer(PrimitiveType type)
         : m_vertices {}
@@ -25,7 +25,7 @@ namespace rv
     }
 
     VertexBuffer::VertexBuffer(size_t size, PrimitiveType type)
-        : m_vertices { size, Vertex{} }
+        : m_vertices { size, Vertex_t{} }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
@@ -37,8 +37,8 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(size_t size, Vertex const& value, PrimitiveType type)
-        : m_vertices { size, value }
+    VertexBuffer::VertexBuffer(size_t size, Vertex_t const& vertex, PrimitiveType type)
+        : m_vertices { size, vertex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
@@ -50,7 +50,7 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(Vertex const* vertices, size_t size, PrimitiveType type)
+    VertexBuffer::VertexBuffer(Vertex_t const* vertices, size_t size, PrimitiveType type)
         : m_vertices { vertices, vertices + size }
         , m_type { type }
         , m_vao { 0 }
@@ -63,7 +63,7 @@ namespace rv
         M_Init();
     }
 
-    VertexBuffer::VertexBuffer(Vertex const* begin, Vertex const* end, PrimitiveType type)
+    VertexBuffer::VertexBuffer(Vertex_t const* begin, Vertex_t const* end, PrimitiveType type)
         : m_vertices { begin, end }
         , m_type { type }
         , m_vao { 0 }
@@ -161,14 +161,14 @@ namespace rv
             m_lowerIndex = minIndex;
             m_upperIndex = size - 1;
 
-            m_vertices.assign(size, Vertex{});
+            m_vertices.assign(size, Vertex_t{});
             m_type = type;
         }
 
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(size_t size, Vertex const& value, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(size_t size, Vertex_t const& vertex, PrimitiveType type)
     {
         if (size != 0)
         {
@@ -178,14 +178,14 @@ namespace rv
             m_lowerIndex = minIndex;
             m_upperIndex = size - 1;
 
-            m_vertices.assign(size, value);
+            m_vertices.assign(size, vertex);
             m_type = type;
         }
 
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(Vertex const* vertices, size_t size, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(Vertex_t const* vertices, size_t size, PrimitiveType type)
     {
         if (size != 0)
         {
@@ -202,9 +202,9 @@ namespace rv
         return *this;
     }
 
-    VertexBuffer& VertexBuffer::Assign(Vertex const* begin, Vertex const* end, PrimitiveType type)
+    VertexBuffer& VertexBuffer::Assign(Vertex_t const* begin, Vertex_t const* end, PrimitiveType type)
     {
-        ptrdiff_t const distance = end - begin;
+        auto const distance = end - begin;
 
         if (distance > 0)
         {
@@ -235,7 +235,7 @@ namespace rv
         }
     }
 
-    void VertexBuffer::Resize(size_t size, Vertex const& value)
+    void VertexBuffer::Resize(size_t size, Vertex_t const& vertex)
     {
         if (m_vertices.size() != size)
         {
@@ -245,11 +245,11 @@ namespace rv
             m_lowerIndex = minIndex;
             m_upperIndex = size - 1;
 
-            m_vertices.resize(size, value);
+            m_vertices.resize(size, vertex);
         }
     }
 
-    void VertexBuffer::SetVertex(size_t index, Vertex const& vertex)
+    void VertexBuffer::SetVertex(size_t index, Vertex_t const& vertex)
     {
         m_vertices[index] = vertex;
 
@@ -259,7 +259,7 @@ namespace rv
         m_needsUpdate = true;
     }
 
-    Vertex& VertexBuffer::GetVertex(size_t index)
+    VertexBuffer::Vertex_t &VertexBuffer::GetVertex(size_t index)
     {
         m_lowerIndex = std::min(m_lowerIndex, index);
         m_upperIndex = std::max(m_upperIndex, index);
@@ -269,17 +269,17 @@ namespace rv
         return m_vertices[index];
     }
 
-    Vertex const& VertexBuffer::GetVertex(size_t index) const
+    VertexBuffer::Vertex_t const &VertexBuffer::GetVertex(size_t index) const
     {
         return m_vertices[index];
     }
 
-    Vertex& VertexBuffer::operator [] (size_t index)
+    VertexBuffer::Vertex_t &VertexBuffer::operator[](size_t index)
     {
         return GetVertex(index);
     }
 
-    Vertex const& VertexBuffer::operator [] (size_t index) const
+    VertexBuffer::Vertex_t const &VertexBuffer::operator[](size_t index) const
     {
         return GetVertex(index);
     }
@@ -294,7 +294,7 @@ namespace rv
         return m_type;
     }
 
-    Vertex* VertexBuffer::GetData()
+    VertexBuffer::Vertex_t *VertexBuffer::GetData()
     {
         m_needsUpdate = true;
 
@@ -304,7 +304,7 @@ namespace rv
         return m_vertices.empty() ? nullptr : m_vertices.data();
     }
 
-    Vertex const* VertexBuffer::GetData() const
+    VertexBuffer::Vertex_t const *VertexBuffer::GetData() const
     {
         return m_vertices.empty() ? nullptr : m_vertices.data();
     }
@@ -316,7 +316,7 @@ namespace rv
 
     size_t VertexBuffer::GetBytesCount() const
     {
-        return m_vertices.size() * sizeof(Vertex);
+        return m_vertices.size() * sizeof(Vertex_t);
     }
 
     bool VertexBuffer::IsEmpty() const
@@ -338,9 +338,9 @@ namespace rv
             auto right  = m_vertices[0].position.x;
             auto bottom = m_vertices[0].position.y;
 
-            for (size_t v = 1; v < m_vertices.size(); ++v)
+            for (size_t i = 1; i < m_vertices.size(); ++i)
             {
-                auto const pos = m_vertices[v].position;
+                auto const pos = m_vertices[i].position;
 
                 if (pos.x < left)
                 {
@@ -384,13 +384,44 @@ namespace rv
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void VertexBuffer::Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera) const
+    void VertexBuffer::Update() const
+    {
+        if (m_needsUpdate)
+        {
+            if (m_needsReallocate)
+            {
+                glBufferData(GL_ARRAY_BUFFER, GetBytesCount(), GetData(), GL_DYNAMIC_DRAW);
+
+                m_needsReallocate = false;
+            }
+            else
+            {
+                GLintptr const offset = sizeof(Vertex_t) * m_lowerIndex;
+                GLsizeiptr const size = sizeof(Vertex_t) * (m_upperIndex - m_lowerIndex + 1);
+
+                glBufferSubData(GL_ARRAY_BUFFER, offset, size, GetData() + m_lowerIndex);
+            }
+
+            m_lowerIndex = maxIndex;
+            m_upperIndex = minIndex;
+
+            m_needsUpdate = false;
+        }
+    }
+
+    void VertexBuffer::Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {
-            window.PrepareToRender(GetTransform(), shaderProgram, camera);
+            window.PrepareToRender(shaderProgram, camera, transform);
 
-            M_Render();
+            Bind();
+
+            Update();
+
+            glDrawArrays(impl::GetNativeHandle(m_type), 0, m_vertices.size());
+
+            Unbind();
         }
     }
 
@@ -405,13 +436,13 @@ namespace rv
 
         // TODO do only once
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, decltype(Vertex::position)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex), OffsetPtrOf(&Vertex::position));
+        glVertexAttribPointer(0, decltype(Vertex_t::position)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex_t), OffsetPtrOf(&Vertex_t::position));
 
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, decltype(Vertex::color)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex), OffsetPtrOf(&Vertex::color));
+        glVertexAttribPointer(1, decltype(Vertex_t::color)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex_t), OffsetPtrOf(&Vertex_t::color));
 
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, decltype(Vertex::texCoord)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex), OffsetPtrOf(&Vertex::texCoord));
+        glVertexAttribPointer(2, decltype(Vertex_t::texCoord)::length(), GL_FLOAT, GL_FALSE, sizeof(Vertex_t), OffsetPtrOf(&Vertex_t::texCoord));
 
         Unbind();
     }
@@ -428,36 +459,5 @@ namespace rv
 
         m_needsUpdate = false;
         m_needsReallocate = false;
-    }
-
-    void VertexBuffer::M_Render() const
-    {
-        Bind();
-
-        if (m_needsUpdate)
-        {
-            if (m_needsReallocate)
-            {
-                glBufferData(GL_ARRAY_BUFFER, GetBytesCount(), GetData(), GL_DYNAMIC_DRAW);
-
-                m_needsReallocate = false;
-            }
-            else
-            {
-                GLintptr const offset = sizeof(Vertex) * m_lowerIndex;
-                GLsizeiptr const size = sizeof(Vertex) * (m_upperIndex - m_lowerIndex + 1);
-
-                glBufferSubData(GL_ARRAY_BUFFER, offset, size, GetData() + m_lowerIndex);
-            }
-
-            m_lowerIndex = maxIndex;
-            m_upperIndex = minIndex;
-
-            m_needsUpdate = false;
-        }
-
-        glDrawArrays(impl::GetNativeHandle(m_type), 0, m_vertices.size());
-
-        Unbind();
     }
 }

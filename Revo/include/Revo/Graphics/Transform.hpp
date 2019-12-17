@@ -87,6 +87,9 @@ namespace rv
         Transform Combined(Mat4x4f const& matrix);
 
         ///
+        Mat4x4f& GetMatrix();
+
+        ///
         Mat4x4f const& GetMatrix() const;
 
     private:

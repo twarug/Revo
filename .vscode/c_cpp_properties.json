@@ -12,7 +12,8 @@
                 "UNICODE",
                 "_UNICODE",
                 "RV_DEBUG",
-                "RV_OPENGL"
+                "RV_OPENGL",
+                "SDL_MAIN_HANDLED"
             ],
             "cStandard": "c11",
             "cppStandard": "c++20",

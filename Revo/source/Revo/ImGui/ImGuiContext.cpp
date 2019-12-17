@@ -6,8 +6,8 @@
 
 // ImGui
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
-#include <imgui_impl_sdl.h>
-#include <imgui_impl_opengl3.h>
+#include <ImGui/imgui_impl_sdl.h>
+#include <ImGui/imgui_impl_opengl3.h>
 
 namespace rv
 {

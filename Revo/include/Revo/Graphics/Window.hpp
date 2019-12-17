@@ -83,7 +83,7 @@ namespace rv
         void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
-        void PrepareToRender(Transform const& transform, ShaderProgram const& shaderProgram, Camera const& camera) const;
+        void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const;
 
         ///
         void Display();

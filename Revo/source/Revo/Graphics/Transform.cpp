@@ -113,6 +113,11 @@ namespace rv
         return Transform{ *this }.Combine(matrix);
     }
 
+    Mat4x4f& Transform::GetMatrix()
+    {
+        return m_matrix;
+    }
+
     Mat4x4f const& Transform::GetMatrix() const
     {
         return m_matrix;
