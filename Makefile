@@ -17,7 +17,7 @@ CXX_FLAGS := -std=c++17 -O2 -flto -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENG
 
 # Linker
 LD       := g++
-LD_FLAGS := -flto -s -static
+LD_FLAGS := -flto -s
 
 # Static linker
 STATIC_LD       := ar rcs
@@ -61,7 +61,7 @@ IMGUI_SDL2_LIBS := -L$(LIBS_DIR)/$(IMGUI_SDL2_NAME)/lib/$(TCH_NAME) -limgui
 # SDL2
 SDL2_NAME := SDL2
 SDL2_IDIR := -isystem $(LIBS_DIR)/$(SDL2_NAME)/include
-SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_NAME) -lmingw32 -lSDL2main -lSDL2 -mwindows -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion -luuid -lsetupapi -lhid -static-libgcc
+SDL2_LIBS := -L$(LIBS_DIR)/$(SDL2_NAME)/lib/$(TCH_NAME) -lmingw32 -lSDL2main -lSDL2 -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion -luuid -lsetupapi -lhid -static-libgcc
 
 # glad
 GLAD_NAME := glad

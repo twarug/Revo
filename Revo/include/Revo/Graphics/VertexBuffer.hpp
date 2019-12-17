@@ -147,11 +147,11 @@ namespace rv
         void M_Destroy();
 
         Vertices_t m_vertices;
+        mutable size_t m_lowerIndex;
+        mutable size_t m_upperIndex;
         PrimitiveType m_type;
         uint32_t m_vao;
         uint32_t m_vbo;
-        mutable size_t m_lowerIndex;
-        mutable size_t m_upperIndex;
         mutable bool m_needsUpdate;
         mutable bool m_needsReallocate;
     };

@@ -13,11 +13,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(PrimitiveType type)
         : m_vertices {}
+        , m_lowerIndex { maxIndex }
+        , m_upperIndex { minIndex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
-        , m_lowerIndex { maxIndex }
-        , m_upperIndex { minIndex }
         , m_needsUpdate { false }
         , m_needsReallocate { false }
     {
@@ -26,11 +26,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(size_t size, PrimitiveType type)
         : m_vertices { size, Vertex_t{} }
+        , m_lowerIndex { maxIndex }
+        , m_upperIndex { minIndex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
-        , m_lowerIndex { maxIndex }
-        , m_upperIndex { minIndex }
         , m_needsUpdate { false }
         , m_needsReallocate { false }
     {
@@ -39,11 +39,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(size_t size, Vertex_t const& vertex, PrimitiveType type)
         : m_vertices { size, vertex }
+        , m_lowerIndex { maxIndex }
+        , m_upperIndex { minIndex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
-        , m_lowerIndex { maxIndex }
-        , m_upperIndex { minIndex }
         , m_needsUpdate { false }
         , m_needsReallocate { false }
     {
@@ -52,11 +52,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(Vertex_t const* vertices, size_t size, PrimitiveType type)
         : m_vertices { vertices, vertices + size }
+        , m_lowerIndex { maxIndex }
+        , m_upperIndex { minIndex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
-        , m_lowerIndex { maxIndex }
-        , m_upperIndex { minIndex }
         , m_needsUpdate { false }
         , m_needsReallocate { false }
     {
@@ -65,11 +65,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(Vertex_t const* begin, Vertex_t const* end, PrimitiveType type)
         : m_vertices { begin, end }
+        , m_lowerIndex { maxIndex }
+        , m_upperIndex { minIndex }
         , m_type { type }
         , m_vao { 0 }
         , m_vbo { 0 }
-        , m_lowerIndex { maxIndex }
-        , m_upperIndex { minIndex }
         , m_needsUpdate { false }
         , m_needsReallocate { false }
     {
@@ -99,11 +99,11 @@ namespace rv
 
     VertexBuffer::VertexBuffer(VertexBuffer&& rhs) noexcept
         : m_vertices { std::move(rhs.m_vertices) }
+        , m_lowerIndex { rhs.m_lowerIndex }
+        , m_upperIndex { rhs.m_upperIndex }
         , m_type { rhs.m_type }
         , m_vao { rhs.m_vao }
         , m_vbo { rhs.m_vbo }
-        , m_lowerIndex { rhs.m_lowerIndex }
-        , m_upperIndex { rhs.m_upperIndex }
         , m_needsUpdate { rhs.m_needsUpdate }
         , m_needsReallocate { rhs.m_needsReallocate }
     {
@@ -122,18 +122,18 @@ namespace rv
             M_Destroy();
 
             m_vertices = std::move(rhs.m_vertices);
+            m_lowerIndex = rhs.m_lowerIndex;
+            m_upperIndex = rhs.m_upperIndex;
             m_type = rhs.m_type;
             m_vao = rhs.m_vao;
             m_vbo = rhs.m_vbo;
-            m_lowerIndex = rhs.m_lowerIndex;
-            m_upperIndex = rhs.m_upperIndex;
             m_needsUpdate = rhs.m_needsUpdate;
             m_needsReallocate = rhs.m_needsReallocate;
 
-            rhs.m_vao = 0;
-            rhs.m_vbo = 0;
             rhs.m_lowerIndex = maxIndex;
             rhs.m_upperIndex = minIndex;
+            rhs.m_vao = 0;
+            rhs.m_vbo = 0;
             rhs.m_needsReallocate = false;
             rhs.m_needsUpdate = false;
         }
