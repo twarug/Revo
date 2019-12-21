@@ -12,7 +12,7 @@ namespace rv
     // FWD
     class Camera;
     class ShaderProgram;
-    class Transform;
+    class Transform3D;
 
     ///
     class Window
@@ -83,7 +83,7 @@ namespace rv
         void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const;
 
         ///
-        void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const;
+        void PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform3D const& transform) const;
 
         ///
         void Display();

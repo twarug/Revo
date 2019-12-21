@@ -409,7 +409,7 @@ namespace rv
         }
     }
 
-    void VertexBuffer::Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const
+    void VertexBuffer::Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform3D const& transform) const
     {
         if (!m_vertices.empty() && m_vao && m_vbo)
         {

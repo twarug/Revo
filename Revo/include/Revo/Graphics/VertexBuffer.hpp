@@ -13,7 +13,7 @@ namespace rv
     class Camera;
     class RenderTexture;
     class ShaderProgram;
-    class Transform;
+    class Transform3D;
     class Window;
 
     ///
@@ -136,7 +136,7 @@ namespace rv
         void Update() const;
 
         ///
-        void Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const;
+        void Render(Window const& window, ShaderProgram const& shaderProgram, Camera const& camera, Transform3D const& transform) const;
 
     private:
 

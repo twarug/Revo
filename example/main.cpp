@@ -6,7 +6,7 @@
 #include <Revo/Graphics/VertexBuffer.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Graphics/Camera.hpp>
-#include <Revo/Graphics/Transformable.hpp>
+#include <Revo/Graphics/3D/Transformable3D.hpp>
 #include <Revo/System/Event.hpp>
 
 #include <iostream>
@@ -82,7 +82,7 @@ int main(int /* argc */, char** /* argv */)
     };
 
     rv::VertexBuffer avCube{ vexCube, std::size(vexCube), rv::PrimitiveType::Triangles };
-    rv::Transformable trCube{ rv::Vec3f{ 0.0f, 0.0f, -4.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 1.0f, 1.0f, 1.0f } };
+    rv::Transformable3D trCube{ rv::Vec3f{ 0.0f, 0.0f, -4.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 1.0f, 1.0f, 1.0f } };
 
     std::cout << std::boolalpha;
 

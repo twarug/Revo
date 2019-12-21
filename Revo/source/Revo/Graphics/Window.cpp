@@ -3,7 +3,7 @@
 // Revo
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
-#include <Revo/Graphics/Transform.hpp>
+#include <Revo/Graphics/3D/Transform3D.hpp>
 #include <Revo/Debug/GfxCall.hpp>
 
 // C++
@@ -323,7 +323,7 @@ namespace rv
         shaderProgram.SetUniform("mvp", mvp);
     }
 
-    void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform const& transform) const
+    void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera, Transform3D const& transform) const
     {
         Bind();
 
