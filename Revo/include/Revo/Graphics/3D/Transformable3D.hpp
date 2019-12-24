@@ -98,7 +98,7 @@ namespace rv
         Vec3f m_origin;
         Vec3f m_rotation;
         Vec3f m_scale;
-        mutable Transform3D m_transform;
+        mutable Transform3D m_cachedTransform;
         mutable bool m_needsUpdate;
     };
 }

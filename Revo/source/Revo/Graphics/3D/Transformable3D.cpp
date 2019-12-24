@@ -17,7 +17,7 @@ namespace rv
         , m_origin { 0.0f, 0.0f, 0.0f }
         , m_rotation { 0.0f, 0.0f, 0.0f }
         , m_scale { 1.0f, 1.0f, 1.0f }
-        , m_transform { 1.0f }
+        , m_cachedTransform { 1.0f }
         , m_needsUpdate { false }
     {
 
@@ -28,10 +28,10 @@ namespace rv
         , m_origin { origin }
         , m_rotation { rotation }
         , m_scale { scale }
-        , m_transform {}
+        , m_cachedTransform {}
         , m_needsUpdate { true }
     {
-        M_UpdateTransform();
+        
     }
 
     void Transformable3D::SetTransform(Vec3f const& position, Vec3f const& origin, Vec3f const& rotation, Vec3f const& scale) noexcept
@@ -42,8 +42,6 @@ namespace rv
         m_scale = scale;
 
         m_needsUpdate = true;
-
-        M_UpdateTransform();
     }
 
     void Transformable3D::TranslatePosition(Vec3f const& offset) noexcept
@@ -126,14 +124,14 @@ namespace rv
     {
         M_UpdateTransform();
 
-        return m_transform;
+        return m_cachedTransform;
     }
 
     Transform3D Transformable3D::GetInverseTransform() const noexcept
     {
         M_UpdateTransform();
 
-        return m_transform.Inversed();
+        return m_cachedTransform.Inversed();
     }
 
     #if defined(RV_DEBUG)
@@ -159,7 +157,7 @@ namespace rv
     {
         if (m_needsUpdate)
         {
-            m_transform
+            m_cachedTransform
                 .SetIdentity()
                 .Translate(m_position)
                 .Rotate(m_rotation)
