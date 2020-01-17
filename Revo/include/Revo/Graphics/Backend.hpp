@@ -1,17 +1,47 @@
 #pragma once
 
+#if defined(RV_OPENGL)
+
+// glad TEMPORARY
+#include <glad/glad.h>
+
+#endif
+
 // Revo
 #include <Revo/Config.hpp>
 
-#if defined(RV_OPENGL)
+namespace rv
+{
+    namespace impl
+    {
+        ///
+        void CreateVao(uint32_t* vao);
 
-// glad
-#include <glad/glad.h>
+        ///
+        void DestroyVao(uint32_t vao);
 
-#if defined(RV_DEBUG)
-#   define RV_GFX_CALL(__f, ...) rv::impl::GfxCall(RV_HERE, #__f "(" #__VA_ARGS__ ")", __f, __VA_ARGS__)
-#else
-#   define RV_GFX_CALL(__f, ...) __f(__VA_ARGS__)
-#endif
+        ///
+        void BindVao(uint32_t vao);
 
-#endif
+        ///
+        void CreateVbo(uint32_t* vbo);
+
+        ///
+        void DestroyVbo(uint32_t vbo);
+
+        ///
+        void BindVbo(uint32_t vbo);
+
+        ///
+        void DrawArrays(int32_t type, size_t startIndex, size_t size);
+
+        ///
+        void CreateArrayBuffer(void const* data, size_t sizeInBytes);
+
+        ///
+        void UpdateArrayBuffer(void const* data, size_t offsetInBytes, size_t sizeInBytes);
+
+        ///
+        void SetVertexAtrribPointer(uint32_t vao, size_t index, size_t elemCount, size_t sizeInBytes, void const* offsetPtr);
+    }
+}

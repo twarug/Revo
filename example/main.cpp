@@ -1,4 +1,3 @@
-#include <Revo/Debug/GfxCall.hpp>
 #include <Revo/Graphics/PrimitiveType.hpp>
 #include <Revo/Graphics/Image.hpp>
 #include <Revo/Graphics/Texture.hpp>
@@ -81,7 +80,7 @@ int main(int /* argc */, char** /* argv */)
         { { -1, -1,  1 }, white, { 1, 1 } },
     };
 
-    rv::VertexBuffer avCube{ vexCube, std::size(vexCube), rv::PrimitiveType::Triangles };
+    rv::VertexBuffer<rv::Vertex> avCube{ vexCube, std::size(vexCube), rv::PrimitiveType::Triangles };
     rv::Transformable3D trCube{ rv::Vec3f{ 0.0f, 0.0f, -4.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 0.0f, 0.0f, 0.0f }, rv::Vec3f{ 1.0f, 1.0f, 1.0f } };
 
     std::cout << std::boolalpha;
@@ -105,13 +104,13 @@ int main(int /* argc */, char** /* argv */)
 
     //
 
-    RV_GFX_CALL(glEnable, GL_BLEND);
-    RV_GFX_CALL(glBlendFuncSeparate, GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
-    RV_GFX_CALL(glBlendEquationSeparate, GL_FUNC_ADD, GL_FUNC_ADD);
+    glEnable(GL_BLEND);
+    glBlendFuncSeparate(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
+    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 
-    RV_GFX_CALL(glEnable, GL_CULL_FACE);
-    RV_GFX_CALL(glCullFace, GL_FRONT);
-    RV_GFX_CALL(glFrontFace, GL_CCW);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glFrontFace(GL_CCW);
 
     //
 

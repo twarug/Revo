@@ -1,10 +1,10 @@
 #include <Revo/Graphics/Window.hpp>
 
 // Revo
+#include <Revo/Graphics/Backend.hpp>
 #include <Revo/Graphics/Camera.hpp>
 #include <Revo/Graphics/ShaderProgram.hpp>
 #include <Revo/Graphics/3D/Transform3D.hpp>
-#include <Revo/Debug/GfxCall.hpp>
 
 // C++
 #include <thread>
@@ -62,7 +62,7 @@ namespace rv
                 }
             }
 
-            RV_GFX_CALL(glViewport, 0, 0, m_size.x, m_size.y);
+            glViewport(0, 0, m_size.x, m_size.y);
 
             m_framerateLimit = Duration_t::zero();
 
@@ -300,15 +300,15 @@ namespace rv
 
     void Window::Bind() const
     {
-        RV_GFX_CALL(glBindFramebuffer, GL_FRAMEBUFFER, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void Window::Clear(Vec4f const& color)
     {
         Bind();
 
-        RV_GFX_CALL(glClearColor, color.x, color.y, color.z, color.w);
-        RV_GFX_CALL(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(color.x, color.y, color.z, color.w);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void Window::PrepareToRender(ShaderProgram const& shaderProgram, Camera const& camera) const

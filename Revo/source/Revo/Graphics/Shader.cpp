@@ -1,7 +1,7 @@
 #include <Revo/Graphics/Shader.hpp>
 
 // Revo
-#include <Revo/Debug/GfxCall.hpp>
+#include <Revo/Graphics/Backend.hpp>
 
 // C++
 #include <fstream>
@@ -111,17 +111,17 @@ namespace rv
 
     void Shader::M_Destroy()
     {
-        RV_GFX_CALL(glDeleteShader, m_shader);
+        glDeleteShader(m_shader);
     }
 
     bool Shader::M_Compile(ShaderType type, char const* data, int32_t size)
     {
-        NativeHandle_t shader = RV_GFX_CALL(glCreateShader, impl::GetNativeHandle(type));
-        RV_GFX_CALL(glShaderSource, shader, 1, &data, &size);
-        RV_GFX_CALL(glCompileShader, shader);
+        NativeHandle_t shader = glCreateShader(impl::GetNativeHandle(type));
+        glShaderSource(shader, 1, &data, &size);
+        glCompileShader(shader);
 
         int32_t success;
-        RV_GFX_CALL(glGetShaderiv, shader, GL_COMPILE_STATUS, &success);
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 
         if (success)
         {
@@ -136,14 +136,14 @@ namespace rv
             #if defined(RV_DEBUG)
             {
                 char infoLog[512];
-                RV_GFX_CALL(glGetShaderInfoLog, shader, sizeof(infoLog), nullptr, infoLog);
+                glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
 
                 // TODO better logging
                 std::fprintf(stderr, "%s", infoLog);
             }
             #endif
 
-            RV_GFX_CALL(glDeleteShader, shader);
+            glDeleteShader(shader);
 
             return false;
         }
