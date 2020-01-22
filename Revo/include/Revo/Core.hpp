@@ -35,21 +35,6 @@
 #define RV_LINE __LINE__
 #define RV_HERE RV_FILE ":" RV_XSTR(RV_LINE)
 
-// Function signature
-#if defined(RV_CXX_CLANG) || defined(RV_CXX_GCC)
-#   define RV_FUNC_SIG __PRETTY_FUNCTION__
-#elif defined(RV_CXX_MSVC)
-#   define RV_FUNC_SIG __FUNCSIG__
-#endif
-
-// Soft magic types
-namespace rv
-{
-    using size_t    = decltype(sizeof(char*));
-    using ptrdiff_t = decltype((char*)0 - (char*)0);
-    using nullptr_t = decltype(nullptr);
-}
-
 // Integer aliases
 #include <cstdint>
 
