@@ -1,10 +1,11 @@
 #pragma once
 
 // Revo
+#include <Revo/Graphics/Backend.hpp>
 #include <Revo/Graphics/Shader.hpp>
 #include <Revo/Math/Matrix.hpp>
 #include <Revo/Math/Vector.hpp>
-#include <Revo/Utility/FNV.hpp>
+#include <Revo/Utility/Hash/FNV.hpp>
 
 // C++
 #include <map>

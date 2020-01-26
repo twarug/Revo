@@ -2,7 +2,7 @@
 
 // Revo
 #include <Revo/ImGui/ImGuiContext.hpp>
-#include <Revo/Utility/FNV.hpp>
+#include <Revo/Utility/Hash/FNV.hpp>
 #include <Revo/Utility/glmSerializers.hpp>
 #include <Revo/Utility/Overloaded.hpp>
 
@@ -96,7 +96,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, bool value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -116,7 +116,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2b const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -136,7 +136,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3b const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -156,7 +156,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4b const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -176,7 +176,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, int32_t value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -196,7 +196,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2i const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -216,7 +216,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3i const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -236,7 +236,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4i const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -256,7 +256,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, uint32_t value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -276,7 +276,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2u const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -296,7 +296,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3u const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -316,7 +316,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4u const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -336,7 +336,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, float value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -356,7 +356,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec2f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -376,7 +376,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec3f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -396,7 +396,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Vec4f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -416,7 +416,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat2x2f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -436,7 +436,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat3x3f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -456,7 +456,7 @@ namespace rv
 
     bool ShaderProgram::SetUniform(char const* name, Mat4x4f const& value) const
     {
-        auto const it = m_uniformsLocation.find(FNV1a_32(name));
+        auto const it = m_uniformsLocation.find(FNV1a_32::Compute(name));
 
         if (it != m_uniformsLocation.end())
         {
@@ -476,14 +476,14 @@ namespace rv
 
     void ShaderProgram::LoadConfig(nlohmann::json const& config)
     {
-        #define case_str(__x) case FNV1a_32(__x)
+        #define case_str(__x) case FNV1a_32::Compute(__x)
 
         for (auto it = config.begin(); it != config.end(); ++it)
         {
             std::string const type = it.value()["type"];
             nlohmann::json const value = it.value()["value"];
 
-            switch (FNV1a_32(type.begin(), type.end()))
+            switch (FNV1a_32::Compute(type.begin(), type.end()))
             {
                 case_str("bool"):
                 {
@@ -862,7 +862,7 @@ namespace rv
                 {
                     glGetActiveUniform(m_program, i, sizeof(name), nullptr, &size, &type, name);
 
-                    m_uniformsLocation.emplace(FNV1a_32(name), i);
+                    m_uniformsLocation.emplace(FNV1a_32::Compute(name), i);
 
                     switch (type)
                     {
