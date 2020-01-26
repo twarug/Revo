@@ -1,12 +1,12 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
+#include <Revo/Core.hpp>
 
 namespace rv
 {
     ///
-    enum class PrimitiveType : int32_t
+    enum class PrimitiveType
     {
         Points,
         Lines,
@@ -16,10 +16,4 @@ namespace rv
         TriangleStrip,
         TriangleFan
     };
-
-    namespace impl
-    {
-        ///
-        int32_t GetNativeHandle(PrimitiveType type);
-    }
 }

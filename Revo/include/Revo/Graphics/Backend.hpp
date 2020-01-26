@@ -1,17 +1,16 @@
 #pragma once
 
-#if defined(RV_OPENGL)
-
 // glad TEMPORARY
 #include <glad/glad.h>
 
-#endif
-
 // Revo
-#include <Revo/Config.hpp>
+#include <Revo/Core.hpp>
 
 namespace rv
 {
+    enum class PrimitiveType;
+    enum class ShaderType;
+    
     namespace impl
     {
         ///
@@ -43,5 +42,11 @@ namespace rv
 
         ///
         void SetVertexAtrribPointer(uint32_t vao, size_t index, size_t elemCount, size_t sizeInBytes, void const* offsetPtr);
+
+        ///
+        int32_t GetNativeHandle(PrimitiveType type);
+
+        ///
+        int32_t GetNativeHandle(ShaderType type);
     }
 }

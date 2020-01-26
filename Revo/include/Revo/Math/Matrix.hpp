@@ -1,7 +1,7 @@
 #pragma once
 
 // Revo
-#include <Revo/Config.hpp>
+#include <Revo/Core.hpp>
 
 // glm
 #include <glm/mat2x2.hpp>

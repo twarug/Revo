@@ -1,73 +1,16 @@
 #include <Revo/Graphics/Backend.hpp>
 
-// C++
-#include <cstdio>
-#include <type_traits>
+// Revo
+#include <Revo/Graphics/PrimitiveType.hpp>
+#include <Revo/Graphics/Shader.hpp>
 
 // glad
 #include <glad/glad.h>
-
-#if defined(RV_DEBUG)
-#   define RV_GFX_CALL(__f, ...) GfxCall(RV_HERE, #__f "(" #__VA_ARGS__ ")", __f, __VA_ARGS__)
-#else
-#   define RV_GFX_CALL(__f, ...) __f(__VA_ARGS__)
-#endif
 
 namespace rv
 {
     namespace impl
     {
-        #if defined(RV_DEBUG)
-
-        auto TranslateErrorCode(GLenum errorCode) -> char const*
-        {
-            switch (errorCode)
-            {
-                case GL_INVALID_ENUM:                  return "Invalid enum";
-                case GL_INVALID_VALUE:                 return "Invalid value";
-                case GL_INVALID_OPERATION:             return "Invalid operation";
-                case GL_STACK_OVERFLOW:                return "Stack overflow";
-                case GL_STACK_UNDERFLOW:               return "Stack underflow";
-                case GL_OUT_OF_MEMORY:                 return "Out of memory";
-                case GL_INVALID_FRAMEBUFFER_OPERATION: return "Invalid framebuffer operation";
-                case GL_CONTEXT_LOST:                  return "Context lost";
-                default:                               return "Unknown error";
-            }
-        }
-
-        template <typename Function, typename... Args>
-        auto GfxCall(char const* where, char const* which, Function function, Args... args)
-        {
-            while (glGetError() != GL_NO_ERROR);
-
-            if constexpr (std::is_void_v<std::invoke_result_t<Function, Args...>>)
-            {
-                (*function)(args...);
-
-                while (GLenum const errorCode = glGetError())
-                {
-                    // TODO logging
-                    std::fprintf(stderr, "[OpenGL error] (%s) at %s with %s\n", TranslateErrorCode(errorCode), where, which);
-                }
-
-                return;
-            }
-            else
-            {
-                auto const result = (*function)(args...);
-
-                while (GLenum const errorCode = glGetError())
-                {
-                    // TODO logging
-                    std::fprintf(stderr, "[OpenGL error] (%s) at %s with %s\n", TranslateErrorCode(errorCode), where, which);
-                }
-
-                return result;
-            }
-        }
-
-        #endif
-
         void CreateVao(uint32_t* vao)
         {
             glGenVertexArrays(1, vao);
@@ -116,6 +59,41 @@ namespace rv
         {
             glEnableVertexArrayAttrib(vao, index);
             glVertexAttribPointer(index, elemCount, GL_FLOAT, GL_FALSE, sizeInBytes, offsetPtr);
+        }
+
+        int32_t GetNativeHandle(PrimitiveType type)
+        {
+            switch (type)
+            {
+                case PrimitiveType::Points:        return GL_POINTS;
+                case PrimitiveType::Lines:         return GL_LINES;
+                case PrimitiveType::LineLoop:      return GL_LINE_LOOP;
+                case PrimitiveType::LineStrip:     return GL_LINE_STRIP;
+                case PrimitiveType::Triangles:     return GL_TRIANGLES;
+                case PrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
+                case PrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
+            }
+
+            RV_ASSERT("Invalid PrimitiveType value", false);
+
+            return -1;
+        }
+
+        int32_t GetNativeHandle(ShaderType type)
+        {
+            switch (type)
+            {
+                case ShaderType::Vertex:         return GL_VERTEX_SHADER;
+                case ShaderType::Geometry:       return GL_GEOMETRY_SHADER;
+                case ShaderType::Fragment:       return GL_FRAGMENT_SHADER;
+                case ShaderType::TessControl:    return GL_TESS_CONTROL_SHADER;
+                case ShaderType::TessEvaluation: return GL_TESS_EVALUATION_SHADER;
+                case ShaderType::Compute:        return GL_COMPUTE_SHADER;
+            }
+
+            RV_ASSERT("Invalid ShaderType value", false);
+
+            return -1;
         }
     }
 }

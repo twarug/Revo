@@ -1,12 +1,12 @@
 #pragma once
 
 // Revo
-#include <Revo/Graphics/Backend.hpp>
+#include <Revo/Core.hpp>
 
 namespace rv
 {
     ///
-    enum class ShaderType : int32_t
+    enum class ShaderType
     {
         Vertex,
         Geometry,
@@ -15,12 +15,6 @@ namespace rv
         TessEvaluation,
         Compute
     };
-
-    namespace impl
-    {
-        ///
-        int32_t GetNativeHandle(ShaderType type);
-    }
 
     ///
     class Shader

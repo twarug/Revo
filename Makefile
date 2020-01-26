@@ -13,7 +13,7 @@ INFORM_OBJECT     := printf "\033[33m[Object] %s\033[0m\n"
 
 # Compiler
 CXX       := g++
-CXX_FLAGS := -std=c++17 -O2 -flto -Wall -Wextra -Wpedantic -DRV_DEBUG -DRV_OPENGL -DSDL_MAIN_HANDLED
+CXX_FLAGS := -std=c++17 -O2 -flto -Wall -Wextra -DRV_DEBUG -DRV_OPENGL -DSDL_MAIN_HANDLED
 
 # Linker
 LD       := g++
